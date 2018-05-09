@@ -1,0 +1,33 @@
+{
+  "name": "nodesaken",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "browserify-middleware": "^8.1.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "font-awesome": "^4.7.0",
+    "http-errors": "~1.6.2",
+    "mongoose": "^5.0.17",
+    "morgan": "~1.9.0",
+    "npm": "^6.0.0",
+    "popper.js": "^1.14.3",
+    "shortid": "^2.2.8",
+    "tether": "^1.4.4"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.2",
+    "nodemon": "^1.17.4",
+    "watchify": "^3.11.0"
+  },
+  "description": "A CoD character sheet system",
+  "main": "bin/www.js",
+  "author": "Wing",
+  "license": "ISC"
+}

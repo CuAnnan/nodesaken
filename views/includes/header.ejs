@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SNFCD<%= (typeof title != 'undefined')?' - '+title:'' %> </title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="/css/tether.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/font-awesome.css"/>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/tether.min.js"></script>
+    <script type="text/javascript" src="/js/popper.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <nav class="navbar navbar-light bg-faded">
+        <a class="navbar-brand" href="#">Nodesaken</a>
+        <div class="navbar mr-auto">
+            <a class="nav-item nav-link" href="/">Home</a>
+        </div>
+
+        <ul class="nav loginContainer ifLoggedIn<% if(typeof locals.sessionUser !== 'undefined'){ %> loggedIn<%}%>">
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="loggedInDisplayName"><% if(typeof locals.sessionUser !== 'undefined'){ %>
+                    <%= locals.sessionUser.displayName %>
+                    <i class="fa fa-exclamation-circle system-message"></i>
+                    <%}%></a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/users/account">Manage account</a>
+                    <a class="dropdown-item" href="/users/profile">Manage profile page</a>
+                    <a class="dropdown-item system-message" style="display:none" href="/users/messages">Messages</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="/users/logout">Logout</a>
+            </li>
+        </ul>
+
+        <span class="loginContainer ifLoggedOut<% if(typeof locals.sessionUser !== 'undefined'){ %> loggedIn<%}%>">
+            <a href="#login" id="login_modal_link">Login</a>
+            <a href="/users/register">Register</a>
+        </span>
+    </nav>
+    <!-- End Header -->

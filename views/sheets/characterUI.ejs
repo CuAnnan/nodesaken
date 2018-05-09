@@ -1,0 +1,37 @@
+<%- include('../includes/header') -%>
+<div class="page container" id="page1">
+    <div class="row">
+        <div class="col">
+            <h2 class="sectionHeading">Attributes</h2>
+        </div>
+    </div>
+    <div class="row">
+        <% for(let useGroupName in character.attributes) { %>
+        <div class="col useGroupCol" data-useGroup="<%= useGroupName %>">
+            <div class="row attributeUseGroup"><h3><%= useGroupName %></h3></div>
+            <%
+                for(let attributeName in character.attributes[useGroupName])
+                {
+                	let attribute = character.attributes[useGroupName][attributeName];
+            %>
+            <div class="row xpPurchasable" data-name="<%= attribute.name %>" data-score="<%= attribute.score%>" data-cp-levels="<%= attribute.cpLevels %>" data-xp-levels="<%= attribute.xpLevels %>">
+                <div class="col-7 name"><%= attribute.name %></div>
+                <div class="col-5 xpPurchasableValue">
+                    <% for (let i = 1; i <= attribute.score; i++) {%>
+                        <span data-score="<%= i%>"><i class="fas fa-circle"></i></span>
+                    <%}%>
+                    <% for(let i = attribute.score+1; i<= 5; i++) {%>
+                        <span data-score="<%= i%>"><i class="far fa-circle"></i></span>
+                    <% } %>
+                </div>
+
+            </div>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/js/frontEndUI.js"></script>
+<%- include('../includes/footer') -%>

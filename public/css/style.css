@@ -1,0 +1,71 @@
+/* Login stuff */
+.ifLoggedIn, .ifLoggedOut.loggedIn
+{
+    display:none;
+}
+
+.ifLoggedIn.loggedIn, .ifLoggedOut
+{
+    display:inline;
+}
+
+ul.loginContainer
+{
+    list-style:none;
+}
+
+ul.loginContainer li
+{
+    display:inline;
+}
+
+.input-group-prepend
+{
+    width:2.4em;
+}
+
+.attributeUseGroup h3
+{
+    width: 100%;
+    text-align: center;
+}
+
+@font-face
+{
+    font-family: "treefrog";
+    src: url("/webfonts/treefrog.ttf");
+}
+
+@font-face
+{
+    font-family: "arnova";
+    src: url("/webfonts/ArnovaITC.otf");
+}
+
+@font-face
+{
+    font-family: "Flat Earth Scribe";
+    src: url("/webfonts/Flat_Earth_Scribe.ttf");
+}
+
+.sectionHeading
+{
+    font-family: treefrog;
+    width: 100%;
+    text-align: center;
+}
+
+.attributeUseGroup, .attributeName
+{
+    font-family: arnova;
+}
+
+.attributeName
+{
+    font-size: 1.2em;
+}
+
+.xpPurchasable span
+{
+    cursor: pointer;
+}

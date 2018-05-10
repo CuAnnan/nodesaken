@@ -41,45 +41,50 @@ class XPPurchasable
 		this.cpLevels = data.cpLevels;
 	}
 	
-	/**
-	 * Increases or reduces the number of levels bought with CP or XP (depending on what the current purchase mode is).
-	 *
-	 * @param The new level to set
-	 * @returns {{cp: number, xp: number}} the number of CP and/or XP this purchase costs or refunds
-	 */
-	set level(level)
+	setLevel(level)
 	{
 		let score = this.min + this.xpLevels + this.cpLevels;
 		
-		/**
-		 * If you're clicking the level you have, and the level you have is greater than your minimum score
-		 * you're probably trying to reduce the current level by one
-		 */
+		// If you're clicking the level you have, and the level you have is greater than your minimum score
+		// you're probably trying to reduce the current level by one
 		if(level === score && level > this.min)
 		{
 			level = level - 1;
 		}
 		
-		let cost = {cp:0, xp:0}, changeInScore = level - score;
+		let changeInScore = level - score;
 		
 		if(changeInScore == 0)
 		{
-			return cost;
+			return;
 		}
 		
 		if(changeInScore > 0)
 		{
 			// always spend CP before XP
-			if(this.useGroup.cpRemaining > 0)
+			let maxCPLeft = this.useGroupReference.cpRemaining;
+			console.log(maxCPLeft, changeInScore);
+			if(maxCPLeft > 0)
 			{
-			
+				if(maxCPLeft >= changeInScore)
+				{
+					console.log('Buying '+changeInScore+' levels with CP');
+					this.cpLevels += changeInScore;
+				}
+				else
+				{
+					console.log('Should be buying '+maxCPLeft+' levels with CP');
+					let xpLevels = changeInScore - maxCPLeft;
+					this.setLevel(score + maxCPLeft);
+					this.setLevel(level);
+				}
 			}
 			else
 			{
+				console.log('Buying '+changeInScore+' levels with XP');
 				let xpIncrease = (this.min + this.cpLevels),
 					xpLevels = level - xpIncrease;
 				
-				cost.xp = (xpLevels - this.xpLevels) * this.xpCost;
 				this.xpLevels = xpLevels;
 			}
 		}
@@ -90,7 +95,7 @@ class XPPurchasable
 					xpLevels:this.xpLevels,
 					cpLevels:this.cpLevels
 				};
-			console.log('Reduce '+this.name+' by '+reduction+' levels');
+			
 			// reduce the XP levels first
 			tmp.xpLevels -= reduction;
 			if(tmp.xpLevels < 0)
@@ -98,13 +103,19 @@ class XPPurchasable
 				tmp.cpLevels += tmp.xpLevels;
 				tmp.xpLevels = 0;
 			}
-			cost.xp = (this.xpLevels - tmp.xpLevels) * this.xpCost;
-			cost.cp = this.cpLevels - tmp.cpLevels;
 			this.xpLevels = tmp.xpLevels;
 			this.cpLevels = tmp.cpLevels;
 		}
-		
-		return cost;
+	}
+	
+	/**
+	 * Increases or reduces the number of levels bought with CP or XP (depending on what the current purchase mode is).
+	 *
+	 * @param The new level to set
+	 */
+	set level(level)
+	{
+		this.setLevel(level);
 	}
 }
 

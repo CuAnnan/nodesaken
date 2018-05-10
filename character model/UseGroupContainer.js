@@ -50,7 +50,7 @@ class UseGroupContainer
 				{
 					canBePrimary = false;
 				}
-				else if(this.useGroups.cost.cp > this.cpAmounts.tertiary)
+				else if(this.useGroups[i].cost.cp > this.cpAmounts.tertiary)
 				{
 					canBeSecondary = false;
 				}
@@ -65,7 +65,8 @@ class UseGroupContainer
 		{
 			maxCP = this.cpAmounts.secondary;
 		}
-		let available = maxCP - this.useGroup.cost.cp;
+		
+		let available = maxCP - useGroup.cost.cp;
 		return available;
 	}
 }

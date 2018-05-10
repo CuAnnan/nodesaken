@@ -9,7 +9,6 @@ class UseGroup
 		this.name = name;
 		this.containerReference = containerReference;
 		this.items = [];
-		this.cost = {cp:0, xp:0};
 	}
 	
 	add(thing)
@@ -18,14 +17,15 @@ class UseGroup
 		thing.useGroup = this;
 	}
 	
-	update()
+	get cost()
 	{
-		this.cost = {cp:0, xp:0};
+		let cost = {cp:0, xp:0};
 		for(let thing of this.items)
 		{
-			this.cost.cp += thing.cost.cp;
-			this.cost.xp += thing.cost.xp;
+			cost.cp += thing.cost.cp;
+			cost.xp += thing.cost.xp;
 		}
+		return cost;
 	}
 	
 	get cpRemaining()

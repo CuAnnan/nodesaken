@@ -1,5 +1,3 @@
-let modes = require('./XPPurchasableModes');
-
 class XPPurchasable
 {
 	constructor(name)
@@ -10,7 +8,6 @@ class XPPurchasable
 		this.min = 0;
 		this.max = 5;
 		this.xpCost = 0;
-		this.purchaseMode = modes.CP;
 		this.useGroupReference = null;
 	}
 	
@@ -44,17 +41,6 @@ class XPPurchasable
 		this.cpLevels = data.cpLevels;
 	}
 	
-	set purchaseMode(mode)
-	{
-		if(!mode === modes.XP && !mode === modes.CP)
-		{
-			let error = new Error('Invalid purchase mode '+mode+' supplied to purchaseMode setter');
-			error.name = 'InvalidPurchaseMode';
-			throw error;
-		}
-		this.mode = mode;
-	}
-	
 	/**
 	 * Increases or reduces the number of levels bought with CP or XP (depending on what the current purchase mode is).
 	 *
@@ -66,28 +52,27 @@ class XPPurchasable
 		let score = this.min + this.xpLevels + this.cpLevels;
 		
 		/**
-		 * If you're trying to buy the level you have, and the level you have is greater than your minimum score
-		 * you're trying to unpurchase the current level
+		 * If you're clicking the level you have, and the level you have is greater than your minimum score
+		 * you're probably trying to reduce the current level by one
 		 */
 		if(level === score && level > this.min)
 		{
 			level = level - 1;
 		}
 		
-		let cost = {cp:0, xp:0},
-			increase = level - score;
+		let cost = {cp:0, xp:0}, changeInScore = level - score;
 		
-		if(increase == 0)
+		if(changeInScore == 0)
 		{
 			return cost;
 		}
 		
-		if(increase > 0)
+		if(changeInScore > 0)
 		{
-			if(this.mode === modes.CP)
+			// always spend CP before XP
+			if(this.useGroup.cpRemaining > 0)
 			{
-				this.cpLevels += increase;
-				cost.cp = increase;
+			
 			}
 			else
 			{
@@ -100,7 +85,7 @@ class XPPurchasable
 		}
 		else
 		{
-			let reduction = Math.abs(increase),
+			let reduction = Math.abs(changeInScore),
 				tmp = {
 					xpLevels:this.xpLevels,
 					cpLevels:this.cpLevels
@@ -118,7 +103,7 @@ class XPPurchasable
 			this.xpLevels = tmp.xpLevels;
 			this.cpLevels = tmp.cpLevels;
 		}
-		this.useGroupReference.update();
+		
 		return cost;
 	}
 }

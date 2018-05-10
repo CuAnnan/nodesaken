@@ -5,27 +5,68 @@ class UseGroupContainer
 	constructor(type, cpAmounts)
 	{
 		this.type = type;
-		this.cpAmounts = cpAmounts;
-		this.things = {'Mental':null, 'Physical':null, 'Social':null};
+		cpAmounts = cpAmounts.sort((a, b)=>{return b - a});
+		this.cpAmounts = {primary:cpAmounts[0],secondary:cpAmounts[1],tertiary:cpAmounts[2]};
+		this.useGroups = {'Mental':null, 'Physical':null, 'Social':null};
+		this.titles = ['Mental', "Physical", "Social"];
 	}
 	
-	addToUseGroup(type, thing)
+	addToUseGroup(name, thing)
 	{
-		if(!this.things[type])
+		if(!this.useGroups[name])
 		{
-			this.things = new UseGroup(type, this);
+			this.useGroups[name] =  new UseGroup(name, this);
 		}
-		this.things.add(thing);
+		this.useGroups[name].add(thing);
 	}
 	
-	get groupTitles()
+	getUseGroup(name)
 	{
-		let titles = [];
-		for(let i in this.things)
+		return this.useGroups[name];
+	}
+	
+	sortByCP()
+	{
+		let order = [];
+		
+		for(let i in this.useGroups)
 		{
-			titles.push(i);
+			let useGroup = this.useGroups[i];
+			order.push(useGroup);
 		}
-		return titles;
+		order.sort((a, b)=>{return b.cost.cp - a.cost.cp});
+		return order;
+	}
+	
+	getMaxCPRemaining(useGroup)
+	{
+		let canBePrimary = true,
+			canBeSecondary = true;
+		for(let i in this.useGroups)
+		{
+			if(i !== useGroup.name)
+			{
+				if(this.useGroups[i].cost.cp > this.cpAmounts.secondary)
+				{
+					canBePrimary = false;
+				}
+				else if(this.useGroups.cost.cp > this.cpAmounts.tertiary)
+				{
+					canBeSecondary = false;
+				}
+			}
+		}
+		let maxCP = this.cpAmounts.tertiary;
+		if(canBePrimary)
+		{
+			maxCP = this.cpAmounts.primary;
+		}
+		else if(canBeSecondary)
+		{
+			maxCP = this.cpAmounts.secondary;
+		}
+		let available = maxCP - this.useGroup.cost.cp;
+		return available;
 	}
 }
 

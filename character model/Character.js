@@ -1,6 +1,5 @@
 let Skill = require('./Skill'),
 	Attribute = require('./Attribute'),
-	modes = require('./XPPurchasableModes'),
 	UseGroupContainer = require('./UseGroupContainer'),
 	skillUseGroupMap = {
 		'Academics':'Mental', 'Computer':'Mental', 'Crafts':'Mental', 'Investigation':'Mental',
@@ -34,48 +33,33 @@ class Character
 		this.skills = {};
 		this.attributes = {};
 		this.lookups = {};
-		this.purchaseMode = modes.CP;
 		this.populateUseGroups();
 	}
 	
 	populateUseGroups()
 	{
-		this.skills = this.populateUseGroup('skills', skillUseGroups, Skill);
-		this.attributes = this.populateUseGroup('attributes', attributeUseGroups, Attribute);
+		this.skills = this.populateUseGroup('skills', skillUseGroups, Skill, [11, 7, 4]);
+		this.attributes = this.populateUseGroup('attributes', attributeUseGroups, Attribute, [5, 4, 3]);
 	}
 	
-	populateUseGroup(type, map, classReference)
+	populateUseGroup(type, map, classReference, cpAmounts)
 	{
-		let ugc = new UseGroupContainer(type);
-		let useGroups = {};
+		let ugc = new UseGroupContainer(type, cpAmounts);
 		for(let i in map)
 		{
-			console.log(i);
-			useGroups[i] = {};
 			for(let thing of map[i])
 			{
 				let thingObject = new classReference(thing);
-				ugc.addToUseGroup(type, thingObject);
+				ugc.addToUseGroup(i, thingObject);
 				this.lookups[thing] = thingObject;
-				useGroups[i][thing] = thingObject;
 			}
 		}
-		return useGroups;
+		return ugc;
 	}
 	
-	set purchaseMode(mode)
+	sortUseGroups()
 	{
-		if(!mode === modes.XP && !mode === modes.CP)
-		{
-			let error = new Error('Invalid purchase mode '+mode+' supplied to purchaseMode setter');
-			error.name = 'InvalidPurchaseMode';
-			throw error;
-		}
-		for(let key in this.lookups)
-		{
-			let item = this.lookups[key];
-			item.purchaseMode = mode;
-		}
+		this.attributes.sort();
 	}
 	
 	setItemLevel(itemName, level)

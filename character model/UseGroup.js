@@ -8,24 +8,29 @@ class UseGroup
 	{
 		this.name = name;
 		this.containerReference = containerReference;
-		this.contents = [];
+		this.items = [];
 		this.cost = {cp:0, xp:0};
 	}
 	
 	add(thing)
 	{
-		this.contents.push(thing);
-		this.useGroup = this;
+		this.items.push(thing);
+		thing.useGroup = this;
 	}
 	
 	update()
 	{
 		this.cost = {cp:0, xp:0};
-		for(let thing of this.contents)
+		for(let thing of this.items)
 		{
 			this.cost.cp += thing.cost.cp;
 			this.cost.xp += thing.cost.xp;
 		}
+	}
+	
+	get cpRemaining()
+	{
+		return this.containerReference.getMaxCPRemaining(this);
 	}
 }
 

@@ -11,6 +11,26 @@ class XPPurchasable
 		this.max = 5;
 		this.xpCost = 0;
 		this.purchaseMode = modes.CP;
+		this.useGroupReference = null;
+	}
+	
+	set useGroup(useGroupReference)
+	{
+		this.useGroupReference = useGroupReference;
+	}
+	
+	loadJSON(json)
+	{
+		this.xpLevels = json.xpLevels;
+		this.cpLevels = json.cpLevels;
+	}
+	
+	get cost()
+	{
+		return {
+			cp:this.cpLevels,
+			xp:this.xpLevels * this.xpCost
+		};
 	}
 	
 	get score()
@@ -98,7 +118,7 @@ class XPPurchasable
 			this.xpLevels = tmp.xpLevels;
 			this.cpLevels = tmp.cpLevels;
 		}
-		
+		this.useGroupReference.update();
 		return cost;
 	}
 }

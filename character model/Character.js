@@ -1,6 +1,7 @@
 let Skill = require('./Skill'),
 	Attribute = require('./Attribute'),
 	modes = require('./XPPurchasableModes'),
+	UseGroupContainer = require('./UseGroupContainer'),
 	skillUseGroupMap = {
 		'Academics':'Mental', 'Computer':'Mental', 'Crafts':'Mental', 'Investigation':'Mental',
 		'Medicine':'Mental','Occult':'Mental','Politics':'Mental','Science':'Mental',
@@ -26,21 +27,6 @@ for(let skillName in skillUseGroupMap)
 	skillUseGroups[useGroup].push(skillName);
 }
 
-function populateTree(tree, useGroupMap, constructor, lookupTable)
-{
-	for(let i in useGroupMap)
-	{
-		tree[i] = {};
-		for(let thing of useGroupMap[i])
-		{
-			let thingObject = new constructor(thing);
-			tree[i][thing] = thingObject;
-			lookupTable[thing] = thingObject;
-			
-		}
-	}
-}
-
 class Character
 {
 	constructor()
@@ -48,9 +34,33 @@ class Character
 		this.skills = {};
 		this.attributes = {};
 		this.lookups = {};
-		populateTree(this.skills, skillUseGroups, Skill, this.lookups);
-		populateTree(this.attributes, attributeUseGroups, Attribute, this.lookups);
 		this.purchaseMode = modes.CP;
+		this.populateUseGroups();
+	}
+	
+	populateUseGroups()
+	{
+		this.skills = this.populateUseGroup('skills', skillUseGroups, Skill);
+		this.attributes = this.populateUseGroup('attributes', attributeUseGroups, Attribute);
+	}
+	
+	populateUseGroup(type, map, classReference)
+	{
+		let ugc = new UseGroupContainer(type);
+		let useGroups = {};
+		for(let i in map)
+		{
+			console.log(i);
+			useGroups[i] = {};
+			for(let thing of map[i])
+			{
+				let thingObject = new classReference(thing);
+				ugc.addToUseGroup(type, thingObject);
+				this.lookups[thing] = thingObject;
+				useGroups[i][thing] = thingObject;
+			}
+		}
+		return useGroups;
 	}
 	
 	set purchaseMode(mode)

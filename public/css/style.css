@@ -55,12 +55,12 @@ ul.loginContainer li
     text-align: center;
 }
 
-.attributeUseGroup, .attributeName
+.attributeUseGroup, .name
 {
     font-family: arnova;
 }
 
-.attributeName
+.name
 {
     font-size: 1.2em;
 }

@@ -7,6 +7,7 @@ class UseGroup
 	constructor(name = "", containerReference)
 	{
 		this.name = name;
+		this.penalty = name == 'Mental'?3:1;
 		this.containerReference = containerReference;
 		this.items = [];
 	}

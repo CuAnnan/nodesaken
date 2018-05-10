@@ -18,6 +18,11 @@ let Skill = require('./Skill'),
 		'Mental':['Intelligence', 'Wits', 'Resolve'],
 		'Physical':['Strength', 'Dexterity', 'Stamina'],
 		'Social':['Presence', 'Manipulation', 'Composure']
+	},
+	attributeCategoryMap = {
+		'Power':['Intelligence', 'Strength', 'Presence'],
+		'Finesse':['Wits', 'Dexterity', 'Manipulation'],
+		'Resistance':['Resolve', 'Stamina', 'Composure']
 	};
 
 for(let skillName in skillUseGroupMap)
@@ -33,13 +38,25 @@ class Character
 		this.skills = {};
 		this.attributes = {};
 		this.lookups = {};
+		this.attributeCategories = {}
 		this.populateUseGroups();
+		this.derivedAttributes = {size:5};
+		this.size = 5;
+		this.merits = [];
 	}
 	
 	populateUseGroups()
 	{
 		this.skills = this.populateUseGroup('skills', skillUseGroups, Skill, [11, 7, 4]);
 		this.attributes = this.populateUseGroup('attributes', attributeUseGroups, Attribute, [5, 4, 3]);
+		for(let i in attributeCategoryMap)
+		{
+			this.attributeCategories[i] = {};
+			for(let a of attributeCategoryMap[i])
+			{
+				this.attributeCategories[i][a] = this.lookups[a];
+			}
+		}
 	}
 	
 	populateUseGroup(type, map, classReference, cpAmounts)
@@ -66,7 +83,71 @@ class Character
 	{
 		let item = this.lookups[itemName];
 		let result = item.level = level;
+		this.calculateSecondaries();
 		return item.score;
+	}
+	
+	calculateSecondaries()
+	{
+		this.derivedAttributes = {
+			willpower:this.addScores('Resolve', 'Composure'),
+			health:this.addScores('Stamina', this.size),
+			initiative:this.addScores('Dexterity', 'Composure'),
+			speed:this.addScores('Dexterity', 'Strength', 5),
+			defense:this.getDefense(),
+			perception:this.addScores('Wits', 'Composure'),
+		};
+	}
+	
+	getDefense()
+	{
+		let skill = 'Athletics';
+		if(this.hasMerit('Defensive Fighting - Brawl') && (this.lookups.Brawl.score > this.lookups.Athletics.score))
+		{
+			skill = 'Brawl';
+		}
+		else if(this.hasMerit('Defensive Fighting - Weaponry') && (this.lookups.Weaponry.score > this.lookups.Athletics.score))
+		{
+			skill = 'Weaponry';
+		}
+		
+		return Math.min(
+			this.addScores('Wits', skill),
+			this.addScores('Dexterity', skill)
+		);
+	}
+	
+	hasMerit(meritName)
+	{
+		let found = false;
+		for(let i = 0; i < this.merits.length && !found; i++)
+		{
+			if(this.merits[i].name == meritName)
+			{
+				found = true;
+			}
+		}
+		return found;
+	}
+	
+	addScores()
+	{
+		let result = 0;
+		
+		for(let i in arguments)
+		{
+			if(arguments[i]/1 == arguments[i])
+			{
+				result += arguments[i];
+			}
+			else
+			{
+				let item = this.lookups[arguments[i]];
+				result += item.score > 0 ? item.score : (0 - item.penalty);
+			}
+		}
+		
+		return result;
 	}
 }
 

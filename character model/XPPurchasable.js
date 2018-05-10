@@ -43,6 +43,7 @@ class XPPurchasable
 	
 	setLevel(level)
 	{
+		let test = this.score;
 		let score = this.min + this.xpLevels + this.cpLevels;
 		
 		// If you're clicking the level you have, and the level you have is greater than your minimum score
@@ -63,17 +64,15 @@ class XPPurchasable
 		{
 			// always spend CP before XP
 			let maxCPLeft = this.useGroupReference.cpRemaining;
-			console.log(maxCPLeft, changeInScore);
+			
 			if(maxCPLeft > 0)
 			{
 				if(maxCPLeft >= changeInScore)
 				{
-					console.log('Buying '+changeInScore+' levels with CP');
 					this.cpLevels += changeInScore;
 				}
 				else
 				{
-					console.log('Should be buying '+maxCPLeft+' levels with CP');
 					let xpLevels = changeInScore - maxCPLeft;
 					this.setLevel(score + maxCPLeft);
 					this.setLevel(level);
@@ -81,7 +80,6 @@ class XPPurchasable
 			}
 			else
 			{
-				console.log('Buying '+changeInScore+' levels with XP');
 				let xpIncrease = (this.min + this.cpLevels),
 					xpLevels = level - xpIncrease;
 				

@@ -1,5 +1,5 @@
 let Controller = require('./Controller'),
-	Character = require('../character model/Character.js');
+	ForsakenCharacter = require('../character model/ForsakenCharacter.js');
 
 class CharacterController extends Controller
 {
@@ -10,7 +10,7 @@ class CharacterController extends Controller
 	
 	async testUI(req, res, next)
 	{
-		let c = new Character();
+		let c = new ForsakenCharacter();
 		res.render('sheets/characterUI', {'character':c});
 	}
 }

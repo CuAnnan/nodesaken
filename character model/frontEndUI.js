@@ -16,6 +16,7 @@ function setValue()
 		$purchasable = $span.closest('.xpPurchasable'),
 		data = $purchasable.data(),
 		$scoreContainer = $span.closest('.xpPurchasableValue');
+	
 	try
 	{
 		let newScore = toon.setItemLevel(data.name, chosenScore);
@@ -45,5 +46,9 @@ function setValue()
 			}
 		);
 		$('.xpPurchasableValue span').click(setValue);
+		$('#myTab a').on('click', function (e) {
+			e.preventDefault()
+			$(this).tab('show')
+		});
 	});
 })();

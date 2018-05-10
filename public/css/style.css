@@ -44,28 +44,92 @@ ul.loginContainer li
 
 @font-face
 {
-    font-family: "Flat Earth Scribe";
-    src: url("/webfonts/Flat_Earth_Scribe.ttf");
+    font-family: "flatEarthScribe";
+    src: url("/webfonts/Flat Earth Scribe.ttf");
+}
+
+.categoryName, #characterDetails, h5
+{
+    font-family: treefrog;
+}
+
+h5
+{
+    font-size: 1.1em;
+    margin: 0px;
+}
+
+.skillUseGroup
+{
+    text-align: center;
+    font-size: 1.2em;
 }
 
 .sectionHeading
 {
-    font-family: treefrog;
+    background-color: white;
+    font-family: flatEarthScribe;
+    font-size:1.8em;
+    padding-left:5px;
+    padding-right: 5px;
+}
+
+.attributeUseGroup
+{
     width: 100%;
     text-align: center;
 }
 
-.attributeUseGroup, .name
+.attributeUseGroup, .attributeName, .skillName
 {
     font-family: arnova;
 }
 
-.name
+.skillName
 {
-    font-size: 1.2em;
+
+}
+
+.xpPurchasableValue
+{
+    font-size: 0.83em;
 }
 
 .xpPurchasable span
 {
     cursor: pointer;
+}
+
+.page
+{
+    font-size: 1.2em;
+}
+
+.attributeCol, .categoryName, .skillsCol
+{
+    border-right: 1px solid black;
+}
+
+.attributeCol:last-child
+{
+    border: none;
+}
+
+.strike
+{
+    border-bottom: 1px solid black;
+    height: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.page .container-fluid
+{
+    padding:0px;
+}
+
+.unskilledPenalty
+{
+    font-size: 0.8em;
+    font-style: italic;
 }

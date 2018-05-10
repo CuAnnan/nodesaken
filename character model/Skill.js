@@ -8,6 +8,11 @@ class Skill extends XPPurchasable
 		this.xpCost = 2;
 	}
 	
+	get penalty()
+	{
+		return this.useGroupReference.penalty;
+	}
+	
 	
 }
 

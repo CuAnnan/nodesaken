@@ -33,7 +33,7 @@ for(let skillName in skillUseGroupMap)
 
 class Character
 {
-	constructor()
+	constructor(id)
 	{
 		this.skills = {};
 		this.attributes = {};
@@ -43,6 +43,8 @@ class Character
 		this.derivedAttributes = {size:5};
 		this.size = 5;
 		this.merits = [];
+		this.personalDetails = {};
+		this.id = id;
 	}
 	
 	populateUseGroups()
@@ -148,6 +150,11 @@ class Character
 		}
 		
 		return result;
+	}
+	
+	loadJSON(data)
+	{
+	
 	}
 }
 

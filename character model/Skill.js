@@ -6,6 +6,7 @@ class Skill extends XPPurchasable
 	{
 		super(name);
 		this.xpCost = 2;
+		this.specialities = [];
 	}
 	
 	get penalty()
@@ -13,7 +14,28 @@ class Skill extends XPPurchasable
 		return this.useGroupReference.penalty;
 	}
 	
+	set favoured(favoured)
+	{
+		this.favoured = favoured;
+	}
 	
+	loadJSON(json)
+	{
+		super.loadJSON(json);
+		this.specialities = json.specialties;
+	}
+	
+	toJSON()
+	{
+		let json = super.toJSON();
+		json.specialities = this.specialities;
+		return json;
+	}
+	
+	addSpeciality(specialityName)
+	{
+		this.specialities.push(specialityName);
+	}
 }
 
 module.exports = Skill;

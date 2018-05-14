@@ -25,7 +25,7 @@ function setValue()
 				$(node).addClass(i < newScore ? 'fas' : 'far');
 			}
 		);
-		
+
 	}
 	catch(e)
 	{

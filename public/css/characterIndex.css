@@ -1,0 +1,14 @@
+#newWerewolfModal .modal-content
+{
+    padding:5px;
+}
+
+#newWerewolfModal .col
+{
+    text-align: center;
+}
+
+.characterDetail
+{
+    line-height:2.2;
+}

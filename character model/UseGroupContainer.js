@@ -11,6 +11,16 @@ class UseGroupContainer
 		this.titles = ['Mental', "Physical", "Social"];
 	}
 	
+	toJSON()
+	{
+		let json = [];
+		for(let i in this.useGroups)
+		{
+			json = json.concat(this.useGroups[i].toJSON());
+		}
+		return json;
+	}
+	
 	addToUseGroup(name, thing)
 	{
 		if(!this.useGroups[name])

@@ -48,7 +48,7 @@ ul.loginContainer li
     src: url("/webfonts/Flat Earth Scribe.ttf");
 }
 
-.categoryName, #characterDetails, h5
+.categoryName, #characterDetails .col-1, h5
 {
     font-family: treefrog;
 }
@@ -132,4 +132,16 @@ h5
 {
     font-size: 0.8em;
     font-style: italic;
+}
+
+#login_modal_content
+{
+    padding: 5px;
+}
+
+
+.dropdown-menu
+{
+    right:0px !important;
+    left: unset !important;
 }

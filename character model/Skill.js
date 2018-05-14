@@ -14,11 +14,6 @@ class Skill extends XPPurchasable
 		return this.useGroupReference.penalty;
 	}
 	
-	set favoured(favoured)
-	{
-		this.favoured = favoured;
-	}
-	
 	loadJSON(json)
 	{
 		super.loadJSON(json);

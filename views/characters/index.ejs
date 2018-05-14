@@ -1,0 +1,101 @@
+<%- include('../includes/header') -%>
+<link type="text/css" rel="stylesheet" href="/css/characterIndex.css"/>
+
+<div class="container">
+    <h1>Characters</h1>
+    <div class="row">
+        <input type="button" class="btn btn-primary" id="newWerewolfButton" value="New Werewolf"/>
+    </div>
+    <% if(characters.length){%>
+        <div class="row">
+            <div class="col"><h3>Name</h3></div>
+            <div class="col"><h3>Auspice</h3></div>
+            <div class="col"><h3>Tribe</h3></div>
+            <div class="col">&nbsp;</div>
+        </div>
+
+        <% for(let c of characters) { %>
+            <div class="row characterRow">
+                <div class="col characterDetail"><%= c.name %></div>
+                <div class="col characterDetail"><%= c.auspice %></div>
+                <div class="col characterDetail"><%= c.tribe %></div>
+                <div class="col">
+                    <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary loadCharacter"><i class="fas fa-file-alt"></i>Load</button>
+                    <button data-character-reference="<%= c.reference %>" class="btn-sm btn-danger deleteCharacter"><i class="fas fa-trash-alt"></i>Delete</button>
+                </div>
+            </div>
+        <% } %>
+    <% } else { %>
+    <div class="row">
+        You have no characters saved. Why not start now?
+    </div>
+    <% } %>
+</div>
+
+<div class="modal" id="newWerewolfModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="newWerewolfDetails">
+                <div class="row">
+                    <div class="col">
+                        <h2>New Werewolf</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="newWerewolfName" class="col-md-3 field-label-responsive">Name:</label>
+                    <div class="col-md-9">
+                        <input type="text" name="newWerewolfName" id="newWerewolfName"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="newWerewolfAuspice" class="col-md-3 field-label-responsive">Auspice:</label>
+                    <div class="col-md-9">
+                        <select name="newWerewolfAuspice" id="newWerewolfAuspice">
+                            <option value="">Choose one</option>
+                            <option value="Rahu">Rahu (Full Moon)</option>
+                            <option value="Cahalith">Cahalith (Gibbous Moon)</option>
+                            <option value="Elodoth">Elodoth (Half Moon)</option>
+                            <option value="Ithaeur">Ithaeur (Crescent Moon)</option>
+                            <option value="Irraka">Irraka (New Moon)</option>
+                            <option value="Pure">Pure</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="newWerewolfTribe" class="col-md-3 field-label-responsive">Tribe:</label>
+                    <div class="col-md-9">
+                        <select name="newWerewolfTribe" id="newWerewolfTribe">
+                            <option value="">Choose one</option>
+                            <option value="Ghost Wolf">Ghost Wolf</option>
+                            <optgroup label="Forsaken Tribes">
+                                <option value="Blood Talons">Blood Talons</option>
+                                <option value="Bone Shadows">Bone Shadows</option>
+                                <option value="Hunters in Darkness">Hunters in Darkness</option>
+                                <option value="Iron Masters">Iron Masters</option>
+                                <option value="Storm Lords">Storm Lords</option>
+                            </optgroup>
+                            <optgroup label="Pure Tribes">
+                                <option value="Fire-touched">Fire-touched</option>
+                                <option value="Ivory Claws">Ivory Claws</option>
+                                <option value="Predator Kings">Predator Kings</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" value="Add" class="btn btn-primary"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/characterIndex.js"></script>
+
+<%- include('../includes/footer') -%>

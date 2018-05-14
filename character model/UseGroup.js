@@ -33,6 +33,16 @@ class UseGroup
 	{
 		return this.containerReference.getMaxCPRemaining(this);
 	}
+	
+	toJSON()
+	{
+		let json = [];
+		for (let i in this.items)
+		{
+			json.push(this.items[i].toJSON());
+		}
+		return json;
+	}
 }
 
 module.exports = UseGroup;

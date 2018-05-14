@@ -47,7 +47,7 @@ class XPPurchasable
 	
 	get score()
 	{
-		return this.min + this.freeLevels + this.xpLevels + this.cpLevels + this.favoured?1:0;
+		return this.min + this.freeLevels + this.xpLevels + this.cpLevels + (this.favoured?1:0);
 	}
 	
 	set levels(data)

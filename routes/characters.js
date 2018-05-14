@@ -4,6 +4,7 @@ let express = require('express'),
 	controller = require('../controllers/CharacterController');
 
 router.get('/', async(controller.indexAction));
-router.get('/testUI', async(controller.testUI));
+router.post('/new', async(controller.newCharacterAction));
+router.get('/fetch/:reference', async(controller.fetchAction));
 
 module.exports = router;

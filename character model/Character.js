@@ -33,7 +33,7 @@ for(let skillName in skillUseGroupMap)
 
 class Character
 {
-	constructor(id)
+	constructor()
 	{
 		this.skills = {};
 		this.attributes = {};
@@ -44,7 +44,6 @@ class Character
 		this.size = 5;
 		this.merits = [];
 		this.personalDetails = {};
-		this.id = id;
 	}
 	
 	populateUseGroups()
@@ -85,11 +84,11 @@ class Character
 	{
 		let item = this.lookups[itemName];
 		let result = item.level = level;
-		this.calculateSecondaries();
+		this.calculateDerived();
 		return item.score;
 	}
 	
-	calculateSecondaries()
+	calculateDerived()
 	{
 		this.derivedAttributes = {
 			willpower:this.addScores('Resolve', 'Composure'),
@@ -154,7 +153,26 @@ class Character
 	
 	loadJSON(data)
 	{
+		let universalLookups = ['skills', 'attributes'];
+		for(let i of universalLookups)
+		{
+			for(let j in data[i])
+			{
+				let json = data[i][j];
+				this.lookups[json.name].loadJSON(json)
+			}
+		}
+		this.calculateDerived();
+	}
 	
+	toJSON()
+	{
+		let json =  {
+			skills: this.skills.toJSON(),
+			attributes: this.attributes.toJSON()
+		};
+		
+		return json;
 	}
 }
 

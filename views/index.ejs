@@ -6,4 +6,10 @@
     <p>The project is open source, under the ISC licence, and the git repository is located <a href="https://github.com/CuAnnan/nodesaken" target="_blank">here</a>.</p>
     <p>If you want to start using it, you will need to register an account first. I intend on eventually handling anonymously created characters, but binding to account is easier and frees me to program the more interesting stuff sooner rather than later.</p>
     <p>Changes to the character are made by pressing the level you want to acquire. If you have CP left, they are used. Otherwise, XP is spent. The system currently provides no means to add XP, it merely stores how much XP is spent.</p>
+    <p>
+        <b>Limitations</b><br/>
+        I haven't yet figured out how to make sure that if you remove levels that the use group balances. For example, if you buy five mental attributes, then five social attributes and four physical attributes the system will automatically set mental to primary, social to secondary (and spend XP to buy the fifth dot) and physical to tertiary (and spend XP to buy the fourth dot).<br/>
+        In this situation, if you reduce your mental attributes to 3, it should automatically balance your attribute use groups so that mental is tertiary, social is primary, physical is tertiary and no XP is spent. I haven't done that yet.<br/>
+        Currently only skills and attributes are programmed. The github will tell you when the last piece of coding work was done and pushed.
+    </p>
 <%- include('./includes/footer') -%>

@@ -43,6 +43,11 @@ class UseGroup
 		}
 		return json;
 	}
+	
+	balance()
+	{
+	
+	}
 }
 
 module.exports = UseGroup;

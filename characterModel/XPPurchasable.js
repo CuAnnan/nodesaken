@@ -9,21 +9,16 @@ class XPPurchasable
 		this.max = 5;
 		this.freeLevels = 0;
 		this.xpCost = 0;
-		this.useGroupReference = null;
+		this.useGroup = null;
 		this.favoured = false;
-	}
-	
-	set useGroup(useGroupReference)
-	{
-		this.useGroupReference = useGroupReference;
 	}
 	
 	loadJSON(json)
 	{
-		this.xpLevels = json.xpLevels;
-		this.cpLevels = json.cpLevels;
-		this.favoured = json.favoured;
-		this.freeLevels = json.freeLevels;
+		this.xpLevels = parseInt(json.xpLevels);
+		this.cpLevels = parseInt(json.cpLevels);
+		this.favoured = json.favoured=='true'?json.favoured:false;
+		this.freeLevels = parseInt(json.freeLevels);
 	}
 	
 	toJSON()
@@ -78,7 +73,7 @@ class XPPurchasable
 		if(changeInScore > 0)
 		{
 			// always spend CP before XP
-			let maxCPLeft = this.useGroupReference.cpRemaining;
+			let maxCPLeft = this.useGroup.cpRemaining;
 			
 			if(maxCPLeft > 0)
 			{
@@ -118,6 +113,10 @@ class XPPurchasable
 			}
 			this.xpLevels = tmp.xpLevels;
 			this.cpLevels = tmp.cpLevels;
+			// this may lead to a case where the use group that this thing belongs to has remaining CP, for example mental attributes,
+			// but another related use group (physical attributes) would have XP spent where these CP could be spent by shifting
+			// around the primary, secondary and tertiary grouping.
+			this.useGroup.balance();
 		}
 	}
 	

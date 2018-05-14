@@ -4,12 +4,10 @@ class ForsakenCharacter extends Character
 {
 	constructor(data)
 	{
-		super();
-		this.name = data.name;
+		super(data);
 		this.auspice = data.auspice;
 		this.tribe = data.tribe;
-		this.player = data.player;
-		this.loadJSON(data.json);
+		this.reference = data.reference;
 		this.formMods = {
 			hishu:{perception:1},
 			dalu:{strength:1, stamina:1, manipulation:-1, size:1, speed:1, perception:2},
@@ -23,6 +21,7 @@ class ForsakenCharacter extends Character
 	{
 		let json = super.toJSON();
 		json.personalDetails = {name:this.name, tribe:this.tribe, auspice:this.auspice};
+		json.reference = this.reference;
 		return json;
 	}
 }

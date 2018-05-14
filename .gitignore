@@ -1,3 +1,4 @@
 node_modules
 .idea
 conf.js
+public/js/ForsakenToolkit.js

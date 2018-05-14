@@ -1,13 +1,29 @@
-let Character = require('./character'),
-	toon = new Character();
+let ForsakenCharacter = require('./ForsakenCharacter'),
+	toon, characterReference;
 
 window.debugToon = ()=>{
 	console.log(toon);
-}
+};
 
 window.getToon = () =>{
 	return toon;
 };
+
+function saveCharacter()
+{
+	let xhrData = {
+		json:toon.toJSON(),
+		timestamp:Date.now(),
+	};
+	$.post(
+		'/characters/save',
+		xhrData
+	).then(
+		(data)=>{
+			console.log('Save request sent', data);
+		}
+	);
+}
 
 function setValue()
 {
@@ -25,7 +41,7 @@ function setValue()
 				$(node).addClass(i < newScore ? 'fas' : 'far');
 			}
 		);
-
+		saveCharacter();
 	}
 	catch(e)
 	{
@@ -37,6 +53,14 @@ function setValue()
 
 (()=>{
 	$(()=>{
+		
+		toon = new ForsakenCharacter({
+			name:$('#characterName').text(),
+			auspice:$('#characterAuspice').text(),
+			tribe:$('#characterTribe').text(),
+			reference:$('#characterDetails').data('reference')
+		});
+		
 		$('.xpPurchasable').each(
 			function(index, node)
 			{

@@ -22,6 +22,9 @@
         <a class="navbar-brand" href="#">Nodesaken</a>
         <div class="navbar mr-auto">
             <a class="nav-item nav-link" href="/">Home</a>
+            <% if(typeof locals.sessionUser !== 'undefined'){ %>
+            <a class="nav-item nav-link" href="/characters/">Characters</a>
+            <% } %>
         </div>
 
         <ul class="nav loginContainer ifLoggedIn<% if(typeof locals.sessionUser !== 'undefined'){ %> loggedIn<%}%>">

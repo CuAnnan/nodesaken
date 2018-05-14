@@ -4,9 +4,6 @@
     <p>This is the project home for the Node.js powered Forsaken Character Sheet tracking system. I've built several iterations of this, each building upon the experiences of the previous and becoming better both as I mature and as JavaScript matures.</p>
     <p>The last attempt at this stalled owing to health concerns, but I was prompted to resume owing to the advances of Node.js and wanting a piece of sufficiently involved domain specific software that I can show off on a resume.</p>
     <p>The project is open source, under the ISC licence, and the git repository is located <a href="https://github.com/CuAnnan/nodesaken" target="_blank">here</a>.</p>
-    <h2>Technical overview</h2>
-    <h3>Web application</h3>
-    <p>The Web Application uses an MVC approach built around Express. Routers pass the request, response and next paramaters of the Router class to a Controller, which is responsible for any business logic and renders the necessary view.</p>
-    <p>The <strong>character model</strong> directory contains the application logic surrounding the Forsaken logic itself, how to build a character. This folder is shared to the front end using the browserify-middleware module, which allows the same logic to be used in the front and back end.</p>
-
+    <p>If you want to start using it, you will need to register an account first. I intend on eventually handling anonymously created characters, but binding to account is easier and frees me to program the more interesting stuff sooner rather than later.</p>
+    <p>Changes to the character are made by pressing the level you want to acquire. If you have CP left, they are used. Otherwise, XP is spent. The system currently provides no means to add XP, it merely stores how much XP is spent.</p>
 <%- include('./includes/footer') -%>

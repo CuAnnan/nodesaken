@@ -9,7 +9,8 @@ let createError = require('http-errors'),
 	debug = require('debug')('nodesaken:server'),
 	session = require('express-session'),
 	MongoDBStore = require('connect-mongodb-session')(session),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	conf = require('./conf');
 
 /*
  * Routers
@@ -24,7 +25,7 @@ let app = express();
  * Set up the sesssions
  */
 let store = new MongoDBStore({
-	uri: `mongodb://session_database_dba:${encodeURIComponent('session_database_pwd_#12345#fish#sandwich#AMSTERDAM')}@localhost:27017/connect_mongodb_sessions`,
+	uri: conf.sessionStore.getURI(),
 	databaseName: 'connect_mongodb_sessions',
 	collection:'nodesaken_sessions'
 });
@@ -56,7 +57,7 @@ app.use(function(req, res, next) {
  */
 
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://nodesaken_dba:${encodeURIComponent('nodesaken_dba_pwd#6666#8653#MONTREAL')}@localhost:27017/wing_nodesaken`)
+mongoose.connect(conf.mongoose.getURI())
 	.then(
 		()=>{
 			debug('Mongoose raised');
@@ -76,15 +77,6 @@ app.set('view engine', 'ejs');
  * Expose popper.js for bootstrap
  */
 app.use('/js', express.static(__dirname+'/node_modules/popper.js/dist/umd'));
-
-/*
- * Compile and expose the shared character model files
- */
-let browserify = require('browserify-middleware');
-app.get('/js/frontendUI.js', browserify(__dirname + '/character model/frontendUI.js',  {
-	cache: true,
-	precompile: true
-}));
 
 app.use(logger('dev'));
 app.use(express.json());

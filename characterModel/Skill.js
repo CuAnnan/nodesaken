@@ -11,7 +11,7 @@ class Skill extends XPPurchasable
 	
 	get penalty()
 	{
-		return this.useGroupReference.penalty;
+		return this.useGroup.penalty;
 	}
 	
 	loadJSON(json)

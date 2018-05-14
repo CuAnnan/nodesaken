@@ -33,8 +33,10 @@ for(let skillName in skillUseGroupMap)
 
 class Character
 {
-	constructor()
+	constructor(data)
 	{
+		this.name = data.name;
+		this.player = data.player;
 		this.skills = {};
 		this.attributes = {};
 		this.lookups = {};

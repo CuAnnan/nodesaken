@@ -7,15 +7,15 @@ function newWerewolf()
 		auspice:$newWerewolfAuspice.val(),
 		tribe:$newWerewolfTribe.val()
 	};
-	console.log(requestData);
 	
 	$.post(
 		'/characters/new',
 		requestData
 	).then(
-		function(data)
+		function(response)
 		{
-			console.log(data);
+			let data = JSON.parse(response);
+			loadCharacter(data.reference);
 		}
 	);
 	return false;
@@ -23,7 +23,8 @@ function newWerewolf()
 
 function loadCharacter(characterReference)
 {
-	window.location.replace('/characters/fetch/'+characterReference);
+	let url = '/characters/fetch/'+characterReference;
+	window.location.replace(url);
 }
 
 (function($){

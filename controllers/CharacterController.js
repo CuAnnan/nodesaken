@@ -1,5 +1,5 @@
 let Controller = require('./Controller'),
-	ForsakenCharacter = require('../character model/ForsakenCharacter.js'),
+	ForsakenCharacter = require('../characterModel/ForsakenCharacter.js'),
 	User = require('../schemas/UserSchema'),
 	Character= require('../schemas/CharacterSchema');
 
@@ -16,15 +16,7 @@ class CharacterController extends Controller
 	static async newCharacterAction(req, res, next)
 	{
 		let user = await Controller.getLoggedInUser(req);
-		
-		console.log(req.body);
-		
-		let toon = new ForsakenCharacter(
-			req.body.name?req.body.name:'Untitled Character',
-			req.body.auspice?req.body.auspice:'',
-			req.body.tribe?req.body.tribe:''
-		);
-		
+		let toon = new ForsakenCharacter(req.body);
 		let character = await Character.create({
 			owner:user,
 			name:toon.name,
@@ -32,25 +24,50 @@ class CharacterController extends Controller
 			tribe:toon.tribe,
 			json:toon.toJSON()
 		});
-		
 		res.json({
 			success:true,
-			_id:character.reference
+			reference:character.reference
 		});
+	}
+	
+	static async fetchCharacterEntityByReference(user, reference)
+	{
+		let entity = await Character.findOne({
+			owner:user,
+			reference: reference
+		}).populate('owner');
+		entity.player = entity.owner.displayName+'#'+entity.owner.reference;
+		
+		return entity;
 	}
 	
 	static async fetchAction(req, res, next)
 	{
-		let user = await Controller.getLoggedInUser(req);
-		let entity = await Character.findOne({
-			owner:user,
-			reference: req.params.reference
-		}).populate('owner');
-		
-		entity.player = entity.owner.displayName+'#'+entity.owner.reference;
-		
-		let character = new ForsakenCharacter(entity);
+		let user = await Controller.getLoggedInUser(req),
+			entity = await CharacterController.fetchCharacterEntityByReference(user, req.params.reference),
+			character = new ForsakenCharacter(entity);
+		character.loadJSON(entity.json);
 		res.render('characters/fetch', {entity:entity, character:character});
+	}
+	
+	static async saveCharacterAction(req, res, next)
+	{
+		try
+		{
+			let user = await Controller.getLoggedInUser(req),
+				entity = await CharacterController.fetchCharacterEntityByReference(user, req.body.json.reference);
+			entity.json = req.body.json;
+			await entity.save();
+			res.json({
+				success:true
+			});
+		}
+		catch(e)
+		{
+			res.json({
+				success:false
+			});
+		}
 	}
 }
 

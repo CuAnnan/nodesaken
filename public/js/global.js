@@ -32,7 +32,7 @@ function tryToLogin()
 			let data = JSON.parse(response);
 			if(data.success=='true')
 			{
-				window.location.replace(window.location.href);
+				window.location.replace('/');
 			}
 			else
 			{

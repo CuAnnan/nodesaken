@@ -12,7 +12,8 @@ let UserSchema = new mongoose.Schema({
 	created:{type:String, default:Date.now},
 	termsGDPR:{type:Boolean, deafult:false},
 	breachGDPR:{type:Boolean, deafult:false},
-	characters:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Character' }]
+	characters:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Character' }],
+	discordUsername:{type:String}
 });
 
 function generateEmailHash()

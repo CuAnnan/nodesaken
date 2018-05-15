@@ -1,7 +1,60 @@
 <%- include('../includes/header') -%>
 <div class="container">
     <h1>Account details</h1>
-    <p>Functionality to come</p>
+    <form method="post" target="/user/account">
+        <div class="row text-center">
+            <div class="col-sm-8 text-center">
+                <h2>Display name</h2>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label" for="displayName">Display Name</label>
+            <div class="col-sm-6 form-group input-group">
+                <div class="input-group-prepend input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
+                <input class="form-control" type="text" id="displayName" name="displayName" value="<%= user.displayName %>"/>
+            </div>
+        </div>
+
+        <div class="row"><div class="col-sm-8"><hr/></div></div>
+
+        <div class="row">
+            <div class="col-sm-8 text-center">
+                <h2>Password</h2><br/>
+                <p>You only need to supply your password if you intend on setting a new one</p>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label" for="currentPassword">Current Password</label>
+            <div class="col-sm-6 form-group input-group">
+                <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
+                <input type="password" id="currentPassword" name="currentPassword" class="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label" for="newPassword">New Password</label>
+            <div class="col-sm-6 form-group input-group">
+                <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
+                <input type="password" id="newPassword" name="newPassword" class="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label" for="confirmNewPassword">Confirm Password</label>
+            <div class="col-sm-6 form-group input-group">
+                <div class="input-group-prepend input-group-text"><i class="fa fa-check" aria-hidden="true"></i></div>
+                <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="row"><div class="col-sm-8"><hr/></div></div>
+
+        <div class="row">
+            <label class="col-sm-2 col-form-label" for="discordUser">Discord Username</label>
+            <div class="col-sm-6 form-group input-group">
+                <div class="input-group-prepend input-group-text"><i class="fab fa-discord" aria-hidden="true"></i></div>
+                <input type="text" id="discordUser" name="discordUser" class="form-control"/>
+            </div>
+        </div>
+    </form>
 </div>
 
 <%- include('../includes/footer') -%>

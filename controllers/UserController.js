@@ -37,7 +37,9 @@ class UserController extends Controller
 	
 	static async accountAction(req, res, next)
 	{
-		res.render('users/accountDetails');
+		let user = await Controller.getLoggedInUser(req);
+		console.log(user);
+		res.render('users/accountDetails', {user:user});
 		return;
 	}
 	
@@ -72,6 +74,12 @@ class UserController extends Controller
 					label: 'Confirm Password',
 					prepend: '<i class="fa fa-check" aria-hidden="true"></i>'
 				},
+				'discordUsername':{
+					name:'discordUsername',
+					type:'text',
+					label:'Discord Username',
+					prepend: '<i class="fab fa-discord" aria-hidden="true"></i>'
+				}
 			},
 			checks: {
 				"termsAndConditions": {name: "termsAndConditions"},

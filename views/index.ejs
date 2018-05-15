@@ -1,18 +1,22 @@
 <%- include('./includes/header') -%>
     <h1>Nodesaken</h1>
-    <h2>Welcome</h2>
-    <p>This is the project home for the Node.js powered Forsaken&trade; Character Sheet tracking system. I've built several iterations of this, each building upon the experiences of the previous and becoming better both as I mature and as JavaScript matures.</p>
-    <p>The last attempt at this stalled owing to health concerns, but I was prompted to resume owing to the advances of Node.js and wanting a piece of sufficiently involved domain specific software that I can show off on a resume.</p>
-    <p>The project is open source, under the ISC licence, and the git repository is located <a href="https://github.com/CuAnnan/nodesaken" target="_blank">here</a>.</p>
-    <p>If you want to start using it, you will need to register an account first. I intend on eventually handling anonymously created characters, but binding to account is easier and frees me to program the more interesting stuff sooner rather than later.</p>
-    <p>Changes to the character are made by pressing the level you want to acquire. If you have CP left, they are used. Otherwise, XP is spent. The system currently provides no means to add XP, it merely stores how much XP is spent.</p>
-    <p>
-        <b>Limitations</b><br/>
-        I haven't yet figured out how to make sure that if you remove levels that the use group balances. For example, if you buy five mental attributes, then five social attributes and four physical attributes the system will automatically set mental to primary, social to secondary (and spend XP to buy the fifth dot) and physical to tertiary (and spend XP to buy the fourth dot).<br/>
-        In this situation, if you reduce your mental attributes to 3, it should automatically balance your attribute use groups so that mental is tertiary, social is primary, physical is tertiary and no XP is spent. I haven't done that yet.<br/>
-        Currently only skills and attributes are programmed. The github will tell you when the last piece of coding work was done and pushed.
-    </p>
-    <p>
-        This project is not endorsed by, related to, or associated with White Wolf&trade; nor does it seek to contest, diminish or lay claim to any rights to any of its Trademarks. This is a fan made, open source, not-for-profit project that seeks to make running Forsaken over Discord easier.
-    </p>
+    <div class="container-fluid">
+        <h2>Welcome</h2>
+        <p>This is the project home for the Node.js powered Forsaken&trade; Character Sheet tracking system. I've built several iterations of this, each building upon the experiences of the previous and becoming better both as I mature and as JavaScript matures.</p>
+        <p>The last attempt at this stalled owing to health concerns, but I was prompted to resume owing to the advances of Node.js and wanting a piece of sufficiently involved domain specific software that I can show off on a resume.</p>
+        <p>The project is open source, under the ISC licence, and the git repository is located <a href="https://github.com/CuAnnan/nodesaken" target="_blank">here</a>.</p>
+        <p>If you want to start using it, you will need to register an account first. I intend on eventually handling anonymously created characters, but binding to account is easier and frees me to program the more interesting stuff sooner rather than later.</p>
+        <p>Changes to the character are made by pressing the level you want to acquire. If you have CP left, they are used. Otherwise, XP is spent. The system currently provides no means to add XP, it merely stores how much XP is spent.</p>
+    </div>
+    <div class="container-fluid">
+        <h2>Limitations</h2>
+        <p>I haven't yet figured out how to make sure that if you remove levels that the use group balances. For example, if you buy five mental attributes, then five social attributes and four physical attributes the system will automatically set mental to primary, social to secondary (and spend XP to buy the fifth dot) and physical to tertiary (and spend XP to buy the fourth dot).<br/>
+            In this situation, if you reduce your mental attributes to 3, it should automatically balance your attribute use groups so that mental is tertiary, social is primary, physical is tertiary and no XP is spent. I haven't done that yet.</p>
+        <p>Currently only skills and attributes are programmed. The github will tell you when the last piece of coding work was done and pushed.</p>
+    </div>
+    <div class="container-fluid">
+        <h3>Disclaimers</h3>
+        <p>Portions of the materials are the copyrights and trademarks of White Wolf Entertainment AB, and are used with permission. All rights reserved. For more information please visit <a href="http://www.white-wolf.com" target="_blank">white-wolf.com</a>.</p>
+        <p>This site and its affiliated bots and widgets are not affiliated with White Wolf and is released in accordance with the <a href="http://www.white-wolf.com/community/">Dark Pack community licence</a>, which White Wolf are kind enough to provide and explain.</p>
+    </div>
 <%- include('./includes/footer') -%>

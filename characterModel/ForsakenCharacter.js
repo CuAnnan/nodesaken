@@ -16,9 +16,6 @@ class ForsakenCharacter extends Character
 			urshul: {mechanical:{strength: 2, dexterity: 2, stamina: 2, manipulation: -1, speed: 7, size: 1, perception: 3}, informative:{initiative:2}},
 			urhan: {mechanical:{dexterity: 2, stamina: 1, manipulation: -1, size: -1, speed: 5, perception: 4}, informative:{initiative:2}},
 		};
-		// these have no mechanical effect. They're on the character sheet as a tooltip, but they are a result of
-		// increased derived stats, not further increases
-		
 	}
 	
 	toJSON()

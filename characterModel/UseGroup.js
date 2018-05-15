@@ -44,10 +44,24 @@ class UseGroup
 		return json;
 	}
 	
-	balance()
+	balanceCP()
 	{
-	
+		this.containerReference.balance();
 	}
+	
+	convertXPToSP(amount)
+	{
+		let amountToConvert = amount;
+		for(let i = 0; i < this.items.length && amountToConvert > 0; i++)
+		{
+			let item = this.items[i];
+			if(item.xpLevels > 0)
+			{
+				amountToConvert = item.convertXPToSP(amountToConvert);
+			}
+		}
+	}
+	
 }
 
 module.exports = UseGroup;

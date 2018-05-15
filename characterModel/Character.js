@@ -1,6 +1,7 @@
 let Skill = require('./Skill'),
 	Attribute = require('./Attribute'),
 	UseGroupContainer = require('./UseGroupContainer'),
+	MeritList = require('./MeritList'),
 	skillUseGroupMap = {
 		'Academics':'Mental', 'Computer':'Mental', 'Crafts':'Mental', 'Investigation':'Mental',
 		'Medicine':'Mental','Occult':'Mental','Politics':'Mental','Science':'Mental',
@@ -37,21 +38,22 @@ class Character
 	{
 		this.name = data.name;
 		this.player = data.player;
-		this.skills = {};
-		this.attributes = {};
+		this.skills = null;
+		this.attributes = null;
 		this.lookups = {};
 		this.attributeCategories = {}
-		this.populateUseGroups();
 		this.derivedAttributes = {size:5};
 		this.size = 5;
-		this.merits = [];
+		this.merits = null;
 		this.personalDetails = {};
+		this.populateUseGroups();
 	}
 	
 	populateUseGroups()
 	{
 		this.skills = this.populateUseGroup('skills', skillUseGroups, Skill, [11, 7, 4]);
 		this.attributes = this.populateUseGroup('attributes', attributeUseGroups, Attribute, [5, 4, 3]);
+		this.merits = new MeritList();
 		for(let i in attributeCategoryMap)
 		{
 			this.attributeCategories[i] = {};
@@ -72,9 +74,15 @@ class Character
 				let thingObject = new classReference(thing);
 				ugc.addToUseGroup(i, thingObject);
 				this.lookups[thing] = thingObject;
+				this.lookups[thing.toLowerCase()] = thingObject;
 			}
 		}
 		return ugc;
+	}
+	
+	getPurchasable(searchField)
+	{
+		return this.lookups[searchField.toLowerCase()];
 	}
 	
 	sortUseGroups()
@@ -102,6 +110,11 @@ class Character
 		};
 	}
 	
+	getDerivedAttribute(name)
+	{
+		return this.derivedAttributes[name];
+	}
+	
 	getDefense()
 	{
 		let skill = 'Athletics';
@@ -122,15 +135,7 @@ class Character
 	
 	hasMerit(meritName)
 	{
-		let found = false;
-		for(let i = 0; i < this.merits.length && !found; i++)
-		{
-			if(this.merits[i].name == meritName)
-			{
-				found = true;
-			}
-		}
-		return found;
+		return this.merits.hasMerit(meritName);
 	}
 	
 	addScores()

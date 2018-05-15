@@ -35,16 +35,29 @@ class UseGroupContainer
 		return this.useGroups[name];
 	}
 	
-	sortByCP()
+	getUseGroupsArray()
 	{
-		let order = [];
+		let groupsArray= [];
 		
 		for(let i in this.useGroups)
 		{
 			let useGroup = this.useGroups[i];
-			order.push(useGroup);
+			groupsArray.push(useGroup);
 		}
-		order.sort((a, b)=>{return b.cost.cp - a.cost.cp});
+		return groupsArray;
+	}
+	
+	sortByCP()
+	{
+		let order = this.getUseGroupsArray();
+		order.sort((a, b)=>{return (b.cost.cp - a.cost.cp)});
+		return order;
+	}
+	
+	sortByLevel()
+	{
+		let order = this.getUseGroupsArray();
+		order.sort((a, b)=>{return ((b.cost.cp + b.cost.xp)- (a.cost.cp + a.cost.xp))});
 		return order;
 	}
 	
@@ -78,6 +91,25 @@ class UseGroupContainer
 		
 		let available = maxCP - useGroup.cost.cp;
 		return available;
+	}
+	
+	balance()
+	{
+		let orderedGroups = this.sortByLevel(),
+			cpAmountValues = Object.values(this.cpAmounts),
+			groupPreferenceNames = Object.keys(this.cpAmounts);
+		
+		for(let i in orderedGroups)
+		{
+			let group = orderedGroups[i],
+				cost = group.cost,
+				cpCost = cost.cp,
+				cpDifference = cpAmountValues[i] - cpCost;
+			if(cost.xp)
+			{
+				group.convertXPToSP(cpDifference);
+			}
+		}
 	}
 }
 

@@ -1,0 +1,98 @@
+<!-- Page 2 include -->
+<%function formAttributeColumn(formName, form){ %>
+<%let moddableAttributes = ['Strength', 'Dexterity', 'Stamina', 'Manipulation'];%>
+<div class="col wwForm">
+    <div class="container formAttributes" data-form="<%= formName %>">
+        <% for(let a of moddableAttributes){%>
+        <% var attribute = form.mechanical[a.toLowerCase()];
+        if(attribute){ %>
+        <div class="row">
+            <div class="col">
+                <%= a %>(<%=((attribute>0)?'+':'')+attribute%>):
+            </div>
+            <div class="col-1 formAttribute" data-attribute="<%= a %>" data-modifier="<%=attribute%>">
+            </div>
+        </div>
+        <%}%>
+        <% } %>
+    </div>
+</div>
+<% } %>
+<% function formDerivedColumn(formName, form) { %>
+<div class="col wwForm">
+    <div class="container formDerivedAttributes" data-form="<%= formName %>">
+        <div class="row">
+            <div class="col">
+                Size<%= form.mechanical.size?(' ('+(form.mechanical.size>0?'+':'')+form.mechanical.size+')'):''%>:
+            </div>
+            <div class="col-1"><span class="derivedAttribute size" data-attribute="size"></span></div>
+        </div>
+        <div class="row">
+            <div class="col">Defense:</div>
+            <div class="col-1"><span class="derivedAttribute defense" data-attribute="defense"></span></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Initiative<%= (form.informative && form.informative.initiative)?(' (+'+form.informative.initiative+')'):''%>:
+            </div>
+            <div class="col-1"><span class="derivedAttribute initiative" data-attribute="initiative" data-modifier="<%=form.mechanical.initiative%>"></span></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Speed<%= form.mechanical.speed?(' (+'+form.mechanical.speed+')'):''%>:
+            </div>
+            <div class="col-1 text-right"><div class="derivedAttribute speed" data-attribute="speed" data-modifier="<%=form.mechanical.speed%>"></div></div>
+        </div>
+        <div class="row">
+            <div class="col">Armor:</div>
+            <div class="col-1"><span></span></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Perception<%= form.mechanical.perception?(' (+'+form.mechanical.perception+')'):''%>:
+            </div>
+            <div class="col-1"><span class="derivedAttribute perception" data-attribute="perception" data-modifier="<%=form.mechanical.perception%>"></span></div>
+        </div>
+    </div>
+</div>
+<% }%>
+
+<div class="page tab-pane" id="page2" role="tabpanel" aria-labelledby="page2-tab">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col text-center">
+                <h5 class="formName">Hishu</h5>
+                <div class="formNameEnglish">(Human)</div>
+            </div>
+            <div class="col text-center">
+                <h5 class="formName">Dalu</h5>
+                <div class="formNameEnglish">(Near-Human)</div>
+            </div>
+            <div class="col text-center">
+                <h5 class="formName">Gauru</h5>
+                <div class="formNameEnglish">(Wolf-man)</div>
+            </div>
+            <div class="col text-center">
+                <h5 class="formName">Urshul</h5>
+                <div class="formNameEnglish">(Near-wolf)</div>
+            </div>
+            <div class="col text-center">
+                <h5 class="formName">Urhan</h5>
+                <div class="formNameEnglish">(Wolf)</div>
+            </div>
+        </div>
+
+        <div class="row formAttributeMods">
+            <% for(let i in character.formMods){%>
+             <% formAttributeColumn(i, character.formMods[i]) %>
+            <% } %>
+        </div>
+
+        <div class="row">
+            <% for(let i in character.formMods){%>
+                <% formDerivedColumn(i, character.formMods[i]) %>
+            <%}%>
+        </div>
+    </div>
+</div>
+<!-- End of page 2 include-->

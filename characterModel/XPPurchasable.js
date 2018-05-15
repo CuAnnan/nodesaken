@@ -7,6 +7,7 @@ class XPPurchasable
 		this.cpLevels = 0;
 		this.min = 0;
 		this.max = 5;
+		this.maxAtCreation = 5;
 		this.freeLevels = 0;
 		this.xpCost = 0;
 		this.useGroup = null;
@@ -116,7 +117,7 @@ class XPPurchasable
 			// this may lead to a case where the use group that this thing belongs to has remaining CP, for example mental attributes,
 			// but another related use group (physical attributes) would have XP spent where these CP could be spent by shifting
 			// around the primary, secondary and tertiary grouping.
-			this.useGroup.balance();
+			this.useGroup.balanceCP();
 		}
 	}
 	
@@ -128,6 +129,16 @@ class XPPurchasable
 	set level(level)
 	{
 		this.setLevel(level);
+	}
+	
+	convertXPToSP(amount)
+	{
+		let maxConvertable = this.maxAtCreation - (this.min + this.cpLevels),
+			amountToTryRefunding = Math.min(amount, maxConvertable),
+			amountToConvert = (this.xpLevels >= amountToTryRefunding)?amountToTryRefunding:this.xpLevels;
+		this.xpLevels -= amountToConvert;
+		this.cpLevels += amountToConvert;
+		return amount - amountToConvert;
 	}
 }
 

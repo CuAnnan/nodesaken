@@ -41,6 +41,7 @@ function setValue()
 				$(node).addClass(i < newScore ? 'fas' : 'far');
 			}
 		);
+		updateDerivedUIFields();
 		saveCharacter();
 	}
 	catch(e)
@@ -60,7 +61,6 @@ function setValue()
 			tribe:$('#characterTribe').text(),
 			reference:$('#characterDetails').data('reference')
 		});
-		
 		$('.xpPurchasable').each(
 			function(index, node)
 			{
@@ -69,6 +69,8 @@ function setValue()
 				toon.lookups[data.name].levels = data;
 			}
 		);
+		toon.calculateDerived();
+		updateDerivedUIFields();
 		$('.xpPurchasableValue span').click(setValue);
 		$('#myTab a').on('click', function (e) {
 			e.preventDefault()
@@ -76,3 +78,46 @@ function setValue()
 		});
 	});
 })();
+
+function updateDerivedUIFields()
+{
+	$('.formAttributes').each(
+		function()
+		{
+			let $formNode = $(this),
+				form = $formNode.data('form');
+			$('.formAttribute', $formNode).each(
+				function(i, node)
+				{
+					let $attributeNode = $(node),
+						modifier = parseInt($attributeNode.data('modifier')),
+						attribute = $attributeNode.data('attribute');
+					$attributeNode.text(toon.getPurchasable(attribute).score + modifier)
+				}
+			);
+		}
+	);
+	
+	$('.formDerivedAttributes').each(
+		function()
+		{
+			let $formNode = $(this),
+				form = $formNode.data('form');
+			$('.size', $formNode).text(toon.size + (toon.formMods[form].mechanical.size?toon.formMods[form].mechanical.size:0));
+			$('.defense', $formNode).text(toon.getDefense(form));
+			$('.derivedAttribute', $formNode).each(
+				function(i, node)
+				{
+					let $attributeNode = $(node),
+						attribute = $attributeNode.data('attribute'),
+						modifier = $attributeNode.data('modifier');
+					if(toon.getDerivedAttribute(attribute))
+					{
+						modifier = modifier?parseInt(modifier):0;
+						$attributeNode.text(toon.getDerivedAttribute(attribute) + modifier);
+					}
+				}
+			);
+		}
+	);
+}

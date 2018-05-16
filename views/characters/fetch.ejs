@@ -9,5 +9,48 @@
         <%- include('./page2Forsaken') -%>
     </div>
 </div>
+
 <script type="text/javascript" src="/js/ForsakenToolkit.js"></script>
+
+<div class="modal" id="loadingModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Loading</h4>
+            </div>
+            <div class="modal-body">
+                <p>Loading the <span id="currentlyLoadingItem">merits database</span>.</p>
+                <p>Please wait.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="meritsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Merits</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <label class="col-form-label" for="meritChoice">Merit:</label>
+                        <div class="col">
+                            <select id="meritChoice" name="meritChoice" class="form-control"></select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="addMeritButton" class="btn btn-primary">Add</button>
+                <button id="cancelMeritButton" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <%- include('../includes/footer') -%>

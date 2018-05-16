@@ -40,7 +40,6 @@
 		{
 			"name":"Fast Reflexes",
 			"levels":[1,2,3],
-			"flat":true,
 			"effects":"initiative",
 			"prerequisites":[
 				{"attributes":{"Wits":3}},
@@ -185,8 +184,7 @@
 			"prerequisites":[
 				{"skills":{"Athletics":2}}
 			],
-			"effects":"speed",
-			"flat":true
+			"effects":"speed"
 		},
 		{
 			"name":"Giant",
@@ -338,7 +336,7 @@
 		{
 			"name":"Small Unit Tactics",
 			"levels":[2],
-			"preqreuisites":[
+			"prerequisites":[
 				{"attributes":{"Presence":2}}
 			]
 		},

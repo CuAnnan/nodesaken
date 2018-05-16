@@ -56,11 +56,11 @@ class XPPurchasable
 		return this.min + this.freeLevels + this.xpLevels + this.cpLevels + (this.favoured?1:0);
 	}
 	
-	set levels(data)
+	/*set levels(data)
 	{
 		this.xpLevels = data.xpLevels;
 		this.cpLevels = data.cpLevels;
-	}
+	}*/
 	
 	setLevel(level)
 	{

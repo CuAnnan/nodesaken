@@ -1,4 +1,5 @@
 let ForsakenCharacter = require('./ForsakenCharacter'),
+	Merit = require('./Merit'),
 	toon, characterReference;
 
 window.debugToon = ()=>{
@@ -54,6 +55,21 @@ function setValue()
 
 (()=>{
 	$(()=>{
+		let $modal = $('#loadingModal').modal({keyboard:false});
+		
+		$('#addMeritButton').click(addMerit);
+		
+		$.get('/js/mortalMerits.json')
+			.then((data)=> {
+				MeritsDatabase.load(JSON.parse(data));
+				return $.get('/js/forsakenMerits.json');
+			}).then((data)=>{
+				$('#currentlyLoadingItem').text('Gifts Database');
+				MeritsDatabase.load(JSON.parse(data));
+				return $.get('/js/ShadowGifts.json');
+			}).then((data)=>{
+				$modal.modal('hide');
+			});
 		
 		toon = new ForsakenCharacter({
 			name:$('#characterName').text(),
@@ -69,6 +85,8 @@ function setValue()
 				toon.lookups[data.name].levels = data;
 			}
 		);
+		
+		
 		$('.meritName').click(loadMeritDialog);
 		toon.calculateDerived();
 		updateDerivedUIFields();
@@ -125,6 +143,68 @@ function updateDerivedUIFields()
 
 function loadMeritDialog()
 {
-	let $node= $(this);
+	let $node= $(this),
+		$select = $('#meritChoice').empty(),
+		$meritModal = $('#meritsModal'),
+		orderedMerits = MeritsDatabase.listOrdered();
+	$select.append(
+		$('<option value="">--Choose one --</option>')
+	);
 	
+	for(let t in orderedMerits)
+	{
+		let $optGroup = $('<optgroup/>').attr('label', t).appendTo($select);
+		for(let m in orderedMerits[t])
+		{
+			let merit = orderedMerits[t][m];
+			
+			$('<option/>').text(merit.name).appendTo($optGroup).attr('value', merit.name);
+		}
+	}
+	$meritModal.modal('show');
+}
+
+var MeritsDatabase = {
+	data:[], searchable:{}, ordered:{},
+	reset:function()
+	{
+		this.data = [];
+	},
+	load:function(data)
+	{
+		for(var type in data)
+		{
+			this.ordered[type] = [];
+			for(var i in data[type])
+			{
+				var merit = data[type][i];
+				let test = new Merit(merit.name, merit);
+				this.ordered[type].push(merit);
+				this.data.push(merit);
+				this.searchable[merit.name] = merit;
+			}
+		}
+	},
+	list:function()
+	{
+		return this.data;
+	},
+	listOrdered:function()
+	{
+		return this.ordered;
+	},
+	fetch:function(name)
+	{
+		return new Merit(name, this.searchable[name]);
+	}
+};
+
+function addMerit()
+{
+	let meritName = $('#meritChoice').val();
+	if(meritName)
+	{
+		let merit = MeritsDatabase.fetch(meritName);
+		console.log(merit);
+	}
 }

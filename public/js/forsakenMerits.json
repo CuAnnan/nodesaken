@@ -1,0 +1,86 @@
+{
+  "General Werewolf Merits":[
+    {
+      "name":"Anchored",
+      "levels":[1, 2]
+    },
+    {
+      "name":"Blood or Bone Affinity",
+      "levels":[2, 5]
+    },
+    {
+      "name":"Code of Honor",
+      "levels":[2],
+      "prerequisites":[
+        {"harmony":8}
+      ]
+    },
+    {
+      "name":"Controlled Burn",
+      "levels":[2],
+      "prerequisites":[
+        {"attributes":{"Resolve":3, "Composure":3}}
+      ]
+    },
+    {
+      "name":"Creative Tactician",
+      "levels":[3],
+      "prerequisites":[
+        {"renown":{"Purity":2}}
+      ]
+    },
+    {
+      "name":"Dedicated Locus",
+      "levels":[1, 2, 3, 4, 5],
+      "prerequisites":[
+        {"merits":{"Safe Place":1}}
+      ]
+    },
+    {
+      "name":"Embodiment of the Firstborn",
+      "levels":[5],
+      "prerequisites":[
+        {"tribe":"Blood Talons"},
+        {"tribe":"Bone Shadows"},
+        {"tribe":"Hunters In Darkness"},
+        {"tribe":"Iron Masters"},
+        {"tribe":"Storm Lords"}
+      ]
+    },
+    {
+      "name":"Fading",
+      "levels":[3],
+      "prerequisites":[
+        {"renown":{"Cunning":3}}
+      ]
+    },
+    {
+      "name":"Favoured Form",
+      "levels":[1, 2, 3, 4, 5],
+      "prerequisites":[
+        {"Primal Urge":{"gt":true}}
+      ]
+    },
+    {
+      "name":"Fortified Form",
+      "levels":[3, 4, 5],
+      "prerequisites":[
+        {"attributes":{"Stamina":3}, "skills":{"survival":2}}
+      ]
+    },
+    {
+      "name":"Hearing Whispers",
+      "levels":[2],
+      "prerequisites":[
+        {"tribe":"Bone Shadows"}
+      ]
+    },
+    {
+      "name":"Impartial Mediator",
+      "levels":[3],
+      "prerequisites":[
+        {"renown":{"Honor":2}}
+      ]
+    }
+  ]
+}

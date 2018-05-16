@@ -90,12 +90,12 @@ h5
 
 }
 
-.xpPurchasableValue
+.xpPurchasableValue, .meritValue
 {
     font-size: 0.83em;
 }
 
-.xpPurchasable span
+.xpPurchasableValue span, .meritValue span, .meritName
 {
     cursor: pointer;
 }
@@ -167,4 +167,20 @@ h5
 .formAttributeMods .wwForm
 {
     padding-bottom: 1.5em;
+}
+
+.xpPurchasableValue span
+{
+    padding-right: 1px;
+}
+
+.merit
+{
+    margin-left: 1em;
+    margin-right: 2em;
+}
+
+.meritName
+{
+    border-bottom: 1px solid black;
 }

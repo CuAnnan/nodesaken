@@ -1,16 +1,63 @@
-<% function xpPurchasable(className, item){%>
-<div class="row xpPurchasable" data-name="<%= item.name %>" data-score="<%= item.score%>" data-cp-levels="<%= item.cpLevels %>" data-xp-levels="<%= item.xpLevels %>">
+<%
+function xpPurchasableRow(className, item)
+{
+    %><div class="row xpPurchasable"<%
+    let dataValues = {
+        'name':'name',
+        'score':'score',
+        'cp-levels':'cpLevels',
+        'xp-levels':'xpLevels',
+    }
+    for(let dataName in dataValues)
+    {
+    	let value = dataValues[dataName];
+    	%> data-<%=dataName%>="<%=item[value]%>"<%
+    }
+%>>
     <div class="col-7 <%=className%>"><%= item.name %></div>
-    <div class="col-5 xpPurchasableValue">
-        <% for (let i = 1; i <= item.score; i++) {%>
-        <span data-score="<%= i%>"><i class="fas fa-circle"></i></span>
-        <%}%>
-        <% for(let i = item.score+1; i<= 5; i++) {%>
-        <span data-score="<%= i%>"><i class="far fa-circle"></i></span>
-        <% } %>
-    </div>
+    <div class="col-5 xpPurchasableValue"><%
+        for (let i = 1; i <= item.score; i++)
+        {
+        %><span data-score="<%= i%>"><i class="fas fa-circle"></i></span><%
+        }
+        for(let i = item.score+1; i<= 5; i++)
+        {
+        %><span data-score="<%= i%>"><i class="far fa-circle"></i></span><%
+        } %></div>
+</div><%
+}
+
+function meritRow(item)
+{
+	item = item?item:{name:'', score:0, cpLevels:0, xpLevels:0};
+%><div class="row merit"<%
+    let dataValues = {
+        'name':'name',
+        'score':'score',
+        'cp-levels':'cpLevels',
+        'xp-levels':'xpLevels',
+    }
+    for(let dataName in dataValues)
+    {
+        let value = dataValues[dataName];
+    %> data-<%=dataName%>="<%=item[value]%>"<%
+    }
+    %>>
+    <div class="col-8 meritName"><%= item.name%></div>
+    <div class="col-4 meritValue"><%
+        for (let i = 1; i <= item.score; i++)
+        {
+        %><span data-score="<%= i%>"><i class="fas fa-circle"></i></span><%
+        }
+        for(let i = item.score+1; i<= 5; i++)
+        {
+        %><span data-score="<%= i%>"><i class="far fa-circle"></i></span><%
+        } %></div>
 </div>
-<% }%>
+    <%
+}
+
+%>
 
 <div class="page tab-pane active" id="page1" role="tabpanel" aria-labelledby="page1-tab">
     <div class="container-fluid">
@@ -56,18 +103,18 @@
         </div>
 
         <div class="row" id="attributes">
-            <div class="col">
-                <% for(let c in character.attributeCategories) { %>
+            <div class="col"><% for(let c in character.attributeCategories)
+                { %>
                 <div class="row">
-                    <div class="col-2 categoryName"><%= c %></div>
-                    <% for(let a in character.attributeCategories[c]) { %>
-                    <% let attribute = character.attributeCategories[c][a];%>
-                    <div class="col attributeCol">
-                        <% xpPurchasable('attributeName', attribute)%>
-                    </div>
-                    <% } %>
-                </div>
-                <% }%>
+                    <div class="col-2 categoryName"><%= c %></div><%
+                    for(let a in character.attributeCategories[c])
+                    {
+                        let attribute = character.attributeCategories[c][a];
+                    %><div class="col attributeCol">
+                        <% xpPurchasableRow('attributeName', attribute)%>
+                    </div><% } %>
+                </div><%
+                }%>
             </div>
         </div>
     </div>
@@ -83,28 +130,37 @@
         </div>
         <div class="row">
             <div class="col-4 skillsCol">
-                <% for(let u in character.skills.useGroups){ %>
-                <% let skillUseGroup = character.skills.useGroups[u];%>
-                <div class="row">
+                <% for(let u in character.skills.useGroups)
+                {
+                    let skillUseGroup = character.skills.useGroups[u];
+                %><div class="row">
                     <div class="container-fluid text-center">
                         <h5><%= u %></h5>
                         <div class="unskilledPenalty">(-<%= skillUseGroup.penalty%> unskilled)</div>
                     </div>
                 </div>
                 <div class="col">
-                    <% for(let skillName in skillUseGroup.items){%>
-                    <% let skill = skillUseGroup.items[skillName]; %>
-                    <% xpPurchasable('skillName', skill) %>
-                    <%}%>
-                </div>
-                <% } %>
+                    <%
+                    for(let skillName in skillUseGroup.items)
+                    {
+                        let skill = skillUseGroup.items[skillName];
+                        xpPurchasableRow('skillName', skill)
+                    }%>
+                </div><%
+                }%>
             </div>
 
             <div class="col">
                 <div class="container-fluid">
                     <div class="col-8">
                         <div class="row">
-                            <div class="container-fluid text-center"><h5>Merits</h5></div>
+                            <div class="container-fluid text-center">
+                                <h5>Merits</h5>
+                                <% for(let i = 0; i < 12; i++)
+                                {
+                                	meritRow(character.merits.items[i]);
+                                }%>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="container-fluid text-center"><h5>Renown</h5></div>

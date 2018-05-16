@@ -1,3 +1,13 @@
+function getNumber(value)
+{
+	let number = parseInt(value);
+	if(isNaN(number))
+	{
+		return 0;
+	}
+	return number;
+}
+
 class XPPurchasable
 {
 	constructor(name)
@@ -16,10 +26,10 @@ class XPPurchasable
 	
 	loadJSON(json)
 	{
-		this.xpLevels = parseInt(json.xpLevels);
-		this.cpLevels = parseInt(json.cpLevels);
+		this.xpLevels = getNumber(json.xpLevels);
+		this.cpLevels = getNumber(json.cpLevels);
 		this.favoured = json.favoured=='true'?json.favoured:false;
-		this.freeLevels = parseInt(json.freeLevels);
+		this.freeLevels = getNumber(json.freeLevels);
 	}
 	
 	toJSON()
@@ -54,7 +64,6 @@ class XPPurchasable
 	
 	setLevel(level)
 	{
-		let test = this.score;
 		let score = this.min + this.xpLevels + this.cpLevels;
 		
 		// If you're clicking the level you have, and the level you have is greater than your minimum score

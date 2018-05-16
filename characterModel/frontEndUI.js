@@ -69,6 +69,7 @@ function setValue()
 				toon.lookups[data.name].levels = data;
 			}
 		);
+		$('.meritName').click(loadMeritDialog);
 		toon.calculateDerived();
 		updateDerivedUIFields();
 		$('.xpPurchasableValue span').click(setValue);
@@ -120,4 +121,10 @@ function updateDerivedUIFields()
 			);
 		}
 	);
+}
+
+function loadMeritDialog()
+{
+	let $node= $(this);
+	
 }

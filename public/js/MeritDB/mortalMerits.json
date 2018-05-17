@@ -513,7 +513,7 @@
 			"name":"Unseen Sense",
 			"template":"Mortal",
 			"levels":[2]
-		}
+		},
 		{
 			"name":"Esoteric Armory",
 			"levels":[1, 2, 3, 4, 5]
@@ -552,7 +552,7 @@
 			"name":"Close Quarters Combat",
 			"levels":[1,2,3,4,5],
 			"prerequisites":[
-				{"attributes"{"Wits":3}, "skills":{"Athletics":2, "Brawl":3}}
+				{"attributes":{"Wits":3}, "skills":{"Athletics":2, "Brawl":3}}
 			]
 		},
 		{

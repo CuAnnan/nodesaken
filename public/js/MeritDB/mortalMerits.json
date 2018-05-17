@@ -1,0 +1,677 @@
+{
+	"Mental":
+	[
+		{
+			"name":"Area of Expertise",
+			"specific":true,
+			"multiple":true,
+			"levels":[1],
+			"prerequisites":[
+				{"attributes":{"Resolve":2}}
+			]
+		},
+		{
+			"name":"Common Sense",
+			"levels":[3]
+		},
+		{
+			"name":"Danger Sense",
+			"levels":[2]
+		},
+		{
+			"name":"Direction Sense",
+			"levels":[1]
+		},
+		{
+			"name":"Eidetic Memory",
+			"levels":[2]
+		},
+		{
+			"name":"Encyclopedic Knowledge",
+			"levels":[3]
+		},
+		{
+			"name":"Eye for the Strange",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Resolve":2}, "skills":{"Occult":1}}
+			]
+		},
+		{
+			"name":"Fast Reflexes",
+			"levels":[1,2,3],
+			"effects":"initiative",
+			"prerequisites":[
+				{"attributes":{"Wits":3}},
+				{"attributes":{"Dexterity":3}}
+			]
+		},
+		{
+			"name":"Good Time Management",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Academics":2}},
+				{"skills":{"Science":2}}
+			]
+		},
+		{
+			"name":"Holistic Awareness",
+			"levels":[1]
+		},
+		{
+			"name":"Indomitable",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Resolve":3}}
+			]
+		},
+		{
+			"name":"Interdisciplinary Specialty",
+			"levels":[1],
+			"specific":true,
+			"prerequisites":[
+				{"skills":{"any":3}}
+			]
+		},
+		{
+			"name":"Investigative Aide",
+			"levels":[1],
+			"specific":true,
+			"prerequisites":[
+				{"skills":{"any":3}}
+			]
+		},
+		{
+			"name":"Investigative Prodigy",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Wits":3},"skills":{"Investigation":3}}
+			]
+		},
+		{
+			"name":"Language",
+			"levels":[1],
+			"specific":true,
+			"multiple":true
+		},
+		{
+			"name":"Library",
+			"levels":[1, 2, 3],
+			"specific":true,
+			"multiple":true
+		},
+		{
+			"name":"Meditative Mind",
+			"levels":[1, 2, 4]
+		},
+		{
+			"name":"Multilingual",
+			"levels":[1]
+		},
+		{
+			"name":"Patient",
+			"levels":[1]
+		},
+		{
+			"name":"Professional Training",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Tolerance for Biology",
+			"levels":[1],
+			"prerequisites":[
+				{"attributes":{"Resolve":3}}
+			]
+		},
+		{
+			"name":"Trained Observer",
+			"levels":[1,3],
+			"prerequisites":[
+				{"attributes":{"Wits":3}},
+				{"attributes":{"Composure":3}}
+			]
+		},
+		{
+			"name":"Vice-Ridden",
+			"levels":[2]
+		},
+		{
+			"name":"Virtuous",
+			"levels":[2]
+		}
+	],
+	"Physical":[
+		{
+			"name":"Ambidextrous",
+			"levels":[3],
+			"creationOnly":true
+		},
+		{
+			"name":"Automotive Genius",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Crafts":3, "Drive":1, "Science": 1}}
+			]
+		},
+		{
+			"name":"Body as Weapon",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Stamina":3},"skills":{"Brawl":3}}
+			]
+		},
+		{
+			"name":"Crack Driver",
+			"levels":[2, 3],
+			"prerequisites":[
+				{"skills":{"Drive":3}}
+			]
+		},
+		{
+			"name":"Demolisher",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attributes":{"Strength":3}},
+				{"attributes":{"Intelligence":3}}
+			]
+		},
+		{
+			"name":"Double Jointed",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}}
+			]
+		},
+		{
+			"name":"Fleet of Foot",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"skills":{"Athletics":2}}
+			],
+			"effects":"speed"
+		},
+		{
+			"name":"Giant",
+			"levels":[3],
+			"creationOnly":true,
+			"effects":"size",
+			"modifiers":[1],
+			"exclusiveTo":"Small-framed"
+		},
+		{
+			"name":"Greyhound",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Athletics":3}, "attributes":{"Wits":3, "Stamina":3}}
+			]
+		},
+		{
+			"name":"Hardy",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"skills":{"Stamina":3}}
+			]
+		},
+		{
+			"name":"Iron Stamina",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attributes":{"Stamina":3}},
+				{"attributes":{"Resolve":3}}
+			]
+		},
+		{
+			"name":"Parkour",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}, "skills":{"Athletics":2}}
+			]
+		},
+		{
+			"name":"Quick Draw",
+			"levels":[1],
+			"prerequisites":[
+				{"attributes":{"Wits":3}}
+			],
+			"multiple":true,
+			"specific":true
+		},
+		{
+			"name":"Relentless",
+			"levels":[1],
+			"prerequisites":[
+				{"attributes":{"Stamina":3}, "skills":{"Athletics":2}}
+			]
+		},
+		{
+			"name":"Seizing the Edge",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Wits":3, "Composure":3}}
+			]
+		},
+		{
+			"name":"Sleight of Hand",
+			"levels":[2],
+			"prerequisites":[
+				{"skills":{"Larceny":3}}
+			]
+		},
+		{
+			"name":"Small-framed",
+			"levels":[2],
+			"creationOnly":true,
+			"effects":"size",
+			"modifiers":[-1],
+			"exclusiveTo":"Giant"
+		},
+		{
+			"name":"Stunt Driver",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3, "Wits":3}, "skills":{"Drive":3}}
+			]
+		}
+	],
+	"Social":[
+		{
+			"name":"Allies",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Alternate Identity",
+			"levels":[1, 2, 3]
+		},
+		{
+			"name":"Anonymity",
+			"levels":[1, 2, 3, 4, 5],
+			"exclusiveTo":"Fame"
+		},
+		{
+			"name":"Barfly",
+			"levels":[2],
+			"prerequisites":[
+				{"skills":{"Socialize":2}}
+			]
+		},
+		{
+			"name":"Closed Book",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Manipulation":3, "Resolve":3}}
+			]
+		},
+		{
+			"name":"Contacts",
+			"levels":[1, 2, 3, 4, 5],
+			"multiple":true,
+			"specific":true
+		},
+		{
+			"name":"Fame",
+			"levels":[1, 2, 3],
+			"exclusiveTo":"Alternate Identity"
+		},
+		{
+			"name":"Fast Talking",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Manipulation":3}, "skills":{"Subterfuge":2}}
+			]
+		},
+		{
+			"name":"Fixer",
+			"levels":[2],
+			"prerequisites":[
+				{"merits":[{"Contacts":2}], "attributes":{"Wits":3}}
+			]
+		},
+		{
+			"name":"Hobbyist Clique",
+			"levels":[2],
+			"specific":true,
+			"multiple":true,
+			"prerequisites":[
+				{"skills":{"any":2}}
+			]
+		},
+		{
+			"name":"Inspiring",
+			"levels":[3],
+			"prerequisites":[
+				{"attributes":{"Presence": 3}}
+			]
+		},
+		{
+			"name":"Iron Will",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Resolve":4}}
+			]
+		},
+		{
+			"name":"Mentor",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Mystery Cult Initiation",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Pusher",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Persuasion":2}}
+			]
+		},
+		{
+			"name":"Resouces",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Retainer",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Safe Place",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Small Unit Tactics",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Presence":2}}
+			]
+		},
+		{
+			"name":"Spin Doctor",
+			"levels":[1],
+			"prerequisites":[
+				{"attributes":{"Manipulation":3}, "skills":{"Subterfuge":2}}
+			]
+		},
+		{
+			"name":"Staff",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Status",
+			"levels":[1, 2, 3, 4, 5],
+			"specific":true,
+			"multiple":true
+		},
+		{
+			"name":"Striking Looks",
+			"levels":[1, 2]
+		},
+		{
+			"name":"Sympathetic",
+			"levels":[2]
+		},
+		{
+			"name":"Table Turner",
+			"levels":[1],
+			"prerequisites":[
+				{"attributes":{"Composure":3,"Manipulation":3,"Wits":3}}
+			]
+		},
+		{
+			"name":"Takes One to Know One",
+			"levels":[1]
+		},
+		{
+			"name":"Taste",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Crafts":2}, "specialty":["Crafts", "Expresssion"]}
+			]
+		},
+		{
+			"name":"True Friend",
+			"levels":[3]
+		},
+		{
+			"name":"Untouchable",
+			"levels":[1],
+			"prerequisites":[
+				{"attibutes":{"Manipulation":3}, "skills":{"Subterfuge":2}}
+			]
+		}
+	],
+	"Supernatural":[
+		{
+			"name":"Aura Reading",
+			"levels":[3],
+			"template":"Mortal"
+		},
+		{
+			"name":"Automatic Writing",
+			"levels":[2],
+			"template":"Mortal"
+		},
+		{
+			"name":"Biokinesis",
+			"levels":[1, 2, 3, 4, 5],
+			"template":"Mortal"
+		},
+		{
+			"name":"Clairvoyance",
+			"levels":[3],
+			"template":"Mortal"
+		},
+		{
+			"name":"Cursed",
+			"levels":[2],
+			"template":"Mortal"
+		},
+		{
+			"name":"Laying on Hands",
+			"levels":[3],
+			"template":"Mortal"
+		},
+		{
+			"name":"Medium",
+			"levels":[3],
+			"template":"Mortal",
+			"prerequisites":[{"skills":{"Empathy":2}}]
+		},
+		{
+			"name":"Mind of a Madman",
+			"levels":[2],
+			"template":"Mortal",
+			"prerequisites":[{"skills":{"Empathy":3}}]
+		},
+		{
+			"name":"Omen Sensitivity",
+			"levels":[3],
+			"template":"Mortal"
+		},
+		{
+			"name":"Numbing Touche",
+			"template":"Mortal",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Psychokinesis",
+			"template":"Mortal",
+			"levels":[3, 5]
+		},
+		{
+			"name":"Psychometry",
+			"template":"Mortal",
+			"levels":[3]
+		},
+		{
+			"name":"Telekinesis",
+			"template":"Mortal",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Telepathy",
+			"template":"Mortal",
+			"levels":[3, 5]
+		},
+		{
+			"name":"Thief of Fate",
+			"template":"Mortal",
+			"levels":[3]
+		},
+		{
+			"name":"Unseen Sense",
+			"template":"Mortal",
+			"levels":[2]
+		}
+		{
+			"name":"Esoteric Armory",
+			"levels":[1, 2, 3, 4, 5]
+		},
+		{
+			"name":"Rune Caster",
+			"levels":[2],
+			"prerequisites":[
+				{"skills":{"Occult":2}}
+			]
+		}
+	],
+	"Fighting":[
+		{
+			"name":"Armed Defense",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}, "skills":{"Weaponry":2},"merits":["Defensive Combat - Weaponry"]}
+			]
+		},
+		{
+			"name":"Cheap Shot",
+			"levels":[2],
+			"prerequisites":[
+				{"merits":[{"Street Fighting":3}], "skills":{"Subterfuge":2}}
+			]
+		},
+		{
+			"name":"Choke Hold",
+			"levels":[2],
+			"prerequisites":[
+				{"skills":{"Brawl":2}}
+			]
+		},
+		{
+			"name":"Close Quarters Combat",
+			"levels":[1,2,3,4,5],
+			"prerequisites":[
+				{"attributes"{"Wits":3}, "skills":{"Athletics":2, "Brawl":3}}
+			]
+		},
+		{
+			"name":"Defensive Combat - Brawl",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Brawl":1}}
+			]
+		},
+		{
+			"name":"Defensive Combat - Weaponry",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Weaponry":1}}
+			]
+		},
+		{
+			"name":"Fighting Finesse",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}, "specialty":["Weaponry", "Brawl"]}
+			]
+		},
+		{
+			"name":"Firefight",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attributes":{"Composure":3, "Dexterity":3}, "skills":{"Athletics":2, "Firearms":2}}
+			]
+		},
+		{
+			"name":"Grappling",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Stamina":3, "Strength":2},"skills":{"Athletics":2, "Brawl":2}}
+			]
+		},
+		{
+			"name":"Heavy Weapons",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Stamina":3, "Strength":3}, "skills":{"Athletics":2, "Weaponry":2}}
+			]
+		},
+		{
+			"name":"Improvised Weaponry",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attributes":{"Wits":3}, "skills":{"Weaponry":1}}
+			]
+		},
+		{
+			"name":"Iron Skin",
+			"levels":[2, 4],
+			"prerequisites":[
+				{"merits":[{"Street Fighting":2}, {"Martial Arts":2}], "attributes":{"Stamina":3}}
+			]
+		},
+		{
+			"name":"Light Weapons",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Wits":3, "Dexterity":3}, "skills":{"Athletics":2, "Weapons":2}},
+				{"attributes":{"Dexterity":3}, "skills":{"Athletics":2, "Weapons":2}, "merits":["Fighting Finesse"]}
+			]
+		},
+		{
+			"name":"Marksmanship",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attributes":{"Composure":3, "Resolve":3}, "skills":{"Firearms":2}}
+			]
+		},
+		{
+			"name":"Martial Arts",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Resolve":3, "Dexterity":3}, "skills":{"Athletics":2, "Brawl":2}}
+			]
+		},
+		{
+			"name":"Police Tactics",
+			"levels":[1, 2, 3],
+			"prerequisites":[{"skills":{"Brawl":2, "Weaponry":1}}]
+		},
+		{
+			"name":"Shiv",
+			"levels":[1, 2],
+			"prerequisites":[
+				{"merits":[{"Street Fighting":2}], "skills":{"Weaponry":1}}
+			]
+		},
+		{
+			"name":"Street Fighting",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Stamina":3, "Composure":3}, "skills":{"Brawl":2, "Streetwise":2}}
+			]
+		},
+		{
+			"name":"Subduing Strikes",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Weaponry":2}}
+			]
+		},
+		{
+			"name":"Unarmed Defense",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}, "skills":{"Brawl":2}, "merits":["Defensive Combat - Brawl"]}
+			]
+		}
+	]
+}

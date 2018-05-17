@@ -1,10 +1,8 @@
 {
-	"Social":
-	[
-		{
-			"name": "Sworn Officer",
-			"levels":[1,2,3,4,5]
-		}
-	]
-	
+  "Social": [
+    {
+      "name": "Sworn Officer",
+      "levels": [1,2,3,4,5]
+    }
+  ]
 }

@@ -517,13 +517,6 @@
 		{
 			"name":"Esoteric Armory",
 			"levels":[1, 2, 3, 4, 5]
-		},
-		{
-			"name":"Rune Caster",
-			"levels":[2],
-			"prerequisites":[
-				{"skills":{"Occult":2}}
-			]
 		}
 	],
 	"Fighting":[
@@ -534,12 +527,13 @@
 				{"attributes":{"Dexterity":3}, "skills":{"Weaponry":2},"merits":["Defensive Combat - Weaponry"]}
 			],
 			"maneuvers":[
-				{"level":1, "Cover the Angles"},
-				{"level":2, "Weak Spot"},
-				{"level":3, "Aggressive Defense"},
-				{"level":4, "Iron Guard"},
-				{"level":5, ""}
-			]
+				{"level":1, "name":"Cover the Angles"},
+				{"level":2, "name":"Weak Spot"},
+				{"level":3, "name":"Aggressive Defense"},
+				{"level":4, "name":"Iron Guard"},
+				{"level":5, "name":"Press The Advantage"}
+			],
+			"sytleTags":["Heavy Melee", "Light Melee"]
 		},
 		{
 			"name":"Cheap Shot",
@@ -560,6 +554,16 @@
 			"levels":[1,2,3,4,5],
 			"prerequisites":[
 				{"attributes":{"Wits":3}, "skills":{"Athletics":2, "Brawl":3}}
+			],
+			"maneuvers":[
+				{"level":1, "name":"Firing Lines"},
+				{"level":2, "name":"Hard Surfaces"},
+				{"level":3, "name":"Armored Coffin"},
+				{"level":4, "name":"Prep Work"},
+				{"level":5, "name":"Turnabout"}
+			],
+			"styleTags":[
+				"Tactical (Military)"
 			]
 		},
 		{
@@ -588,13 +592,25 @@
 			"levels":[1, 2, 3],
 			"prerequisites":[
 				{"attributes":{"Composure":3, "Dexterity":3}, "skills":{"Athletics":2, "Firearms":2}}
-			]
+			],
+			"maneuvers":[
+				{"level":1, "name":"Shoot First"},
+				{"level":2, "name":"Suppresive Fire"},
+				{"level":3, "name":"Secondary Target"}
+			],
+			"styleTags":["Pistol", "Rifle"]
 		},
 		{
 			"name":"Grappling",
 			"levels":[1, 2, 3, 4, 5],
 			"prerequisites":[
 				{"attributes":{"Stamina":3, "Strength":2},"skills":{"Athletics":2, "Brawl":2}}
+			],
+			"styleTags":["Grappling"],
+			"maneuvers":[
+				{"level":1, "name":"Sprawl"},
+				{"level":2, "name":"Takedown"},
+				{"level":3, "name":"Joint Lock"}
 			]
 		},
 		{
@@ -602,13 +618,27 @@
 			"levels":[1, 2, 3, 4, 5],
 			"prerequisites":[
 				{"attributes":{"Stamina":3, "Strength":3}, "skills":{"Athletics":2, "Weaponry":2}}
-			]
+			],
+			"maneuvers":[
+				{"level":1, "name":"Sure Stirke"},
+				{"level":2, "name":"Threat Range"},
+				{"level":3, "name":"Bring the Pain"},
+				{"level":4, "name":"Warding Stance"},
+				{"level":4, "name":"Rending"}
+			],
+			"styleTags":["Heavy Weapons"]
 		},
 		{
 			"name":"Improvised Weaponry",
 			"levels":[1, 2, 3],
 			"prerequisites":[
 				{"attributes":{"Wits":3}, "skills":{"Weaponry":1}}
+			],
+			"styleTags":["Tactical (Street)"],
+			"maneuvers":[
+				{"level":1, "name":"Always Armed"},
+				{"level":2, "name":"In Harm's Way"},
+				{"level":3, "name":"Breaking Point"}
 			]
 		},
 		{
@@ -624,13 +654,28 @@
 			"prerequisites":[
 				{"attributes":{"Wits":3, "Dexterity":3}, "skills":{"Athletics":2, "Weapons":2}},
 				{"attributes":{"Dexterity":3}, "skills":{"Athletics":2, "Weapons":2}, "merits":["Fighting Finesse"]}
+			],
+			"styleTags":["Light Melee"],
+			"maneuvers":[
+				{"level":1, "name":"Rapidity"},
+				{"level":2, "name":"Thrust"},
+				{"level":3, "name":"Feint"},
+				{"level":4, "name":"Flurry"},
+				{"level":5, "name":"Vital Shot"}
 			]
 		},
 		{
 			"name":"Marksmanship",
-			"levels":[1, 2, 3],
+			"levels":[1, 2, 3, 4],
 			"prerequisites":[
 				{"attributes":{"Composure":3, "Resolve":3}, "skills":{"Firearms":2}}
+			],
+			"styleTags":["Pistol", "Rifle"],
+			"maneuvers":[
+				{"level":1, "name":"Through the Crosshairs"},
+				{"level":2, "name":"Precision Shot"},
+				{"level":3, "name":"A Shot Rings Out"},
+				{"level":4, "name":"Ghost"}
 			]
 		},
 		{
@@ -638,12 +683,26 @@
 			"levels":[1, 2, 3, 4, 5],
 			"prerequisites":[
 				{"attributes":{"Resolve":3, "Dexterity":3}, "skills":{"Athletics":2, "Brawl":2}}
+			],
+			"styleTags":["Striking"],
+			"maneuvers":[
+				{"level":1, "name":"Focused Attack"},
+				{"level":2, "name":"Defensive Strike"},
+				{"level":3, "name":"Whirlwind Strike"},
+				{"level":4, "name":"The Hand as Weapon"},
+				{"level":5, "name":"The Touch of Death"}
 			]
 		},
 		{
 			"name":"Police Tactics",
 			"levels":[1, 2, 3],
-			"prerequisites":[{"skills":{"Brawl":2, "Weaponry":1}}]
+			"prerequisites":[{"skills":{"Brawl":2, "Weaponry":1}}],
+			"styleTags":["Tactical (Police)"],
+			"maneuvers":[
+				{"level":1, "name":"Compliance Hold"},
+				{"level":2, "name":"Weapon Retention"},
+				{"level":3, "name":"Speed Cuff"}
+			]
 		},
 		{
 			"name":"Shiv",
@@ -657,6 +716,14 @@
 			"levels":[1, 2, 3, 4, 5],
 			"prerequisites":[
 				{"attributes":{"Stamina":3, "Composure":3}, "skills":{"Brawl":2, "Streetwise":2}}
+			],
+			"styleTags":["Tactical (Street)"],
+			"maneuvers":[
+				{"level":1, "name":"Duck and Weave"},
+				{"level":2, "name":"Knocking the Wind Out"},
+				{"level":3, "name":"Kick 'Em While They're Down"},
+				{"level":4, "name":"One-Two Punch"},
+				{"level":5, "name":"Last-Ditch Effort"}
 			]
 		},
 		{
@@ -671,6 +738,14 @@
 			"levels":[1, 2, 3, 4, 5],
 			"prerequisites":[
 				{"attributes":{"Dexterity":3}, "skills":{"Brawl":2}, "merits":["Defensive Combat - Brawl"]}
+			],
+			"styleTags":["Unarmed"],
+			"maneuvers":[
+				{"level":1, "name":"Like a Book"},
+				{"level":2, "name":"Studied Style"},
+				{"level":3, "name":"Redirect"},
+				{"level":4, "name":"Joint Strike"},
+				{"level":5, "name":"Drawback"}
 			]
 		}
 	]

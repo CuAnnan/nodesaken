@@ -180,7 +180,8 @@
       "levels":[1, 2, 3, 4, 5],
       "prerequisites":[
         {"attributes":{"Strength":3, "Stamina":3}, "skills":{"Brawl":3}}
-      ]
+	  ],
+	  "styleTags":["Attitude (Enraged)"]
     },
     {
       "name":"Spiritual Blockage",

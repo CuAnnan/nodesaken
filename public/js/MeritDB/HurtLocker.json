@@ -72,6 +72,284 @@
 		}
 	],
 	"Style Merits":[
-		
+		{
+			"name":"Avoidance",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Manipulation":3}, "skills":{"Athletics":2, "Stealth":2}}
+			],
+			"styleTags":["Movement (Agile)"],
+			"maneuvers":[
+				{"level":1, "name":"Insignificance"},
+				{"level":3, "name":"Coattails" },
+				{"level":3, "name":"Whack-a-mole"},
+				{"level":4, "name":"Play dead"}
+			]
+		},
+		{
+			"name":"Beserker",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attributes":{"Strength":3}, "merits":["Iron Stamina"]}
+			],
+			"styleTags":["Attitude (Enraged)"],
+			"maneuvers":[
+				{"level":1, "name":"The Red Mist"},
+				{"level":2, "name":"Warcry"},
+				{"level":3, "name":"Manic Brutality"}
+			]
+		},
+		{
+			"name":"Bowmanship",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}, "skills":{"Firearms":2}, "merits":["Trained Observer"]}
+			],
+			"styleTags":["Archery"],
+			"maneuvers":[
+				{"level":1, "name":"Arcing Fire"},
+				{"level":2, "name":"Bullseye"},
+				{"level":3, "name":"Out of Nowhere"},
+				{"level":4, "name":"Death from Above"}
+			]
+		},
+		{
+			"name":"Boxing",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Strength":2, "Dexterity":2, "Stamina":2}, "skills":{"Brawl":2, "Athletics":2}}
+			],
+			"styleTags":["Striking"],
+			"maneuvers":[
+				{"level":1, "name":"Head Protection"},
+				{"level":2, "name":"Defensive Jab"},
+				{"level":3, "name":"Knockout Artist"},
+				{"level":4, "name":"Combination"},
+				{"level":5, "name":"Out for the Count"}
+			]
+		},
+		{
+			"name":"Chain Weapons",
+			"levels":[1, 2],
+			"prerequisites":[
+				{"attributes":{"Strength":3, "Dexterity":3}, "skills":{"Athletics":2, "Weaponry":2}}
+			],
+			"styleTags":["Flexible"],
+			"maneuvers":[
+				{"level":1, "name":"Imposing Defence"},
+				{"level":2, "name":"Bring Down the House"}
+			]
+		},
+		{
+			"name":"Combat Archery",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Strength":3}, "skills":{"Archery":2}, "merits":["Quick Draw"]}
+			],
+			"styleTags":["Archery"],
+			"maneuvers":[
+				{"level":1, "name":"Rapid Nock"},
+				{"level":2, "name":"Reflex Aiming"},
+				{"level":3, "name":"Parthian Shot"},
+				{"level":4, "name":"Rain of Arrows"},
+				{"level":5, "name":"Trick Shot"}
+			]
+		},
+		{
+			"name":"Falconry",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Wits":2}, "skills":{"Animal Ken":3}}
+			],
+			"styleTags":["Creature (Claw)"],
+			"maneuvers":[
+				{"level":1, "name":"Predator's Vigil"},
+				{"level":2, "name":"Flyby"},
+				{"level":3, "name":"Retrieve Item"},
+				{"level":4, "name":"Rake the Eyes"}
+			]
+		},
+		{
+			"name":"Grappling",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Stamina":3, "Strength":2},"skills":{"Athletics":2, "Brawl":2}}
+			],
+			"styleTags":["Grappling"],
+			"maneuvers":[
+				{"level":1, "name":"Standing Throw"},
+				{"level":2, "name":"Small Joint Manipulation"},
+				{"level":3, "name":"Ippon"},
+				{"level":4, "name":"Dynamic Guard"},
+				{"level":4, "name":"Lock Flow", "prerequisiteManeuver":"Joint Lock"},
+				{"level":5, "name":"Tap or Snap", "prerequisiteManeuver":"Joint Lock"}
+				{"level":5, "name":"Positional Dominance"}
+			]
+		},
+		{
+			"name":"K-9",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Wits":3}, "skills":{"Animal Ken":3}}
+			],
+			"styleTags":["Creature (Bite)", "Tactical (Police)"],
+			"maneuvers":[
+				{"level":1, "name":"Detection"},
+				{"level":2, "name":"Targeted Bite"},
+				{"level":3, "name":"Tactical Positioning"},
+				{"level":4, "name":"Takedown Bite"}
+			]
+		},
+		{
+			"name":"Kino Mutai",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Dexterity":2, "Resolve":3}, "skills":{"Brawl":2}}
+			],
+			"styleTags":["Atitude (Enraged)", "Tactical (Street)"],
+			"maneuvers":[
+				{"level":1, "name":"Trained Bite"},
+				{"level":2, "name":"Ripping"},
+				{"level":3, "name":"Trained Gouge"},
+				{"level":4, "name":"Continuous Bite"}
+			]
+		},
+		{
+			"name":"Martial Arts",
+			"levels":[1, 2, 3, 4, 5],
+			"prerequisites":[
+				{"attributes":{"Resolve":3, "Dexterity":3}, "skills":{"Athletics":2, "Brawl":2}}
+			],
+			"styleTags":["Striking"],
+			"maneuvers":[
+				{"level":1, "name":"Leg Kick"},
+				{"level":2, "name":"Cutting Elbow"},
+				{"level":3, "name":"Trapping"},
+				{"level":4, "name":"Inch Force"},
+				{"level":5, "name":"High Mountain Strike"}
+			]
+		},
+		{
+			"name":"Mounted Combat",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}, "skills":{"Athletics":2, "Animal Ken":2}}
+			],
+			"styleTags":["Archery", "Heavy Melee", "Light Melee", "Tactical (Police)"],
+			"maneuvers":[
+				{"level":1, "name":"Steady Saddle"},
+				{"level":2, "name":"Fixed Charge"},
+				{"level":3, "name":"Skirmishing"},
+				{"level":4, "name":"Rearing Beast"}
+			]
+		},
+		{
+			"name":"Powered Projectile",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}, "skills":{"Athletics":2, "Firearms":2}}
+			],
+			"styleTags":["Pistol"],
+			"maneuvers":[
+				{"level":1, "name":"Quick Reload"},
+				{"level":2, "name":"Intercept Shot"},
+				{"level":3, "name":"Penetration"},
+				{"level":4, "name":"Skewer"}
+			]
+		},
+		{
+			"name":"Spear and Bayonet",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attributes":{"Strength":3, "Dexterity":2}, "skills":{"Weaponry":2}}
+			],
+			"styleTags":["Pole Weapons"],
+			"maneuvers":[
+				{"level":1, "name":"Firm Footing"},
+				{"level":2, "name":"Keep at Bay"},
+				{"level":3, "name":"Strike and Develop"}
+			]
+		},
+		{
+			"name":"Staff Figthing",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Strength":2, "Dexterity":3}, "skills":{"Weaponry":2}}
+			],
+			"styleTags":["Pole Weapons"],
+			"maneuvers":[
+				{"level":1, "name":"Short Grip"},
+				{"level":2, "name":"Thwack Weapon"},
+				{"level":3, "name":"Vaulting Defence"},
+				{"level":4, "name":"Tornado Strike"}
+			]
+		},
+		{
+			"name":"Strength Performance",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Strength":3, "Stamina":2}, "skills":{"Athletics":2}}
+			],
+			"styleTags":["Movement (Strong)"],
+			"maneuvers":[
+				{"level":1, "name":"Strength Tricks"},
+				{"level":2, "name":"Lifting"},
+				{"level":3, "name":"Push/Pull"},
+				{"level":4, "name":"Stronger than You"}
+			]
+		},
+		{
+			"name":"Systema",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3, "Wits":2}, "skills":{"Athletics":3}}
+			],
+			"styleTags":["Movement (Agile)", "Tactical (Military)"],
+			"maneuvers":[
+				{"level":1, "name":"Rolling"},
+				{"level":2, "name":"Balance"},
+				{"level":3, "name":"Combat Posture"}
+			]
+		},
+		{
+			"name":"Thrown Weapons",
+			"levels":[1, 2],
+			"prerequisites":[
+				{"attributes":{"Dexterity":3}, "skills":{"Athletics":2}, "merits":["Quick Draw"]}
+			],
+			"styleTags":["Light Melee", "Movement (Agile)"],
+			"maneuvers":[
+				{"level":1, "name":"Practice Toss"},
+				{"level":2, "name":"Impalement Arts"}
+			]
+		},
+		{
+			"name":"Two Weapon Fighting",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Wits":3}, "skills":{"Weaponry":3}, "merits":["Fighting Finesse"]}
+			],
+			"styleTags":["Flexible", "Light Melee"],
+			"maneuvers":[
+				{"level":1, "name":"Balanced Grip"},
+				{"level":2, "name":"Protective Striking"},
+				{"level":3, "name":"Dual Swipe"},
+				{"level":4, "name":"Double Strike"}
+			]
+		},
+		{
+			"name":"Weapon and Shield",
+			"levels":[1, 2, 3, 4],
+			"prerequisites":[
+				{"attributes":{"Strength":3, "Stamina":3}, "skills":{"Weaponry":2}}
+			],
+			"styleTags":["Light Melee"],
+			"maneuvers":[
+				{"level":1, "name":"Shield Bash"},
+				{"level":2, "name":"Boar's Snout"},
+				{"level":3, "name":"Pin Weapon"},
+				{"level":4, "name":"Tortoise Shell"}
+			]
+		}
 	]
 }

@@ -24,7 +24,7 @@ module.exports = {
 					test = new Merit(merit.name, merit);
 				if(this.searchable[merit.name])
 				{
-					this.searchableMerits[merit.name] = this.reconcileMerits(this.searchable[merit.name], merit);
+					this.reconcileMerits(this.searchable[merit.name], merit);
 				}
 				else
 				{
@@ -37,7 +37,12 @@ module.exports = {
 	},
 	reconcileMerits(extantMerit, newMerit)
 	{
-	
+		// the only time we're worried about reconciling merits is when it's a fighting style
+		// so we need to add new maneuvers
+		for(let maneuver of newMerit.maneuvers)
+		{
+			extandMerit.maneuvers.push(maneuver);
+		}
 	},
 	list:function()
 	{

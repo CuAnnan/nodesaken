@@ -154,13 +154,6 @@
 			]
 		},
 		{
-			"name":"Body as Weapon",
-			"levels":[2],
-			"prerequisites":[
-				{"attributes":{"Stamina":3},"skills":{"Brawl":3}}
-			]
-		},
-		{
 			"name":"Crack Driver",
 			"levels":[2, 3],
 			"prerequisites":[

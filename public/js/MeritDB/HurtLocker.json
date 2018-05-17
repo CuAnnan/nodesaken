@@ -1,0 +1,74 @@
+{
+	"General Merits":[
+		{
+			"name":"Air of Menace",
+			"levels":[2],
+			"prerequisites":[
+				{"skills":{"Intimidation":2}}
+			]
+		},
+		{
+			"name":"Body as Weapon",
+			"levels":[2],
+			"prerequisites":[
+				{"attributes":{"Stamina":3},"skills":{"Brawl":2}}
+			]
+		},
+		{
+			"name":"Cohesive Unit",
+			"levels":[1, 2, 3],
+			"prerequisites":[
+				{"attibutes":{"Presence":3}}
+			]
+		},
+		{
+			"name":"Defender",
+			"levels":[1,2,3]
+		},
+		{
+			"name":"Empath",
+			"levels":[2],
+			"prerequisites":[
+				{"skills":{"Empathy":2}}
+			]
+		},
+		{
+			"name":"Object Fetishism",
+			"levels":[1, 2, 3, 4, 5],
+			"specific":true
+		},
+		{
+			"name":"Peacemaker",
+			"levels":[2, 3],
+			"prerequisites":[
+				{"attributes":{"Wits":3}, "skills":{"Empathy":3}}
+			]
+		},
+		{
+			"name":"Punch Drunk",
+			"levels":[2],
+			"prerequisites":[
+				{"willpower":6}
+			]
+		},
+		{
+			"name":"Scarred",
+			"levels":[1],
+			"prerequisites":[
+				{"morality":{"lte":5}}
+			]
+		},
+		{
+			"name":"Support Network",
+			"levels":[1, 2, 3, 4, 5],
+			"specific":true
+		},
+		{
+			"name":"Survivalist",
+			"levels":[1],
+			"prerequisites":[
+				{"skills":{"Survival":3}, "merits":[{"Iron Stamina":3}]}
+			]
+		}
+	]
+}

@@ -59,10 +59,10 @@ function setValue()
 		
 		$('#addMeritButton').click(addMerit);
 		
-		$.get('/js/mortalMerits.json')
+		$.get('/js/MeritDB/mortalMerits.json')
 			.then((data)=> {
 				MeritsDatabase.load(JSON.parse(data));
-				return $.get('/js/forsakenMerits.json');
+				return $.get('/js/MeritDB/forsakenMerits.json');
 			}).then((data)=>{
 				$('#currentlyLoadingItem').text('Gifts Database');
 				MeritsDatabase.load(JSON.parse(data));

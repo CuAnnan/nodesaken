@@ -14,6 +14,7 @@ class Merit extends XPPurchasable
 		this.creationOnly = false;
 		this.modifiers = [];
 		this.exclusiveTo = null;
+		this.venue = null;
 		
 		for(let i in data)
 		{

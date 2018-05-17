@@ -532,6 +532,13 @@
 			"levels":[1, 2, 3, 4, 5],
 			"prerequisites":[
 				{"attributes":{"Dexterity":3}, "skills":{"Weaponry":2},"merits":["Defensive Combat - Weaponry"]}
+			],
+			"maneuvers":[
+				{"level":1, "Cover the Angles"},
+				{"level":2, "Weak Spot"},
+				{"level":3, "Aggressive Defense"},
+				{"level":4, "Iron Guard"},
+				{"level":5, ""}
 			]
 		},
 		{

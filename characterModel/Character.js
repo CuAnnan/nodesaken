@@ -80,6 +80,11 @@ class Character
 		return ugc;
 	}
 	
+	addMerit(merit)
+	{
+		this.merits.add(merit);
+	}
+	
 	getPurchasable(searchField)
 	{
 		return this.lookups[searchField.toLowerCase()];

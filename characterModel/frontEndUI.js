@@ -1,6 +1,7 @@
 let ForsakenCharacter = require('./ForsakenCharacter'),
 	Merit = require('./Merit'),
-	toon, characterReference;
+	toon, characterReference,
+	MeritsDatabase = require('./MeritsDatabase');
 
 window.debugToon = ()=>{
 	console.log(toon);
@@ -163,41 +164,6 @@ function loadMeritDialog()
 	}
 	$meritModal.modal('show');
 }
-
-var MeritsDatabase = {
-	data:[], searchable:{}, ordered:{},
-	reset:function()
-	{
-		this.data = [];
-	},
-	load:function(data)
-	{
-		for(var type in data)
-		{
-			this.ordered[type] = [];
-			for(var i in data[type])
-			{
-				var merit = data[type][i];
-				let test = new Merit(merit.name, merit);
-				this.ordered[type].push(merit);
-				this.data.push(merit);
-				this.searchable[merit.name] = merit;
-			}
-		}
-	},
-	list:function()
-	{
-		return this.data;
-	},
-	listOrdered:function()
-	{
-		return this.ordered;
-	},
-	fetch:function(name)
-	{
-		return new Merit(name, this.searchable[name]);
-	}
-};
 
 function addMerit()
 {

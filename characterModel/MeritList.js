@@ -1,4 +1,6 @@
-let UseGroup = require('./UseGroup');
+let UseGroup = require('./UseGroup'),
+	Merit = require('./Merit'),
+	StyleIndividualMerit = require('./StyleIndividualMerit');
 
 class MeritList extends UseGroup
 {
@@ -6,6 +8,29 @@ class MeritList extends UseGroup
 	{
 		super('Merits', null);
 		this.maxCP = 10;
+		this.styleMerits = {};
+	}
+	
+	addMerit(merit)
+	{
+		if(merit instanceof StyleIndividualMerit)
+		{
+			this.addStyleMerit(merit);
+		}
+		
+		this.items.push(merit);
+	}
+	
+	addStyleMerit(merit)
+	{
+		for(let style of merit.styleTags)
+		{
+			if(!this.styleMerits[style])
+			{
+				this.styleMerits[style] = [];
+			}
+			this.styleMerits[style].push(merit);
+		}
 	}
 	
 	get cpRemaining()

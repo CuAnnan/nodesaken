@@ -1,0 +1,28 @@
+{
+  "Supernatural":
+  [
+    {
+      "name":"Rune Caster",
+      "levels":[2],
+      "prerequisites":
+      [
+        {"skills":{"Occult":2}}
+      ]
+    },
+
+    {
+      "name":"Animal Speech",
+      "levels":[1, 2]
+    },
+
+    {
+      "name":"Skinthief",
+      "level":[3,4,5],
+      "multiple": true,
+      "prerequisites":
+      [
+        {"skills":{"Animal Ken":1, "Occult":2}}
+      ]
+    }
+  ]
+}

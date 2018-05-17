@@ -65,6 +65,9 @@ function setValue()
 				MeritsDatabase.load(JSON.parse(data));
 				return $.get('/js/MeritDB/forsakenMerits.json');
 			}).then((data)=>{
+				MeritsDatabase.load(JSON.parse(data));
+				return $.get('/js/MeritDB/HurtLocker.json');
+			}).then((data)=>{
 				$('#currentlyLoadingItem').text('Gifts Database');
 				MeritsDatabase.load(JSON.parse(data));
 				return $.get('/js/ShadowGifts.json');
@@ -91,6 +94,9 @@ function setValue()
 		$('.meritName').click(loadMeritDialog);
 		toon.calculateDerived();
 		updateDerivedUIFields();
+		
+		MeritsDatabase.setToon(toon);
+		
 		$('.xpPurchasableValue span').click(setValue);
 		$('#myTab a').on('click', function (e) {
 			e.preventDefault()
@@ -140,6 +146,11 @@ function updateDerivedUIFields()
 			);
 		}
 	);
+}
+
+window.getMeritsDB = function()
+{
+	return MeritsDatabase;
 }
 
 function loadMeritDialog()

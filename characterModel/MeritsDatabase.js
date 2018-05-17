@@ -2,8 +2,8 @@ let Merit = require('./Merit'),
 	StyleIndividualMerit = require('./StyleIndividualMerit'),
 	FightingStyle = require('./FightingStyle');
 
-module.exports = {
-	data:[], searchable:{}, ordered:{},
+let MeritsDatabase = {
+	data:[], searchable:{}, ordered:{}, toon:null,
 	reset:function()
 	{
 		this.data = [];
@@ -19,9 +19,7 @@ module.exports = {
 			
 			for(let i in data[type])
 			{
-				
-				let merit = data[type][i],
-					test = new Merit(merit.name, merit);
+				let merit = data[type][i];
 				if(this.searchable[merit.name])
 				{
 					this.reconcileMerits(this.searchable[merit.name], merit);
@@ -41,7 +39,7 @@ module.exports = {
 		// so we need to add new maneuvers
 		for(let maneuver of newMerit.maneuvers)
 		{
-			extandMerit.maneuvers.push(maneuver);
+			extantMerit.maneuvers.push(maneuver);
 		}
 	},
 	list:function()
@@ -59,7 +57,7 @@ module.exports = {
 		{
 			return new Merit(name, data);
 		}
-		else if(!merit.maneuvers)
+		else if(!data.maneuvers)
 		{
 			return new StyleIndividualMerit(name, data);
 		}
@@ -67,5 +65,31 @@ module.exports = {
 		{
 			return new FightingStyle(name, data);
 		}
+	},
+	listAvailable:function()
+	{
+		let available = {};
+		for(let i in this.ordered)
+		{
+			available[i] = [];
+			for (let merit of (this.ordered[i]))
+			{
+				if(merit.prerequisites)
+				{
+					console.log(merit.prerequisites);
+				}
+				else
+				{
+					available[i].push(merit)
+				}
+			}
+		}
+		return available;
+	},
+	setToon:function(toon)
+	{
+		this.toon = toon;
 	}
 };
+
+module.exports = MeritsDatabase;

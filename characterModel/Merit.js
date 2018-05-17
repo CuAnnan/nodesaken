@@ -15,15 +15,6 @@ class Merit extends XPPurchasable
 		this.modifiers = [];
 		this.exclusiveTo = null;
 		this.venue = null;
-		
-		for (let i in data)
-		{
-			if (!this.hasOwnProperty(i))
-			{
-				console.log(i + ' not found for merit ' + this.name);
-			}
-			this[i] = data[i];
-		}
 	}
 }
 

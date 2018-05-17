@@ -182,7 +182,7 @@
 				{"level":3, "name":"Ippon"},
 				{"level":4, "name":"Dynamic Guard"},
 				{"level":4, "name":"Lock Flow", "prerequisiteManeuver":"Joint Lock"},
-				{"level":5, "name":"Tap or Snap", "prerequisiteManeuver":"Joint Lock"}
+				{"level":5, "name":"Tap or Snap", "prerequisiteManeuver":"Joint Lock"},
 				{"level":5, "name":"Positional Dominance"}
 			]
 		},

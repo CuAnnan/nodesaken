@@ -21,16 +21,6 @@ class FightingStyle extends StyleIndividualMerit
 		}
 		this.maneuvers[level].push(maneuverName);
 	}
-	
-	reconcileWith(otherMerit)
-	{
-		for(let maneuver of otherMerit.maneuvers)
-		{
-			this.addManeuver(maneuver.level, maneuver.name);
-		}
-		for(let i of otherMerit.styleTags)
-		{
-		
-		}
-	}
 }
+
+module.exports = FightingStyle;

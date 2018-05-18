@@ -60,20 +60,30 @@ function setValue()
 		
 		$('#addMeritButton').click(addMerit);
 		
-		$.get('/js/MeritDB/mortalMerits.json')
-			.then((data)=> {
-				MeritsDatabase.load(JSON.parse(data));
-				return $.get('/js/MeritDB/forsakenMerits.json');
-			}).then((data)=>{
-				MeritsDatabase.load(JSON.parse(data));
-				return $.get('/js/MeritDB/HurtLocker.json');
-			}).then((data)=>{
-				$('#currentlyLoadingItem').text('Gifts Database');
-				MeritsDatabase.load(JSON.parse(data));
-				return $.get('/js/ShadowGifts.json');
-			}).then((data)=>{
-				$modal.modal('hide');
-			});
+		let meritDBFiles = [
+			'ChroniclesOfDarkness.json',
+			'Forsaken.json',
+			'HurtLocker.json',
+			'ThePack.json',
+			'DarkEras.json',
+			'13Precinct.json'
+		];
+		
+		let requests = [];
+		for(let i of meritDBFiles)
+		{
+			requests.push(
+				$.get(`/js/MeritDB/${i}`).then((data)=>{
+					MeritsDatabase.load(JSON.parse(data));
+				})
+			);
+		}
+		
+		Promise.all(requests).then(()=>{
+			$modal.modal('hide');
+		}).catch((err)=>{
+			console.log(err);
+		})
 		
 		toon = new ForsakenCharacter({
 			name:$('#characterName').text(),

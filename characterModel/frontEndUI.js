@@ -96,7 +96,7 @@ function setValue()
 			{
 				let $node = $(node);
 				let data = $node.data();
-				toon.lookups[data.name].levels = data;
+				toon.lookups[data.name].loadJSON(data);
 			}
 		);
 		

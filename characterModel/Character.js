@@ -2,6 +2,7 @@ let Skill = require('./Skill'),
 	Attribute = require('./Attribute'),
 	UseGroupContainer = require('./UseGroupContainer'),
 	MeritList = require('./MeritList'),
+	Listenable = require('./Listenable'),
 	skillUseGroupMap = {
 		'Academics':'Mental', 'Computer':'Mental', 'Crafts':'Mental', 'Investigation':'Mental',
 		'Medicine':'Mental','Occult':'Mental','Politics':'Mental','Science':'Mental',
@@ -32,10 +33,11 @@ for(let skillName in skillUseGroupMap)
 	skillUseGroups[useGroup].push(skillName);
 }
 
-class Character
+class Character extends Listenable
 {
 	constructor(data)
 	{
+		super();
 		this.name = data.name;
 		this.player = data.player;
 		this.skills = null;
@@ -100,6 +102,7 @@ class Character
 		let item = this.lookups[itemName];
 		let result = item.level = level;
 		this.calculateDerived();
+		this.triggerEvent('changed');
 		return item.score;
 	}
 	

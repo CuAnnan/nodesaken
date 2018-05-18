@@ -2,191 +2,91 @@
   "General Merits": [
     {
       "name": "Air of Menace",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Intimidation",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Intimidation","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Body as Weapon",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Stamina",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Stamina","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Cohesive Unit",
-      "levels": [
-        1,
-        2,
-        3
-      ],
+      "levels": [1,2,3],
       "prerequisites": [
         [
-          {
-            "compare": "Presence",
-            "useGroup": "attibutes",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Presence","useGroup": "attributes","comparison": {"gte": 3}}
         ]
       ]
     },
     {
       "name": "Defender",
-      "levels": [
-        1,
-        2,
-        3
-      ]
+      "levels": [1,2,3]
     },
     {
       "name": "Empath",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Empathy",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Empathy","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Object Fetishism",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "specific": true
     },
     {
       "name": "Peacemaker",
-      "levels": [
-        2,
-        3
-      ],
+      "levels": [2,3],
       "prerequisites": [
         [
-          {
-            "compare": "Wits",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Empathy",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Wits","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Empathy","useGroup": "skills","comparison": {"gte": 3}}
         ]
       ]
     },
     {
       "name": "Punch Drunk",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "willpower",
-            "comparison": {
-              "gte": 6
-            }
-          }
+          {"compare": "willpower","comparison": {"gte": 6}}
         ]
       ]
     },
     {
       "name": "Scarred",
-      "levels": [
-        1
-      ],
+      "levels": [1],
       "prerequisites": [
         [
-          {
-            "compare": "lte",
-            "useGroup": "morality",
-            "comparison": {
-              "gte": 5
-            }
-          }
+          {"compare": "morality","comparison": {"lte": 5}}
         ]
       ]
     },
     {
       "name": "Support Network",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "specific": true
     },
     {
       "name": "Survivalist",
-      "levels": [
-        1
-      ],
+      "levels": [1],
+      "styleTags":["Attitude (Endurance)"],
       "prerequisites": [
         [
-          {
-            "compare": "Survival",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "useGroup": "merits",
-            "any": [
-              {
-                "compare": "Iron Stamina",
-                "gte": 3
-              }
-            ]
+          {"compare": "Survival","useGroup": "skills","comparison": {"gte": 3}},
+          {"useGroup": "merits","compare": "Iron Stamina","comparison": {"gte": 3}
           }
         ]
       ]
@@ -195,1104 +95,363 @@
   "Style Merits": [
     {
       "name": "Avoidance",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Manipulation",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Stealth",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Manipulation","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Stealth","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Movement (Agile)"
-      ],
+      "styleTags": ["Movement (Agile)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Insignificance"
-        },
-        {
-          "level": 3,
-          "name": "Coattails"
-        },
-        {
-          "level": 3,
-          "name": "Whack-a-mole"
-        },
-        {
-          "level": 4,
-          "name": "Play dead"
-        }
+        {"level": 1,"name": "Insignificance"},
+        {"level": 2, "name": "Coattails"},
+        {"level": 3,"name": "Whack-a-mole"},
+        {"level": 4,"name": "Play dead"}
       ]
     },
     {
       "name": "Beserker",
-      "levels": [
-        1,
-        2,
-        3
-      ],
+      "levels": [1,2,3],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "useGroup": "merits",
-            "hasMerit": "Iron Stamina"
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 3}},
+          {"useGroup": "merits","hasMerit": "Iron Stamina"}
         ]
       ],
-      "styleTags": [
-        "Attitude (Enraged)"
-      ],
+      "styleTags": ["Attitude (Enraged)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "The Red Mist"
-        },
-        {
-          "level": 2,
-          "name": "Warcry"
-        },
-        {
-          "level": 3,
-          "name": "Manic Brutality"
-        }
+        {"level": 1,"name": "The Red Mist"},
+        {"level": 2,"name": "Warcry"},
+        {"level": 3,"name": "Manic Brutality"}
       ]
     },
     {
       "name": "Bowmanship",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Firearms",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "useGroup": "merits",
-            "hasMerit": "Trained Observer"
-          }
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Firearms","useGroup": "skills","comparison": {"gte": 2}},
+          {"useGroup": "merits","hasMerit": "Trained Observer"}
         ]
       ],
-      "styleTags": [
-        "Archery"
-      ],
+      "styleTags": ["Archery"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Arcing Fire"
-        },
-        {
-          "level": 2,
-          "name": "Bullseye"
-        },
-        {
-          "level": 3,
-          "name": "Out of Nowhere"
-        },
-        {
-          "level": 4,
-          "name": "Death from Above"
-        }
+        {"level": 1,"name": "Arcing Fire"},
+        {"level": 2,"name": "Bullseye"},
+        {"level": 3,"name": "Out of Nowhere"},
+        {"level": 4,"name": "Death from Above"}
       ]
     },
     {
       "name": "Boxing",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Stamina",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Stamina","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Striking"
-      ],
+      "styleTags": ["Striking"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Head Protection"
-        },
-        {
-          "level": 2,
-          "name": "Defensive Jab"
-        },
-        {
-          "level": 3,
-          "name": "Knockout Artist"
-        },
-        {
-          "level": 4,
-          "name": "Combination"
-        },
-        {
-          "level": 5,
-          "name": "Out for the Count"
-        }
+        {"level": 1,"name": "Head Protection"},
+        {"level": 2,"name": "Defensive Jab"},
+        {"level": 3,"name": "Knockout Artist"},
+        {"level": 4,"name": "Combination"},
+        {"level": 5,"name": "Out for the Count"}
       ]
     },
     {
       "name": "Chain Weapons",
-      "levels": [
-        1,
-        2
-      ],
+      "levels": [1,2],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Weaponry",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Weaponry","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Flexible"
-      ],
+      "styleTags": ["Flexible"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Imposing Defence"
-        },
-        {
-          "level": 2,
-          "name": "Bring Down the House"
-        }
+        {"level": 1,"name": "Imposing Defence"},
+        {"level": 2,"name": "Bring Down the House"}
       ]
     },
     {
       "name": "Combat Archery",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Archery",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "useGroup": "merits",
-            "hasMerit": "Quick Draw"
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}},
+          {"useGroup": "merits","hasMerit": "Quick Draw"}
         ]
       ],
-      "styleTags": [
-        "Archery"
-      ],
+      "styleTags": ["Archery"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Rapid Nock"
-        },
-        {
-          "level": 2,
-          "name": "Reflex Aiming"
-        },
-        {
-          "level": 3,
-          "name": "Parthian Shot"
-        },
-        {
-          "level": 4,
-          "name": "Rain of Arrows"
-        },
-        {
-          "level": 5,
-          "name": "Trick Shot"
-        }
+        {"level": 1,"name": "Rapid Nock"},
+        {"level": 2,"name": "Reflex Aiming"},
+        {"level": 3,"name": "Parthian Shot"},
+        {"level": 4,"name": "Rain of Arrows"},
+        {"level": 5,"name": "Trick Shot"}
       ]
     },
     {
       "name": "Falconry",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Wits",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Animal Ken",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Wits","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Animal Ken","useGroup": "skills","comparison": {"gte": 3}}
         ]
       ],
-      "styleTags": [
-        "Creature (Claw)"
-      ],
+      "styleTags": ["Creature (Claw)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Predator's Vigil"
-        },
-        {
-          "level": 2,
-          "name": "Flyby"
-        },
-        {
-          "level": 3,
-          "name": "Retrieve Item"
-        },
-        {
-          "level": 4,
-          "name": "Rake the Eyes"
-        }
+        {"level": 1,"name": "Predator's Vigil"},
+        {"level": 2,"name": "Flyby"},
+        {"level": 3,"name": "Retrieve Item"},
+        {"level": 4,"name": "Rake the Eyes"}
       ]
     },
     {
       "name": "Grappling",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "Stamina",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Stamina","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Grappling"
-      ],
+      "styleTags": ["Grappling"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Standing Throw"
-        },
-        {
-          "level": 2,
-          "name": "Small Joint Manipulation"
-        },
-        {
-          "level": 3,
-          "name": "Ippon"
-        },
-        {
-          "level": 4,
-          "name": "Dynamic Guard"
-        },
-        {
-          "level": 4,
-          "name": "Lock Flow",
-          "prerequisiteManeuver": "Joint Lock"
-        },
-        {
-          "level": 5,
-          "name": "Tap or Snap",
-          "prerequisiteManeuver": "Joint Lock"
-        },
-        {
-          "level": 5,
-          "name": "Positional Dominance"
-        }
+        {"level": 1,"name": "Standing Throw"},
+        {"level": 2,"name": "Small Joint Manipulation"},
+        {"level": 3,"name": "Ippon"},
+        {"level": 4,"name": "Dynamic Guard"},
+        {"level": 4,"name": "Lock Flow","prerequisiteManeuver": "Joint Lock"},
+        {"level": 5,"name": "Tap or Snap","prerequisiteManeuver": "Joint Lock"},
+        {"level": 5,"name": "Positional Dominance"}
       ]
     },
     {
       "name": "K-9",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Wits",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Animal Ken",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Wits","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Animal Ken","useGroup": "skills","comparison": {"gte": 3}}
         ]
       ],
-      "styleTags": [
-        "Creature (Bite)",
-        "Tactical (Police)"
-      ],
+      "styleTags": ["Creature (Bite)","Tactical (Police)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Detection"
-        },
-        {
-          "level": 2,
-          "name": "Targeted Bite"
-        },
-        {
-          "level": 3,
-          "name": "Tactical Positioning"
-        },
-        {
-          "level": 4,
-          "name": "Takedown Bite"
-        }
+        {"level": 1,"name": "Detection"},
+        {"level": 2,"name": "Targeted Bite"},
+        {"level": 3,"name": "Tactical Positioning"},
+        {"level": 4,"name": "Takedown Bite"}
       ]
     },
     {
       "name": "Kino Mutai",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Resolve",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Resolve","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Atitude (Enraged)",
-        "Tactical (Street)"
-      ],
+      "styleTags": ["Atitude (Enraged)","Tactical (Street)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Trained Bite"
-        },
-        {
-          "level": 2,
-          "name": "Ripping"
-        },
-        {
-          "level": 3,
-          "name": "Trained Gouge"
-        },
-        {
-          "level": 4,
-          "name": "Continuous Bite"
-        }
+        {"level": 1,"name": "Trained Bite"},
+        {"level": 2,"name": "Ripping"},
+        {"level": 3,"name": "Trained Gouge"},
+        {"level": 4,"name": "Continuous Bite"}
       ]
     },
     {
       "name": "Martial Arts",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "Resolve",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Resolve","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Striking"
-      ],
+      "styleTags": ["Striking"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Leg Kick"
-        },
-        {
-          "level": 2,
-          "name": "Cutting Elbow"
-        },
-        {
-          "level": 3,
-          "name": "Trapping"
-        },
-        {
-          "level": 4,
-          "name": "Inch Force"
-        },
-        {
-          "level": 5,
-          "name": "High Mountain Strike"
-        }
+        {"level": 1,"name": "Leg Kick"},
+        {"level": 2,"name": "Cutting Elbow"},
+        {"level": 3,"name": "Trapping"},
+        {"level": 4,"name": "Inch Force"},
+        {"level": 5,"name": "High Mountain Strike"}
       ]
     },
     {
       "name": "Mounted Combat",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Animal Ken",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Animal Ken","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Archery",
-        "Heavy Melee",
-        "Light Melee",
-        "Tactical (Police)"
-      ],
+      "styleTags": ["Archery","Heavy Melee","Light Melee","Tactical (Police)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Steady Saddle"
-        },
-        {
-          "level": 2,
-          "name": "Fixed Charge"
-        },
-        {
-          "level": 3,
-          "name": "Skirmishing"
-        },
-        {
-          "level": 4,
-          "name": "Rearing Beast"
-        }
+        {"level": 1,"name": "Steady Saddle"},
+        {"level": 2,"name": "Fixed Charge"},
+        {"level": 3,"name": "Skirmishing"},
+        {"level": 4,"name": "Rearing Beast"}
       ]
     },
     {
       "name": "Powered Projectile",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Firearms",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Firearms","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Pistol"
-      ],
+      "styleTags": ["Pistol"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Quick Reload"
-        },
-        {
-          "level": 2,
-          "name": "Intercept Shot"
-        },
-        {
-          "level": 3,
-          "name": "Penetration"
-        },
-        {
-          "level": 4,
-          "name": "Skewer"
-        }
+        {"level": 1,"name": "Quick Reload"},
+        {"level": 2,"name": "Intercept Shot"},
+        {"level": 3,"name": "Penetration"},
+        {"level": 4,"name": "Skewer"}
       ]
     },
     {
       "name": "Spear and Bayonet",
-      "levels": [
-        1,
-        2,
-        3
-      ],
+      "levels": [1,2,3],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Weaponry",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Weaponry","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Pole Weapons"
-      ],
+      "styleTags": ["Pole Weapons"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Firm Footing"
-        },
-        {
-          "level": 2,
-          "name": "Keep at Bay"
-        },
-        {
-          "level": 3,
-          "name": "Strike and Develop"
-        }
+        {"level": 1,"name": "Firm Footing"},
+        {"level": 2,"name": "Keep at Bay"},
+        {"level": 3,"name": "Strike and Develop"}
       ]
     },
     {
       "name": "Staff Figthing",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Weaponry",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Weaponry","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Pole Weapons"
-      ],
+      "styleTags": ["Pole Weapons"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Short Grip"
-        },
-        {
-          "level": 2,
-          "name": "Thwack Weapon"
-        },
-        {
-          "level": 3,
-          "name": "Vaulting Defence"
-        },
-        {
-          "level": 4,
-          "name": "Tornado Strike"
-        }
+        {"level": 1,"name": "Short Grip"},
+        {"level": 2,"name": "Thwack Weapon"},
+        {"level": 3,"name": "Vaulting Defence"},
+        {"level": 4,"name": "Tornado Strike"}
       ]
     },
     {
       "name": "Strength Performance",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Stamina",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Stamina","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Movement (Strong)"
-      ],
+      "styleTags": ["Movement (Strong)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Strength Tricks"
-        },
-        {
-          "level": 2,
-          "name": "Lifting"
-        },
-        {
-          "level": 3,
-          "name": "Push/Pull"
-        },
-        {
-          "level": 4,
-          "name": "Stronger than You"
-        }
+        {"level": 1,"name": "Strength Tricks"},
+        {"level": 2,"name": "Lifting"},
+        {"level": 3,"name": "Push/Pull"},
+        {"level": 4,"name": "Stronger than You"}
       ]
     },
     {
       "name": "Systema",
-      "levels": [
-        1,
-        2,
-        3
-      ],
+      "levels": [1,2,3],
       "prerequisites": [
         [
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Wits",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Wits","useGroup": "attributes","comparison": {"gte": 2}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 3}}
         ]
       ],
-      "styleTags": [
-        "Movement (Agile)",
-        "Tactical (Military)"
-      ],
+      "styleTags": ["Movement (Agile)","Tactical (Military)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Rolling"
-        },
-        {
-          "level": 2,
-          "name": "Balance"
-        },
-        {
-          "level": 3,
-          "name": "Combat Posture"
-        }
+        {"level": 1,"name": "Rolling"},
+        {"level": 2,"name": "Balance"},
+        {"level": 3,"name": "Combat Posture"}
       ]
     },
     {
       "name": "Thrown Weapons",
-      "levels": [
-        1,
-        2
-      ],
+      "levels": [1,2],
       "prerequisites": [
         [
-          {
-            "compare": "Dexterity",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "useGroup": "merits",
-            "hasMerit": "Quick Draw"
-          }
+          {"compare": "Dexterity","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}},
+          {"useGroup": "merits","hasMerit": "Quick Draw"}
         ]
       ],
-      "styleTags": [
-        "Light Melee",
-        "Movement (Agile)"
-      ],
+      "styleTags": ["Light Melee","Movement (Agile)"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Practice Toss"
-        },
-        {
-          "level": 2,
-          "name": "Impalement Arts"
-        }
+        {"level": 1,"name": "Practice Toss"},
+        {"level": 2,"name": "Impalement Arts"}
       ]
     },
     {
       "name": "Two Weapon Fighting",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Wits",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Weaponry",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "useGroup": "merits",
-            "hasMerit": "Fighting Finesse"
-          }
+          {"compare": "Wits","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Weaponry","useGroup": "skills","comparison": {"gte": 3}},
+          {"useGroup": "merits","hasMerit": "Fighting Finesse"}
         ]
       ],
-      "styleTags": [
-        "Flexible",
-        "Light Melee"
-      ],
+      "styleTags": ["Flexible","Light Melee"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Balanced Grip"
-        },
-        {
-          "level": 2,
-          "name": "Protective Striking"
-        },
-        {
-          "level": 3,
-          "name": "Dual Swipe"
-        },
-        {
-          "level": 4,
-          "name": "Double Strike"
-        }
+        {"level": 1,"name": "Balanced Grip"},
+        {"level": 2,"name": "Protective Striking"},
+        {"level": 3,"name": "Dual Swipe"},
+        {"level": 4,"name": "Double Strike"}
       ]
     },
     {
       "name": "Weapon and Shield",
-      "levels": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "levels": [1,2,3,4],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Stamina",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Weaponry",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Stamina","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Weaponry","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ],
-      "styleTags": [
-        "Light Melee"
-      ],
+      "styleTags": ["Light Melee"],
       "maneuvers": [
-        {
-          "level": 1,
-          "name": "Shield Bash"
-        },
-        {
-          "level": 2,
-          "name": "Boar's Snout"
-        },
-        {
-          "level": 3,
-          "name": "Pin Weapon"
-        },
-        {
-          "level": 4,
-          "name": "Tortoise Shell"
-        }
+        {"level": 1,"name": "Shield Bash"},
+        {"level": 2,"name": "Boar's Snout"},
+        {"level": 3,"name": "Pin Weapon"},
+        {"level": 4,"name": "Tortoise Shell"}
       ]
     }
   ]

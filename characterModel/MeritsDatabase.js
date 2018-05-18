@@ -1,14 +1,15 @@
 let Merit = require('./Merit'),
 	StyleIndividualMerit = require('./StyleIndividualMerit'),
-	FightingStyle = require('./FightingStyle');
+	FightingStyle = require('./FightingStyle'),
+	MeritChecker = require('./MeritChecker');
 
 let MeritsDatabase = {
-	data:[], searchable:{}, ordered:{}, toon:null,
+	data:[], searchable:{}, ordered:{}, toon:null, availableMerits:{},
 	reset:function()
 	{
 		this.data = [];
 	},
-	load:function(data)
+	load:function(data, source)
 	{
 		for(let type in data)
 		{
@@ -20,6 +21,7 @@ let MeritsDatabase = {
 			for(let i in data[type])
 			{
 				let merit = data[type][i];
+				merit.source = source;
 				if(this.searchable[merit.name])
 				{
 					this.reconcileMerits(this.searchable[merit.name], merit);
@@ -32,6 +34,7 @@ let MeritsDatabase = {
 				}
 			}
 		}
+		this.update();
 	},
 	reconcileMerits(extantMerit, newMerit)
 	{
@@ -66,29 +69,40 @@ let MeritsDatabase = {
 			return new FightingStyle(name, data);
 		}
 	},
-	listAvailable:function()
+	update:function()
 	{
 		let available = {};
 		for(let i in this.ordered)
 		{
 			available[i] = [];
-			for (let merit of (this.ordered[i]))
+			for (let merit of this.ordered[i])
 			{
-				if(merit.prerequisites)
+				let result = MeritChecker.validates(this.toon, merit);
+				if(result.validates)
 				{
-					console.log(merit.prerequisites);
+					available[i].push(merit);
 				}
 				else
 				{
-					available[i].push(merit)
+					/*
+					console.log(merit.name + " doesn't meet prereqs");
+					console.log(result.failurePoints);
+					*/
 				}
 			}
 		}
-		return available;
+		this.available = available;
 	},
 	setToon:function(toon)
 	{
 		this.toon = toon;
+		this.toon.addEventListener('changed', ()=>{
+			this.update();
+		});
+	},
+	listAvailable:function()
+	{
+		return this.available;
 	}
 };
 

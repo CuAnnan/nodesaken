@@ -2,464 +2,214 @@
   "General Werewolf Merits": [
     {
       "name": "Anchored",
-      "levels": [
-        1,
-        2
-      ]
+      "levels": [1,2]
     },
     {
       "name": "Blood or Bone Affinity",
-      "levels": [
-        2,
-        5
-      ]
+      "levels": [2,5]
     },
     {
       "name": "Code of Honor",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "harmony",
-            "comparison": {
-              "gte": 8
-            }
-          }
+          {"compare": "harmony","comparison": {"gte": 8}}
         ]
       ]
     },
     {
       "name": "Controlled Burn",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Resolve",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Composure",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Resolve","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Composure","useGroup": "attributes","comparison": {"gte": 3}}
         ]
       ]
     },
     {
       "name": "Creative Tactician",
-      "levels": [
-        3
-      ],
+      "levels": [3],
       "prerequisites": [
         [
-          {
-            "compare": "Purity",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Purity","useGroup": "renown","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Dedicated Locus",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
+      "specific":true,
+      "multiple":true,
       "prerequisites": [
         [
-          {
-            "compare": "Safe Place",
-            "useGroup": "merits",
-            "comparison": {
-              "gte": 1
-            }
-          }
+          {"compare": "Safe Place","useGroup": "merits","comparison": {"gte": 1}}
         ]
       ]
     },
     {
       "name": "Embodiment of the Firstborn",
-      "levels": [
-        5
-      ],
+      "levels": [5],
       "prerequisites": [
         [
-          {
-            "useGroup": "tribe",
-            "hasMerit": "Storm Lords"
-          }
+          {"compare": "tribe","comparison":{"any":["Bone Shadows","Blood Talons","Hunters in Darkness","Iron Masters","Storm Lords"]}}
         ]
       ]
     },
     {
       "name": "Fading",
-      "levels": [
-        3
-      ],
+      "levels": [3],
       "prerequisites": [
         [
-          {
-            "compare": "Cunning",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Cunning","useGroup": "renown","comparison": {"gte": 3}}
         ]
       ]
     },
     {
       "name": "Favoured Form",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "gt",
-            "useGroup": "Primal Urge",
-            "comparison": {
-              "gte": true
-            }
-          }
+          {"compare": "Primal Urge","comparison": {"lt": "Primal Urge"}}
         ]
       ]
     },
     {
       "name": "Fortified Form",
-      "levels": [
-        3,
-        4,
-        5
-      ],
+      "levels": [3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "Stamina",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "survival",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Stamina","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Survival","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Hearing Whispers",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "tribe",
-            "comparison": {
-              "matches": "Bone Shadows"
-            }
-          }
+          {"compare": "tribe","comparison": {"matches": "Bone Shadows"}}
         ]
       ]
     },
     {
       "name": "Impartial Mediator",
-      "levels": [
-        3
-      ],
+      "levels": [3],
       "prerequisites": [
         [
-          {
-            "compare": "Honor",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Honor","useGroup": "renown","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Living Weapon",
-      "levels": [
-        3,
-        4,
-        5
-      ],
+      "levels": [3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "Stamina",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "survival",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Stamina","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "survival","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Moon-Kissed",
-      "levels": [
-        1
-      ],
+      "levels": [1],
       "specific": true,
       "prerequisites": [
         [
-          {
-            "compare": "auspice",
-            "comparison": {
-              "matches": "Cahalith"
-            }
-          },
-          {
-            "useGroup": "skills",
-            "any": [
-              {
-                "compare": "Persuasion",
-                "gte": 2
-              }
-            ]
-          }
+          {"compare": "auspice","comparison": {"matches": "Cahalith"}},
+          {"useGroup": "skills","any": [{"compare": "Persuasion"},{"compare":"Crafts"},{"compare":"Expression"}],"comparison":{"gte": 2}}
         ],
         [
-          {
-            "compare": "auspice",
-            "comparison": {
-              "matches": "Elodoth"
-            }
-          },
-          {
-            "useGroup": "skills",
-            "any": [
-              {
-                "compare": "Politicis",
-                "gte": 2
-              }
-            ]
-          }
+          {"compare": "auspice","comparison": {"matches": "Elodoth"}},
+          {"useGroup": "skills","any": [{"compare": "Politics"},{"compare":"Empathy"},{"compare":"Investigation"}],"comparison":{"gte": 2}}
         ],
         [
-          {
-            "compare": "auspice",
-            "comparison": {
-              "matches": "Irraka"
-            }
-          },
-          {
-            "useGroup": "skills",
-            "any": [
-              {
-                "compare": "Subterfuge",
-                "gte": 2
-              }
-            ]
-          }
+          {"compare": "auspice","comparison": {"matches": "Irraka"}},
+          {"useGroup": "skills","any": [{"compare": "Subterfuge"},{"compare":"Stealth"},{"compare":"Larceny"}],"comparison":{"gte": 2}}
         ],
         [
-          {
-            "compare": "auspice",
-            "comparison": {
-              "matches": "Ithaeur"
-            }
-          },
-          {
-            "useGroup": "skills",
-            "any": [
-              {
-                "compare": "Occult",
-                "gte": 2
-              }
-            ]
-          }
+          {"compare": "auspice","comparison": {"matches": "Ithaeur"}},
+          {"useGroup": "skills","any": [{"compare": "Occult"},{"compare":"Medicine"},{"compare":"Animal Ken"}],"comparison":{"gte": 2}}
         ],
         [
-          {
-            "compare": "auspice",
-            "comparison": {
-              "matches": "Rahu"
-            }
-          },
-          {
-            "useGroup": "skills",
-            "any": [
-              {
-                "compare": "Survival",
-                "gte": 2
-              }
-            ]
-          }
+          {"compare": "auspice","comparison": {"matches": "Rahu"}},
+          {"useGroup": "skills","any": [{"compare": "Survival"},{"compare":"Intimidation"},{"compare":"Brawl"}],"comparison":{"gte": 2}}
         ]
       ]
     },
     {
       "name": "Nowhere to Run",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "tribe",
-            "comparison": {
-              "matches": "Hunters in Darkness"
-            }
-          }
+          {"compare": "tribe","comparison": {"matches": "Hunters in Darkness"}}
         ]
       ]
     },
     {
       "name": "Pack Dynamics",
-      "levels": [
-        3,
-        4,
-        5
-      ]
+      "levels": [3,4,5]
     },
     {
       "name": "Residential Area",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "levels": [1,2,3,4,5]
     },
     {
       "name": "Resonance Shaper",
       "prerequisites": [
         [
-          {
-            "compare": "Wisdom",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Wisdom","useGroup": "renown","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Self Control",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Resolve",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Resolve","useGroup": "attributes","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Song in your Heart",
-      "levels": [
-        3
-      ],
+      "levels": [3],
       "prerequisites": [
         [
-          {
-            "compare": "Glory",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Glory","useGroup": "renown","comparison": {"gte": 3}}
         ]
       ]
     },
     {
       "name": "Sounds of the City",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "tribe",
-            "comparison": {
-              "matches": "Iron Masters"
-            }
-          }
+          {"compare": "tribe","comparison": {"matches": "Iron Masters"}}
         ]
       ]
     },
     {
       "name": "Strings of the Heart",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "tribe",
-            "comparison": {
-              "matches": "Storm Lords"
-            }
-          }
+          {"compare": "tribe","comparison": {"matches": "Storm Lords"}}
         ]
       ]
     },
     {
       "name": "Totem",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "levels": [1,2,3,4,5]
     },
     {
       "name": "Weakest Link",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "tribe",
-            "comparison": {
-              "matches": "Blood Talons"
-            }
-          }
+          {"compare": "tribe","comparison": {"matches": "Blood Talons"}}
         ]
       ]
     }
@@ -467,280 +217,93 @@
   "Werewolf Fighting Merits": [
     {
       "name": "Call Out",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Honor",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Intimidation",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Composure",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Honor","useGroup": "renown","comparison": {"gte": 2}},
+          {"compare": "Intimidation","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Composure","useGroup": "attributes","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Efficient Killer",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Purity",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Medicine",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Purity","useGroup": "renown","comparison": {"gte": 2}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 3}},
+          {"compare": "Medicine","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 3}}
         ]
       ]
     },
     {
       "name": "Flanking",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Cunning",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Wits",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Stealth",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Cunning","useGroup": "renown","comparison": {"gte": 2}},
+          {"compare": "Wits","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Stealth","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Instinctive Defense",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Primal Urge",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Primal Urge","comparison": {"gte": 2}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Relentless Assault",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "Strength",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Stamina",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Strength","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Stamina","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 3}}
         ]
       ],
-      "styleTags": [
-        "Attitude (Enraged)"
-      ]
+      "styleTags": ["Attitude (Determined)"]
     },
     {
       "name": "Spiritual Blockage",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Wisdom",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Brawl",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 1
-            }
-          },
-          {
-            "compare": "Occult",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Wits",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          }
+          {"compare": "Wisdom","useGroup": "renown","comparison": {"gte": 2}},
+          {"compare": "Brawl","useGroup": "skills","comparison": {"gte": 1}},
+          {"compare": "Occult","useGroup": "skills","comparison": {"gte": 3}},
+          {"compare": "Wits","useGroup": "attributes","comparison": {"gte": 3}}
         ]
       ]
     },
     {
       "name": "Tactical Shifting",
-      "levels": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
+      "levels": [1,2,3,4,5],
       "prerequisites": [
         [
-          {
-            "compare": "Wits",
-            "useGroup": "attribute",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Dexterity",
-            "useGroup": "attribute",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Athletics",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Wits","useGroup": "attribute","comparison": {"gte": 3}},
+          {"compare": "Dexterity","useGroup": "attribute","comparison": {"gte": 3}},
+          {"compare": "Athletics","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     },
     {
       "name": "Warcry",
-      "levels": [
-        2
-      ],
+      "levels": [2],
       "prerequisites": [
         [
-          {
-            "compare": "Glory",
-            "useGroup": "renown",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Presence",
-            "useGroup": "attributes",
-            "comparison": {
-              "gte": 3
-            }
-          },
-          {
-            "compare": "Expression",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          },
-          {
-            "compare": "Indimidation",
-            "useGroup": "skills",
-            "comparison": {
-              "gte": 2
-            }
-          }
+          {"compare": "Glory","useGroup": "renown","comparison": {"gte": 2}},
+          {"compare": "Presence","useGroup": "attributes","comparison": {"gte": 3}},
+          {"compare": "Expression","useGroup": "skills","comparison": {"gte": 2}},
+          {"compare": "Intimidation","useGroup": "skills","comparison": {"gte": 2}}
         ]
       ]
     }

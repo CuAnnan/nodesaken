@@ -9,6 +9,7 @@ class UseGroupContainer
 		this.cpAmounts = {primary:cpAmounts[0],secondary:cpAmounts[1],tertiary:cpAmounts[2]};
 		this.useGroups = {'Mental':null, 'Physical':null, 'Social':null};
 		this.titles = ['Mental', "Physical", "Social"];
+		this.items = [];
 	}
 	
 	toJSON()
@@ -27,6 +28,7 @@ class UseGroupContainer
 		{
 			this.useGroups[name] =  new UseGroup(name, this);
 		}
+		this.items.push(thing);
 		this.useGroups[name].add(thing);
 	}
 	

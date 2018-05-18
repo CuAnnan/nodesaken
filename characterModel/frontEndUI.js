@@ -60,37 +60,15 @@ function setValue()
 		
 		$('#addMeritButton').click(addMerit);
 		
-		let meritDBFiles = [
-			'ChroniclesOfDarkness.json',
-			'Forsaken.json',
-			'HurtLocker.json',
-			'ThePack.json',
-			'DarkEras.json',
-			'13Precinct.json'
-		];
-		
-		let requests = [];
-		for(let i of meritDBFiles)
-		{
-			requests.push(
-				$.get(`/js/MeritDB/${i}`).then((data)=>{
-					MeritsDatabase.load(JSON.parse(data));
-				})
-			);
-		}
-		
-		Promise.all(requests).then(()=>{
-			$modal.modal('hide');
-		}).catch((err)=>{
-			console.log(err);
-		})
-		
 		toon = new ForsakenCharacter({
 			name:$('#characterName').text(),
 			auspice:$('#characterAuspice').text(),
 			tribe:$('#characterTribe').text(),
 			reference:$('#characterDetails').data('reference')
 		});
+		
+		MeritsDatabase.setToon(toon);
+		
 		$('.xpPurchasable').each(
 			function(index, node)
 			{
@@ -105,13 +83,37 @@ function setValue()
 		toon.calculateDerived();
 		updateDerivedUIFields();
 		
-		MeritsDatabase.setToon(toon);
-		
 		$('.xpPurchasableValue span').click(setValue);
 		$('#myTab a').on('click', function (e) {
 			e.preventDefault()
 			$(this).tab('show')
 		});
+		
+		let meritDBFiles = [
+			'ChroniclesOfDarkness.json',
+			'Forsaken.json',
+			'HurtLocker.json',
+			'ThePack.json',
+			'DarkEras.json',
+			'13Precinct.json'
+		];
+		
+		let requests = [];
+		for(let i of meritDBFiles)
+		{
+			requests.push(
+				$.get(`/js/MeritDB/${i}`).then((data)=>{
+					MeritsDatabase.load(JSON.parse(data), i);
+				})
+			);
+		}
+		
+		Promise.all(requests).then(()=>{
+			$modal.modal('hide');
+		}).catch((err)=>{
+			console.log(err);
+		})
+		
 	});
 })();
 
@@ -168,7 +170,7 @@ function loadMeritDialog()
 	let $node= $(this),
 		$select = $('#meritChoice').empty(),
 		$meritModal = $('#meritsModal'),
-		orderedMerits = MeritsDatabase.listOrdered();
+		orderedMerits = MeritsDatabase.listAvailable();
 	$select.append(
 		$('<option value="">--Choose one --</option>')
 	);

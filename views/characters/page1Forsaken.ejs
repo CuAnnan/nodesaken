@@ -152,28 +152,104 @@ function meritRow(item)
 
             <div class="col">
                 <div class="container-fluid">
-                    <div class="col-8">
-                        <div class="row">
-                            <div class="container-fluid text-center">
-                                <h5>Merits</h5>
-                                <% for(let i = 0; i < 12; i++)
-                                {
-                                	meritRow(character.merits.items[i]);
-                                }%>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="container-fluid text-center">
+                                    <h5>Merits</h5>
+                                    <% for(let i = 0; i < 12; i++)
+                                    {
+                                        meritRow(character.merits.items[i]);
+                                    }%>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="container-fluid text-center"><h5>Renown</h5></div>
+                            </div>
+                            <div class="row">
+                                <div class="container-fluid text-center"><h5>Aspirations</h5></div>
+                            </div>
+                            <div class="row">
+                                <div class="container-fluid text-center"><h5>Conditions</h5></div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="container-fluid text-center"><h5>Renown</h5></div>
+                        <div class="col-4 text-center">
+                            <div class="row" id="health">
+                                <div class="col">
+                                    <h5>Health</h5>
+                                    <div id="healthInfo">
+                                        (+2 Dalu Form, +4 Gauru Form, +3 Urshul Form)
+                                    </div>
+                                    <div class="row fillables" id="healthMax">
+                                        <%for (let i = 1; i <= 16; i++){
+                                        %><span class="healthLevel fillableCircleSmall" data-score="<%=i%>"><i class="<% if(character.derivedAttributes.health >= i){%>fas<%} else {%>far<%}%> fa-circle"></i></span><%
+                                        }%>
+                                    </div>
+                                    <div class="row fillables" id="healthCurrent">
+                                        <%for (let i = 1; i <= 16; i++){
+                                        %><span class="healthLevel fillableSquareSmall" data-score="<%=i%>"><i class="<% if(character.derivedAttributes.health >= i){%>far<%} else {%>fas<%}%> fa-square"></i></span><%
+                                        }%>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="willpower">
+                                <div class="col">
+                                    <h5>Willpower</h5>
+                                    <div class="row fillables" id="willpowerMax">
+                                        <%for (let i = 1; i <= 10; i++){
+                                        %><span class="healthLevel fillableCircleSmall" data-score="<%=i%>"><i class="<% if(character.derivedAttributes.willpower >= i){%>fas<%} else {%>far<%}%> fa-circle"></i></span><%
+                                        }%>
+                                    </div>
+                                    <div class="row fillables" id="willpowerCurrent">
+                                        <%for (let i = 1; i <= 10; i++){
+                                        %><span class="healthLevel fillableSquareSmall" data-score="<%=i%>"><i class="<% if(character.derivedAttributes.willpower >= i){%>far<%} else {%>fas<%}%> fa-square"></i></span><%
+                                        }%>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="primalUrgeContainer">
+                                <div class="col">
+                                    <h5>Primal Urge</h5>
+                                    <div class="row fillables" id="primalUrge">
+                                        <%for (let i = 1; i <= 10; i++){
+                                        %><span class="healthLevel fillableCircleSmall" data-score="<%=i%>"><i class="far fa-circle"></i></span><%
+                                        }%>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="essenceContainer">
+                                <div class="col">
+                                    <h5>Essence</h5>
+                                    <div class="row fillables" id="essence"><% for(let row = 0; row < 2; row++){%>
+                                        <div>
+                                        <%for (let i = 1; i <= 10; i++){
+                                        %><span class="healthLevel fillableSquareSmall" data-score="<%=((row * 10)+ i)%>"><i class="far fa-square"></i></span><%
+                                        }%>
+                                        </div><%}%>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="harmonyContainer">
+                                <div class="col">
+                                    <h5>Flesh Touchstone</h5>
+                                    <div class="row touchStone" id="fleshTouchstone"><%
+                                        if(character.touchstones.flesh)
+                                        {
+                                            %><%= character.touchstones.flesh%><%
+                                        }
+                                        else
+                                        {
+                                            %>&nbsp;<%
+                                        }%></div>
+                                    <h5>Harmony</h5>
+                                    <div class="row fillables" id="harmony">
+                                        <%for (let i = 1; i <= 10; i++){
+                                        %><span class="healthLevel fillableCircleSmall" data-score="<%=i%>"><i class="<%= character.harmony >= i?'fas':'far'%> fa-circle"></i></span><%
+                                        }%>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="container-fluid text-center"><h5>Aspirations</h5></div>
-                        </div>
-                        <div class="row">
-                            <div class="container-fluid text-center"><h5>Conditions</h5></div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-
                     </div>
                 </div>
             </div>

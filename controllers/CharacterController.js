@@ -46,6 +46,7 @@ class CharacterController extends Controller
 		let user = await Controller.getLoggedInUser(req),
 			entity = await CharacterController.fetchCharacterEntityByReference(user, req.params.reference),
 			character = new ForsakenCharacter(entity);
+		console.log(entity.json);
 		character.loadJSON(entity.json);
 		res.render('characters/fetch', {entity:entity, character:character});
 	}

@@ -1,6 +1,20 @@
-let Character = require('./Character');
+let SupernaturalTemplate = require('./SupernaturalTemplate'),
+	PrimalUrge = require('./PrimalUrge');
 
-class ForsakenCharacter extends Character
+let primalUrgeTable = {
+	"1":{"essence":10,"essencePerTurn":1,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"None","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
+	"2":{"essence":11,"essencePerTurn":2,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"Meat","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
+	"3":{"essence":12,"essencePerTurn":3,"regenerationPerTurn":1,"basuImTime":15,"feedingRestriction":"Meat","huntTime":"1 month","lunacyPenalty":0,"trackingBonus":0},
+	"4":{"essence":13,"essencePerTurn":4,"regenerationPerTurn":2,"basuImTime":20,"feedingRestriction":"Raw meat","huntTime":"1 month","lunacyPenalty":-2,"trackingBonus":1},
+	"5":{"essence":14,"essencePerTurn":5,"regenerationPerTurn":2,"basuImTime":30,"feedingRestriction":"Raw meat","huntTime":"3 weeks","lunacyPenalty":-2,"trackingBonus":1},
+	"6":{"essence":15,"essencePerTurn":6,"regenerationPerTurn":3,"basuImTime":60,"feedingRestriction":"Carnivore","huntTime":"3 weeks","lunacyPenalty":-2,"trackingBonus":2},
+	"7":{"essence":20,"essencePerTurn":7,"regenerationPerTurn":3,"basuImTime":120,"feedingRestriction":"Carnivore","huntTime":"1 week","lunacyPenalty":-2,"trackingBonus":2},
+	"8":{"essence":30,"essencePerTurn":8,"regenerationPerTurn":4,"basuImTime":180,"feedingRestriction":"Essence","huntTime":"1 week","lunacyPenalty":-3,"trackingBonus":3},
+	"9":{"essence":50,"essencePerTurn":10,"regenerationPerTurn":5,"basuImTime":360,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-4,"trackingBonus":3},
+	"10":{"essence":75,"essencePerTurn":15,"regenerationPerTurn":6,"basuImTime":720,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-5,"trackingBonus":4}
+}
+
+class ForsakenCharacter extends SupernaturalTemplate
 {
 	constructor(data)
 	{
@@ -8,6 +22,12 @@ class ForsakenCharacter extends Character
 		this.auspice = data.auspice;
 		this.tribe = data.tribe;
 		this.reference = data.reference;
+		this.touchstones = {
+			'flesh':(data.touchstones && data.touchstones.flesh)?data.touchstones.flesh:'',
+			'spirit':(data.touchstones && data.touchstones.spirit)?data.touchstones.spirit:'',
+		};
+		
+		this.primalUrge = new PrimalUrge(this.merits);
 		
 		this.formMods = {
 			hishu: {mechanical:{perception: 1}},
@@ -18,12 +38,37 @@ class ForsakenCharacter extends Character
 		};
 	}
 	
+	get morality()
+	{
+		return this.harmony;
+	}
+	
+	set morality(value)
+	{
+		this.harmony = value;
+	}
+	
 	toJSON()
 	{
 		let json = super.toJSON();
 		json.personalDetails = {name:this.name, tribe:this.tribe, auspice:this.auspice};
 		json.reference = this.reference;
+		json.harmony = this.harmony;
+		json.touchstones = {
+			flesh:this.touchstones.flesh,
+			spirit:this.touchstones.spirit
+		};
+		
 		return json;
+	}
+	
+	loadJSON(data)
+	{
+		super.loadJSON(data);
+		this.json = data.json;
+		this.primalUrge.loadJSON(data.primalUrge?data.primalUrge:{});
+		this.touchstones = data.touchstones;
+		this.harmony = data.harmony?parseInt(data.harmony):7;
 	}
 	
 	getDefense(form = 'hishu')
@@ -47,6 +92,13 @@ class ForsakenCharacter extends Character
 		);
 		
 		return defense;
+	}
+	
+	calculateDerived()
+	{
+		super.calculateDerived();
+		this.lookups['harmony'] = {score:this.harmony};
+		
 	}
 }
 

@@ -78,6 +78,7 @@ function setValue()
 			}
 		);
 		
+		$('#harmony span').click(setHarmony);
 		
 		$('.meritName').click(loadMeritDialog);
 		toon.calculateDerived();
@@ -110,6 +111,7 @@ function setValue()
 		
 		Promise.all(requests).then(()=>{
 			$modal.modal('hide');
+			MeritsDatabase.update();
 		}).catch((err)=>{
 			console.log(err);
 		})
@@ -186,6 +188,18 @@ function loadMeritDialog()
 		}
 	}
 	$meritModal.modal('show');
+}
+
+function setHarmony()
+{
+	let $node = $(this), $harmony = $('#harmony');
+	toon.morality = $node.data('score');
+	$('i', $harmony).removeClass('fas far').each(
+		(i, node)=>{
+			$(node).addClass(i < toon.morality ? 'fas' : 'far');
+		}
+	);
+	saveCharacter();
 }
 
 function addMerit()

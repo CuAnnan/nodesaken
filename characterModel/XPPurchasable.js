@@ -20,6 +20,7 @@ class XPPurchasable
 		this.maxAtCreation = 5;
 		this.freeLevels = 0;
 		this.xpCost = 0;
+		this.cpCost = 1;
 		this.useGroup = null;
 		this.favoured = false;
 	}
@@ -46,28 +47,17 @@ class XPPurchasable
 	get cost()
 	{
 		return {
-			cp:this.cpLevels,
+			cp:this.cpLevels * this.cpCost,
 			xp:this.xpLevels * this.xpCost
 		};
 	}
 	
-	get score()
-	{
-		return this.min + this.freeLevels + this.xpLevels + this.cpLevels + (this.favoured?1:0);
-	}
-	
-	/*set levels(data)
-	{
-		this.xpLevels = data.xpLevels;
-		this.cpLevels = data.cpLevels;
-	}*/
-	
-	setLevel(level)
+	setScore(level)
 	{
 		let score = this.min + this.xpLevels + this.cpLevels;
 		
-		// If you're clicking the level you have, and the level you have is greater than your minimum score
-		// you're probably trying to reduce the current level by one
+		// If you're clicking the score you have, and the score you have is greater than your minimum score
+		// you're probably trying to reduce the current score by one
 		if(level === score && level > this.min)
 		{
 			level = level - 1;
@@ -85,17 +75,17 @@ class XPPurchasable
 			// always spend CP before XP
 			let maxCPLeft = this.useGroup.cpRemaining;
 			
-			if(maxCPLeft > 0)
+			if(maxCPLeft >= this.cpCost)
 			{
-				if(maxCPLeft >= changeInScore)
+				if(maxCPLeft >= changeInScore * this.cpCost)
 				{
 					this.cpLevels += changeInScore;
 				}
 				else
 				{
-					let xpLevels = changeInScore - maxCPLeft;
-					this.setLevel(score + maxCPLeft);
-					this.setLevel(level);
+					let cpLevels = Math.floor(maxCPLeft / this.cpCost);
+					this.setScore(score + cpLevels);
+					this.setScore(level);
 				}
 			}
 			else
@@ -123,9 +113,6 @@ class XPPurchasable
 			}
 			this.xpLevels = tmp.xpLevels;
 			this.cpLevels = tmp.cpLevels;
-			// this may lead to a case where the use group that this thing belongs to has remaining CP, for example mental attributes,
-			// but another related use group (physical attributes) would have XP spent where these CP could be spent by shifting
-			// around the primary, secondary and tertiary grouping.
 			this.useGroup.balanceCP();
 		}
 	}
@@ -133,12 +120,18 @@ class XPPurchasable
 	/**
 	 * Increases or reduces the number of levels bought with CP or XP (depending on what the current purchase mode is).
 	 *
-	 * @param The new level to set
+	 * @param The new score to set
 	 */
-	set level(level)
+	set score(level)
 	{
-		this.setLevel(level);
+		this.setScore(level);
 	}
+	
+	get score()
+	{
+		return this.min + this.freeLevels + this.xpLevels + this.cpLevels + (this.favoured?1:0);
+	}
+	
 	
 	convertXPToSP(amount)
 	{

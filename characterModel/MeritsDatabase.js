@@ -34,7 +34,6 @@ let MeritsDatabase = {
 				}
 			}
 		}
-		this.update();
 	},
 	reconcileMerits(extantMerit, newMerit)
 	{

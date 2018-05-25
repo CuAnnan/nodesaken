@@ -4,8 +4,6 @@ module.exports = {
 		let comparison = prerequisite.comparison;
 		if(!toonValue)
 		{
-			console.log('No value found');
-			console.log(prerequisite);
 			return false;
 		}
 		if(comparison.gte)
@@ -28,7 +26,6 @@ module.exports = {
 				{
 					if (prerequisite.hasMerit)
 					{
-						console.log('Checking merit prerequisite');
 						if(!toon.hasMerit(prerequisite.hasMerit))
 						{
 							prerequisiteMet = false;
@@ -37,7 +34,6 @@ module.exports = {
 					}
 					else if(prerequisite.any)
 					{
-						console.log('checking compound prerequisite');
 						let partMet = false;
 						let parts = [];
 						for(let part of prerequisite.any)
@@ -60,7 +56,6 @@ module.exports = {
 					}
 					else if(prerequisite.compare == "any")
 					{
-						console.log('Checking multiple matches');
 						let match = false;
 						for(let item of toon[prerequisite.useGroup].items)
 						{
@@ -86,6 +81,8 @@ module.exports = {
 					}
 					else
 					{
+						console.log("Perequisite not checked");
+						console.log(prerequisite);
 						prerequisiteMet = false;
 					}
 					

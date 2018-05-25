@@ -1,8 +1,5 @@
-let Skill = require('./Skill'),
-	Attribute = require('./Attribute'),
-	UseGroupContainer = require('./UseGroupContainer'),
-	MeritList = require('./MeritList'),
-	Listenable = require('./Listenable'),
+let Skill = require('./Skill'), Attribute = require('./Attribute'), UseGroupContainer = require('./UseGroupContainer'),
+	MeritList = require('./MeritList'), Listenable = require('./Listenable'), Morality = require('./Morality'),
 	skillUseGroupMap = {
 		'Academics':'Mental', 'Computer':'Mental', 'Crafts':'Mental', 'Investigation':'Mental',
 		'Medicine':'Mental','Occult':'Mental','Politics':'Mental','Science':'Mental',
@@ -49,6 +46,8 @@ class Character extends Listenable
 		this.merits = null;
 		this.personalDetails = {};
 		this.populateUseGroups();
+		this.morality = new Morality('Integrity');
+		this.lookups['Morality'] = this.lookups['morality'] = this.morality;
 	}
 	
 	populateUseGroups()
@@ -100,7 +99,7 @@ class Character extends Listenable
 	setItemLevel(itemName, level)
 	{
 		let item = this.lookups[itemName];
-		let result = item.level = level;
+		let result = item.score = level;
 		this.calculateDerived();
 		this.triggerEvent('changed');
 		return item.score;
@@ -116,6 +115,10 @@ class Character extends Listenable
 			defense:this.getDefense(),
 			perception:this.addScores('Wits', 'Composure'),
 		};
+		for(let i in this.derivedAttributes)
+		{
+			this.lookups[i] = {score: this.derivedAttributes[i]};
+		}
 	}
 	
 	getDerivedAttribute(name)

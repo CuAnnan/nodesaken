@@ -1,12 +1,26 @@
 <%- include('../includes/header') -%>
 <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item"><a class="nav-link active" href="#page1" data-toggle="tab" role="tab" aria-controls="page1-tab" aria-selected="true">Page 1</a></li>
-        <li class="nav-item"><a class="nav-link" href="#page2" data-toggle="tab" role="tab" aria-controls="page2-tab" aria-selected="true">Page 2</a></li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#page1" data-toggle="tab" role="tab" aria-controls="page1-tab" aria-selected="true"  data-toggle="tooltip" data-placement="bottom" title="Attributes, Skills, Merits, Renown, Harmony">
+                Page 1
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#page2" data-toggle="tab" role="tab" aria-controls="page2-tab" data-toggle="tooltip" data-placement="bottom" title="Forms, Gifts, Rites, Totem">
+                Page 2
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#page3" data-toggle="tab" role="tab" aria-controls="page2-tab" data-toggle="tooltip" data-placement="bottom" title="Figthing Styles, Extra Merits, Extra Gifts, Extra Rites">
+                Page 3
+            </a>
+        </li>
     </ul>
     <div class="tab-content" id="myTabContent">
         <%- include('./page1Forsaken') -%>
         <%- include('./page2Forsaken') -%>
+        <%- include('./page3Forsaken') -%>
     </div>
 </div>
 
@@ -37,10 +51,16 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="row">
-                        <label class="col-form-label" for="meritChoice">Merit:</label>
-                        <div class="col">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="meritChoice">Merit:</label>
+                        <div class="col-sm">
                             <select id="meritChoice" name="meritChoice" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row" id="specificMerit">
+                        <label class="col-sm-3 col-form-label" for="meritSpecification">Detail:</label>
+                        <div class="col-sm">
+                            <input type="text" id="specification" name="meritSpecification" class="form-control"/>
                         </div>
                     </div>
                 </form>

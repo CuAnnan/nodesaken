@@ -27,7 +27,7 @@ function xpPurchasableRow(className, item)
 </div><%
 }
 
-function meritRow(item)
+function meritRow(index, item)
 {
 	item = item?item:{name:'', score:0, cpLevels:0, xpLevels:0};
 %><div class="row merit"<%
@@ -37,12 +37,13 @@ function meritRow(item)
         'cp-levels':'cpLevels',
         'xp-levels':'xpLevels',
     }
+    console.log(index);
     for(let dataName in dataValues)
     {
         let value = dataValues[dataName];
     %> data-<%=dataName%>="<%=item[value]%>"<%
     }
-    %>>
+    %> data-index="<%= index %>">
     <div class="col-8 meritName"><%= item.name%></div>
     <div class="col-4 meritValue"><%
         for (let i = 1; i <= item.score; i++)
@@ -159,7 +160,7 @@ function meritRow(item)
                                     <h5>Merits</h5>
                                     <% for(let i = 0; i < 12; i++)
                                     {
-                                        meritRow(character.merits.items[i]);
+                                        meritRow(i, character.merits.items[i]);
                                     }%>
                                 </div>
                             </div>

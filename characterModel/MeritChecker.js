@@ -4,6 +4,8 @@ module.exports = {
 		let comparison = prerequisite.comparison;
 		if(!toonValue)
 		{
+			console.log("Lookup for prerequisite not found");
+			console.log(prerequisite);
 			return false;
 		}
 		if(comparison.gte)
@@ -11,11 +13,23 @@ module.exports = {
 			let result = toonValue.score >= comparison.gte;
 			return result;
 		}
+		if(comparison.lte)
+		{
+			let result = toonValue.score <= comparison.lte;
+			return result;
+		}
 		console.log(comparison);
+		return false;
 	},
 	validates:function(toon, merit)
 	{
 		let result = {failurePoints:[]};
+		
+		if(!merit.multiple && toon.hasMerit(merit.name))
+		{
+			return {validates:false};
+		}
+		
 		if(merit.prerequisites)
 		{
 			let validates = false;
@@ -81,8 +95,6 @@ module.exports = {
 					}
 					else
 					{
-						console.log("Perequisite not checked");
-						console.log(prerequisite);
 						prerequisiteMet = false;
 					}
 					

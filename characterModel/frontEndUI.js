@@ -56,9 +56,15 @@ function setValue()
 
 (()=>{
 	$(()=>{
-		let $modal = $('#loadingModal').modal({keyboard:false});
-		
-		$('#addMeritButton').click(addMerit);
+		let $modal = $('#loadingModal').modal(),
+			$meritModal = $('#meritsModal');
+		$('[data-toggle="tooltip"]').tooltip();
+		$('#harmony span').click(setHarmony);
+		$('.meritName').click(loadMeritDialog);
+		$('.xpPurchasableValue span').click(setValue);
+		$('#cancelMeritButton').click(()=>{
+			$meritModal.modal('hide');
+		});
 		
 		toon = new ForsakenCharacter({
 			name:$('#characterName').text(),
@@ -69,43 +75,34 @@ function setValue()
 		
 		MeritsDatabase.setToon(toon);
 		
-		$('.xpPurchasable').each(
-			function(index, node)
-			{
-				let $node = $(node);
-				let data = $node.data();
-				toon.lookups[data.name].loadJSON(data);
-			}
-		);
-		
-		$('#harmony span').click(setHarmony);
-		
-		$('.meritName').click(loadMeritDialog);
+		$('.xpPurchasable').each(function (index, node){
+			let $node = $(node), data = $node.data();
+			toon.lookups[data.name].loadJSON(data);
+		});
 		toon.calculateDerived();
 		updateDerivedUIFields();
 		
-		$('.xpPurchasableValue span').click(setValue);
+		
 		$('#myTab a').on('click', function (e) {
-			e.preventDefault()
-			$(this).tab('show')
+			e.preventDefault();
+			$(this).tab('show');
 		});
 		
 		let meritDBFiles = [
-			'ChroniclesOfDarkness.json',
-			'Forsaken.json',
-			'HurtLocker.json',
-			'ThePack.json',
-			'DarkEras.json',
-			'13Precinct.json'
-		];
+				'ChroniclesOfDarkness.json',
+				'13Precinct.json',
+				'HurtLocker.json',
+				'DarkEras.json',
+				'Forsaken.json',
+				'ThePack.json',
+			],
+			requests = [];
 		
-		let requests = [];
 		for(let i of meritDBFiles)
 		{
+			MeritsDatabase.addToOrder(i);
 			requests.push(
-				$.get(`/js/MeritDB/${i}`).then((data)=>{
-					MeritsDatabase.load(JSON.parse(data), i);
-				})
+				$.get(`/js/MeritDB/${i}`).then((data)=>{MeritsDatabase.load(JSON.parse(data), i);})
 			);
 		}
 		
@@ -121,6 +118,25 @@ function setValue()
 
 function updateDerivedUIFields()
 {
+	let hAndW = ['health', 'willpower'],
+		cAndM = ['Current', 'Max'];
+	
+	for(let i of hAndW)
+	{
+		for(let j of cAndM)
+		{
+			$(`#${i}${j} .healthLevel i`).each(
+				function (index, node)
+				{
+					let $node = $(node).removeClass('fas far'),
+						higher = j == 'Current'?'far':'fas',
+						lower = j == 'Current'?'fas':'far',
+						className = toon.derivedAttributes[i] > index ? higher : lower;
+					$node.addClass(className);
+				}
+			);
+		}
+	}
 	$('.formAttributes').each(
 		function()
 		{
@@ -172,10 +188,26 @@ function loadMeritDialog()
 	let $node= $(this),
 		$select = $('#meritChoice').empty(),
 		$meritModal = $('#meritsModal'),
-		orderedMerits = MeritsDatabase.listAvailable();
+		orderedMerits = MeritsDatabase.listAvailable(),
+		index = $node.data('index'),
+		chosenMerit = null,
+		$meritSpecification = $('#meritSpecification');
 	$select.append(
 		$('<option value="">--Choose one --</option>')
 	);
+	
+	$select.change(function(){
+		let meritName = $select.val();
+		chosenMerit = meritName?MeritsDatabase.fetch(meritName):null;
+		if(!chosenMerit)
+		{
+			return;
+		}
+		if(chosenMerit.specific)
+		{
+			$('#specificMerit').css('display', 'flex');
+		}
+	});
 	
 	for(let t in orderedMerits)
 	{
@@ -188,6 +220,13 @@ function loadMeritDialog()
 		}
 	}
 	$meritModal.modal('show');
+	$('#addMeritButton').unbind().click(()=>{
+		if(chosenMerit.specific)
+		{
+			chosenMerit.setSpecification($meritSpecification.val());
+		}
+		console.log(chosenMerit);
+	});
 }
 
 function setHarmony()
@@ -200,14 +239,4 @@ function setHarmony()
 		}
 	);
 	saveCharacter();
-}
-
-function addMerit()
-{
-	let meritName = $('#meritChoice').val();
-	if(meritName)
-	{
-		let merit = MeritsDatabase.fetch(meritName);
-		console.log(merit);
-	}
 }

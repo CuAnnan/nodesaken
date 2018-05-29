@@ -9,16 +9,27 @@ class MeritList extends UseGroup
 		super('Merits', null);
 		this.maxCP = 10;
 		this.styleMerits = {};
+		this.items = {};
 	}
 	
-	addMerit(merit)
+	add(index, merit)
+	{
+		this.addMerit(index, merit);
+	}
+	
+	addMerit(index, merit)
 	{
 		if(merit instanceof StyleIndividualMerit)
 		{
 			this.addStyleMerit(merit);
 		}
 		
-		this.items.push(merit);
+		this.items['merit_'+index] = merit;
+	}
+	
+	removeMerit(index)
+	{
+		delete this.items['merit_'+index];
 	}
 	
 	addStyleMerit(merit)

@@ -9,14 +9,17 @@ let MeritsDatabase = {
 	{
 		this.data = [];
 	},
+	addToOrder:function(source)
+	{
+		this.ordered[source] = [];
+	},
 	load:function(data, source)
 	{
+		this.data[source] = [];
+		
 		for(let type in data)
 		{
-			if(!this.ordered[type])
-			{
-				this.ordered[type] = [];
-			}
+			this.ordered[source][type] = [];
 			
 			for(let i in data[type])
 			{
@@ -28,8 +31,8 @@ let MeritsDatabase = {
 				}
 				else
 				{
-					this.ordered[type].push(merit);
-					this.data.push(merit);
+					this.ordered[source][type].push(merit);
+					this.data[source].push(merit);
 					this.searchable[merit.name] = merit;
 				}
 			}
@@ -71,22 +74,25 @@ let MeritsDatabase = {
 	update:function()
 	{
 		let available = {};
-		for(let i in this.ordered)
+		for(let source in this.ordered)
 		{
-			available[i] = [];
-			for (let merit of this.ordered[i])
+			for(let i in this.ordered[source])
 			{
-				let result = MeritChecker.validates(this.toon, merit);
-				if(result.validates)
+				available[i] = [];
+				for (let merit of this.ordered[source][i])
 				{
-					available[i].push(merit);
-				}
-				else
-				{
-					/*
-					console.log(merit.name + " doesn't meet prereqs");
-					console.log(result.failurePoints);
-					*/
+					let result = MeritChecker.validates(this.toon, merit);
+					if (result.validates)
+					{
+						available[i].push(merit);
+					}
+					else
+					{
+						/*
+						console.log(merit.name + " doesn't meet prereqs");
+						console.log(result.failurePoints);
+						*/
+					}
 				}
 			}
 		}

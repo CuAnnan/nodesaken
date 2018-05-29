@@ -8,13 +8,19 @@ class Merit extends XPPurchasable
 		this.xpCost = 1;
 		this.levels = null;
 		this.prerequisites = [];
-		this.specific = false;
-		this.multiple = false;
-		this.effects = null;
-		this.creationOnly = false;
+		this.specific = data.specific;
+		this.multiple = data.multiple;
+		this.effects = data.effects;
+		this.creationOnly = data.creationOnly;
 		this.modifiers = [];
-		this.exclusiveTo = null;
-		this.venue = null;
+		this.exclusiveTo = data.exclusiveTo;
+		this.venue = data.venue;
+		this.specification = data.specification;
+	}
+	
+	setSpecification(specification)
+	{
+		this.specification = specification;
 	}
 }
 

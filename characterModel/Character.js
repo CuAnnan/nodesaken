@@ -81,9 +81,9 @@ class Character extends Listenable
 		return ugc;
 	}
 	
-	addMerit(merit)
+	addMerit(index, merit)
 	{
-		this.merits.add(merit);
+		this.merits.add(index, merit);
 	}
 	
 	getPurchasable(searchField)

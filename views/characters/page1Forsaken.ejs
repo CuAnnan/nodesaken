@@ -30,14 +30,13 @@ function xpPurchasableRow(className, item)
 function meritRow(index, item)
 {
 	item = item?item:{name:'', score:0, cpLevels:0, xpLevels:0};
-%><div class="row merit"<%
+%><div class="row merit text-left"<%
     let dataValues = {
         'name':'name',
         'score':'score',
         'cp-levels':'cpLevels',
         'xp-levels':'xpLevels',
     }
-    console.log(index);
     for(let dataName in dataValues)
     {
         let value = dataValues[dataName];
@@ -158,9 +157,10 @@ function meritRow(index, item)
                             <div class="row">
                                 <div class="container-fluid text-center">
                                     <h5>Merits</h5>
-                                    <% for(let i = 0; i < 12; i++)
+                                    <%
+                                    for(let i = 0; i < 12; i++)
                                     {
-                                        meritRow(i, character.merits.items[i]);
+                                    	meritRow(i, character.merits.items['merit_'+i]);
                                     }%>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@ function meritRow(index, item)
                                     <h5>Primal Urge</h5>
                                     <div class="row fillables" id="primalUrge">
                                         <%for (let i = 1; i <= 10; i++){
-                                        %><span class="healthLevel fillableCircleSmall" data-score="<%=i%>"><i class="far fa-circle"></i></span><%
+                                        %><span class="healthLevel fillableCircleSmall" data-score="<%=i%>"><i class="<% if(character.primalUrge.score >= i){%>fas<%} else{ %>far<%}%> fa-circle"></i></span><%
                                         }%>
                                     </div>
                                 </div>
@@ -224,7 +224,8 @@ function meritRow(index, item)
                                     <div class="row fillables" id="essence"><% for(let row = 0; row < 2; row++){%>
                                         <div>
                                         <%for (let i = 1; i <= 10; i++){
-                                        %><span class="healthLevel fillableSquareSmall" data-score="<%=((row * 10)+ i)%>"><i class="far fa-square"></i></span><%
+                                        	let score = row * 10 + i;
+                                        %><span class="healthLevel fillableSquareSmall" data-score="<%=score%>"><i class="<% if(character.essenceMax >= score){%>far<%}else{%>fas<%}%> fa-square"></i></span><%
                                         }%>
                                         </div><%}%>
                                     </div>

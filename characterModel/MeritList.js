@@ -17,12 +17,24 @@ class MeritList extends UseGroup
 		this.addMerit(index, merit);
 	}
 	
+	toJSON()
+	{
+		let json = {};
+		for(let i in this.items)
+		{
+			json[i] = this.items[i].toJSON();
+		}
+		return json;
+	}
+	
 	addMerit(index, merit)
 	{
 		if(merit instanceof StyleIndividualMerit)
 		{
 			this.addStyleMerit(merit);
 		}
+		merit.useGroup = this;
+		merit.score = merit.levels[0];
 		
 		this.items['merit_'+index] = merit;
 	}

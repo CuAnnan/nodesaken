@@ -186,15 +186,15 @@ window.getMeritsDB = function()
 function loadMeritDialog()
 {
 	let $node= $(this),
-		$select = $('#meritChoice').empty(),
+		$row = $node.closest('.merit'),
+		$select = $('#meritChoice').empty().append($('<option value="">--Choose one --</option>')),
 		$meritModal = $('#meritsModal'),
 		orderedMerits = MeritsDatabase.listAvailable(),
-		index = $node.data('index'),
+		index = $row.data('index'),
 		chosenMerit = null,
-		$meritSpecification = $('#meritSpecification');
-	$select.append(
-		$('<option value="">--Choose one --</option>')
-	);
+		$meritSpecification = $('#meritSpecification').val(''),
+		$specificMerit = $('#specificMerit').css('display', 'none'),
+		currentMeritName = $node.text();
 	
 	$select.change(function(){
 		let meritName = $select.val();
@@ -203,10 +203,8 @@ function loadMeritDialog()
 		{
 			return;
 		}
-		if(chosenMerit.specific)
-		{
-			$('#specificMerit').css('display', 'flex');
-		}
+		$specificMerit.css('display', chosenMerit.specific?'flex':'none');
+		
 	});
 	
 	for(let t in orderedMerits)
@@ -219,13 +217,37 @@ function loadMeritDialog()
 			$('<option/>').text(merit.name).appendTo($optGroup).attr('value', merit.name);
 		}
 	}
+	
+	if(currentMeritName)
+	{
+		$select.val(currentMeritName);
+	}
+	
 	$meritModal.modal('show');
 	$('#addMeritButton').unbind().click(()=>{
-		if(chosenMerit.specific)
+		if(chosenMerit)
 		{
-			chosenMerit.setSpecification($meritSpecification.val());
+			if(chosenMerit.specific)
+			{
+				let spec = $meritSpecification.val();
+				chosenMerit.setSpecification(spec);
+			}
+			
+			toon.addMerit(index, chosenMerit);
+			
+			
+			$meritModal.modal('hide');
+			let score = chosenMerit.score;
+			$('.meritValue i', $row).each(
+				function(index, element)
+				{
+					$(element).removeClass('fas far').addClass(index < score ? 'fas' : 'far');
+				}
+			);
+			
+			$node.text(chosenMerit.displayName);
+			saveCharacter();
 		}
-		console.log(chosenMerit);
 	});
 }
 

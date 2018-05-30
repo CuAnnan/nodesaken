@@ -68,6 +68,7 @@ mongoose.connect(conf.mongoose.getURI())
 	}
 );
 
+global.appRoot = path.resolve(__dirname);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

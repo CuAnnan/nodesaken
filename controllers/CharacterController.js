@@ -1,7 +1,8 @@
 let Controller = require('./Controller'),
-	ForsakenCharacter = require('../characterModel/ForsakenCharacter.js'),
+	ForsakenCharacter = require('../characterModel/ForsakenCharacter'),
 	User = require('../schemas/UserSchema'),
-	Character= require('../schemas/CharacterSchema');
+	Character= require('../schemas/CharacterSchema'),
+	MeritsDatabase = require('../characterModel/MeritsDatabase');
 
 class CharacterController extends Controller
 {
@@ -46,8 +47,11 @@ class CharacterController extends Controller
 		let user = await Controller.getLoggedInUser(req),
 			entity = await CharacterController.fetchCharacterEntityByReference(user, req.params.reference),
 			character = new ForsakenCharacter(entity);
+		
+		MeritsDatabase.setToon(character);
+		MeritsDatabase.loadFromFiles();
 		character.loadJSON(entity.json);
-		console.log(character.essenceMax);
+		
 		res.render('characters/fetch', {entity:entity, character:character});
 	}
 	

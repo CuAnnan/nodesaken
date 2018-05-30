@@ -1,6 +1,7 @@
 let Skill = require('./Skill'), Attribute = require('./Attribute'), UseGroupContainer = require('./UseGroupContainer'),
 	MeritList = require('./MeritList'), Listenable = require('./Listenable'), Morality = require('./Morality'),
 	Merit = require('./Merit'),
+	MeritDatabase = require('./MeritsDatabase'),
 	skillUseGroupMap = {
 		'Academics':'Mental', 'Computer':'Mental', 'Crafts':'Mental', 'Investigation':'Mental',
 		'Medicine':'Mental','Occult':'Mental','Politics':'Mental','Science':'Mental',
@@ -170,6 +171,10 @@ class Character extends Listenable
 		return result;
 	}
 	
+	/**
+	 * This is only used on the back end.
+	 * @param data
+	 */
 	loadJSON(data)
 	{
 		let universalLookups = ['skills', 'attributes'];
@@ -186,9 +191,11 @@ class Character extends Listenable
 		{
 			let index = i.replace('merit_', ''),
 				json = data.merits[i],
-				merit = new Merit(json.name, json);
+				merit = MeritDatabase.fetch(json.name);
+			merit.loadJSON(json);
 			this.addMerit(index, merit);
 		}
+		
 		this.calculateDerived();
 	}
 	

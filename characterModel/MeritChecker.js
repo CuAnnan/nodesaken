@@ -4,8 +4,6 @@ module.exports = {
 		let comparison = prerequisite.comparison;
 		if(!toonValue)
 		{
-			console.log("Lookup for prerequisite not found");
-			console.log(prerequisite);
 			return false;
 		}
 		if(comparison.gte)
@@ -18,7 +16,6 @@ module.exports = {
 			let result = toonValue.score <= comparison.lte;
 			return result;
 		}
-		console.log(comparison);
 		return false;
 	},
 	validates:function(toon, merit)

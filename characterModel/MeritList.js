@@ -33,8 +33,8 @@ class MeritList extends UseGroup
 		{
 			this.addStyleMerit(merit);
 		}
+		
 		merit.useGroup = this;
-		merit.score = merit.levels[0];
 		
 		this.items['merit_'+index] = merit;
 	}

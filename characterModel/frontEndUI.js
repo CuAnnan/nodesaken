@@ -82,37 +82,27 @@ function setValue()
 		toon.calculateDerived();
 		updateDerivedUIFields();
 		
-		
 		$('#myTab a').on('click', function (e) {
 			e.preventDefault();
 			$(this).tab('show');
 		});
 		
-		let meritDBFiles = [
-				'ChroniclesOfDarkness.json',
-				'13Precinct.json',
-				'HurtLocker.json',
-				'DarkEras.json',
-				'Forsaken.json',
-				'ThePack.json',
-			],
-			requests = [];
-		
-		for(let i of meritDBFiles)
-		{
-			MeritsDatabase.addToOrder(i);
-			requests.push(
-				$.get(`/js/MeritDB/${i}`).then((data)=>{MeritsDatabase.load(JSON.parse(data), i);})
-			);
-		}
-		
-		Promise.all(requests).then(()=>{
+		MeritsDatabase.loadRemote().then(()=>{
 			$modal.modal('hide');
-			MeritsDatabase.update();
+			
+			$('.merit').each(function(index, node){
+				let $node = $(node),
+					data = $node.data();
+				if(data.name)
+				{
+					let merit = MeritsDatabase.fetch(data.name, data);
+					toon.addMerit(index, merit);
+				}
+			});
+			
 		}).catch((err)=>{
 			console.log(err);
-		})
-		
+		});
 	});
 })();
 
@@ -120,7 +110,9 @@ function updateDerivedUIFields()
 {
 	let hAndW = ['health', 'willpower'],
 		cAndM = ['Current', 'Max'];
-	
+	/*
+	 * Set up the empty circles and boxes.
+	 */
 	for(let i of hAndW)
 	{
 		for(let j of cAndM)
@@ -140,8 +132,7 @@ function updateDerivedUIFields()
 	$('.formAttributes').each(
 		function()
 		{
-			let $formNode = $(this),
-				form = $formNode.data('form');
+			let $formNode = $(this), form = $formNode.data('form');
 			$('.formAttribute', $formNode).each(
 				function(i, node)
 				{
@@ -194,7 +185,8 @@ function loadMeritDialog()
 		chosenMerit = null,
 		$meritSpecification = $('#meritSpecification').val(''),
 		$specificMerit = $('#specificMerit').css('display', 'none'),
-		currentMeritName = $node.text();
+		currentMeritName = $node.data('name'),
+		currentMeritSpecialisation = $row.data('specialisation');
 	
 	$select.change(function(){
 		let meritName = $select.val();
@@ -212,9 +204,20 @@ function loadMeritDialog()
 		let $optGroup = $('<optgroup/>').attr('label', t).appendTo($select);
 		for(let m in orderedMerits[t])
 		{
-			let merit = orderedMerits[t][m];
+			let merit = orderedMerits[t][m],
+				dots = [];
 			
-			$('<option/>').text(merit.name).appendTo($optGroup).attr('value', merit.name);
+			for(let i of merit.levels)
+			{
+				let dotsString = '';
+				for(let j = 0; j < i; j++)
+				{
+					dotsString += '•';
+				}
+				dots.push(dotsString);
+			}
+			
+			$('<option/>').text(merit.name+'('+dots.join(',')+')').appendTo($optGroup).attr('value', merit.name);
 		}
 	}
 	
@@ -235,7 +238,6 @@ function loadMeritDialog()
 			
 			toon.addMerit(index, chosenMerit);
 			
-			
 			$meritModal.modal('hide');
 			let score = chosenMerit.score;
 			$('.meritValue i', $row).each(
@@ -246,6 +248,7 @@ function loadMeritDialog()
 			);
 			
 			$node.text(chosenMerit.displayName);
+			$row.data('specialisation', chosenMerit.specialisation);
 			saveCharacter();
 		}
 	});

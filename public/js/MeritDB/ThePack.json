@@ -3,35 +3,35 @@
 	[
 		{
 			"name": "Den",
-			"level":[1,2,3,4,5]
+			"levels":[1,2,3,4,5]
 		},
 		
 		{
 			"name": "Directed Rage",
-			"level":[3,4,5]
+			"levels":[3,4,5]
 		},	
 		
 		{
 			"name": "Magnanimous Totem: Wolf Blooded",
-			"level":[2],
+			"levels":[2],
 			"template": "Wolfblooded"
 		},
 		
 		{
 			"name": "Magnanimous Totem: Human",
-			"level":[3,4],
+			"levels":[3,4],
 			"template": "Mortal"
 		},
 		
 		{
 			"name": "Moon's Grace'",
-			"level":[3,4,5],
+			"levels":[3,4,5],
 			"template": ["Mortal", "Wolfblooded"]
 		},
 		
 		{
 			"name": "Territorial Advantage",
-			"level": [1,2,3,4,5]
+			"levels": [1,2,3,4,5]
 		}
 	]
 	

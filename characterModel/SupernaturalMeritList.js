@@ -13,7 +13,10 @@ class SupernaturalMeritList extends MeritList
 		let cpRemaining = this.maxCP - this.powerStat.cost.cp;
 		for(let i in this.items)
 		{
-			cpRemaining -= this.items.cost.cp;
+			if(this.items[i])
+			{
+				cpRemaining -= this.items[i].cost.cp;
+			}
 		}
 		return cpRemaining;
 	}

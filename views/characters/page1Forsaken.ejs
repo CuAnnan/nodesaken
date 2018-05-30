@@ -7,6 +7,7 @@ function xpPurchasableRow(className, item)
         'score':'score',
         'cp-levels':'cpLevels',
         'xp-levels':'xpLevels',
+        'name':'name',
     }
     for(let dataName in dataValues)
     {
@@ -36,6 +37,7 @@ function meritRow(index, item)
         'score':'score',
         'cp-levels':'cpLevels',
         'xp-levels':'xpLevels',
+        'specification':'specification',
     }
     for(let dataName in dataValues)
     {
@@ -43,7 +45,7 @@ function meritRow(index, item)
     %> data-<%=dataName%>="<%=item[value]%>"<%
     }
     %> data-index="<%= index %>">
-    <div class="col-8 meritName"><%= item.name%></div>
+    <div class="col-8 meritName"><%= item.displayName%></div>
     <div class="col-4 meritValue"><%
         for (let i = 1; i <= item.score; i++)
         {

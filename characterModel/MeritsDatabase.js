@@ -1,10 +1,19 @@
 let Merit = require('./Merit'),
 	StyleIndividualMerit = require('./StyleIndividualMerit'),
 	FightingStyle = require('./FightingStyle'),
-	MeritChecker = require('./MeritChecker');
+	MeritChecker = require('./MeritChecker'),
+	meritDBFiles = [
+		'ChroniclesOfDarkness.json',
+		'13Precinct.json',
+		'HurtLocker.json',
+		'DarkEras.json',
+		'Forsaken.json',
+		'ThePack.json',
+	],
+	fs = require('fs');
 
 let MeritsDatabase = {
-	data:[], searchable:{}, ordered:{}, toon:null, availableMerits:{},
+	data:[], searchable:{}, ordered:{}, toon:null, availableMerits:{},dataLoaded:false,
 	reset:function()
 	{
 		this.data = [];
@@ -108,6 +117,38 @@ let MeritsDatabase = {
 	listAvailable:function()
 	{
 		return this.available;
+	},
+	loadRemote:function()
+	{
+		let requests = [];
+		
+		for(let i of meritDBFiles)
+		{
+			MeritsDatabase.addToOrder(i);
+			requests.push(
+				$.get(`/js/MeritDB/${i}`).then((data)=>{MeritsDatabase.load(JSON.parse(data), i);})
+			);
+		}
+		
+		return Promise.all(requests).then(()=>{
+			MeritsDatabase.update();
+		});
+	},
+	loadFromFiles:function()
+	{
+		if(this.dataLoaded)
+		{
+			return;
+		}
+		for(let i of meritDBFiles)
+		{
+			MeritsDatabase.addToOrder(i);
+			let file = fs.readFileSync(appRoot+'/public/js/MeritDB/'+i);
+			let fileJSON = JSON.parse(file);
+			MeritsDatabase.load(fileJSON, i);
+		}
+		MeritsDatabase.update();
+		this.dataLoaded = true;
 	}
 };
 

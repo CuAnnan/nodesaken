@@ -1,0 +1,89 @@
+{
+	"Wolfblooded":
+	[
+		{
+			"name": "Fenris-Ur's Blood",
+			"level": [2],
+			"template": "Woldblooded"
+		},
+		
+		{
+			"name": "Kamduis-Ur's Blood",
+			"level": [2],
+			"template": "Woldblooded"
+		},
+		
+		{
+			"name": "Hikaon-Ur's Blood",
+			"level": [2],
+			"template": "Woldblooded"
+		},
+		
+		{
+			"name": "Sagrim-Ur's Blood",
+			"level": [2],
+			"template": "Woldblooded"
+		},
+		
+		{
+			"name": "Skolis-Ur's Blood",
+			"level": [2],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "Ghost Child",
+			"level": [2],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "Crescent Moon's Birth",
+			"level": [2],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "Full Moon's Birth",
+			"level": [2],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "Gibbous Moon's Birth",
+			"level": [2],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "Half Moon's Birth",
+			"level": [2],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "No Moon's Birth",
+			"level": [2],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "Pack Bond",
+			"level": [1,3],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "Raised by Wolves",
+			"level": [1],
+			"template": "Wolfblooded"
+		},
+		
+		{
+			"name": "Tell",
+			"level": [3],
+			"template": "Wolfblooded"
+		}
+	]
+	
+}

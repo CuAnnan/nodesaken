@@ -99,6 +99,7 @@ function setValue()
 					toon.addMerit(index, merit);
 				}
 			});
+			MeritsDatabase.update();
 			
 		}).catch((err)=>{
 			console.log(err);
@@ -178,14 +179,15 @@ function loadMeritDialog()
 {
 	let $node= $(this),
 		$row = $node.closest('.merit'),
+		rowData = $row.data(),
 		$select = $('#meritChoice').empty().append($('<option value="">--Choose one --</option>')),
 		$meritModal = $('#meritsModal'),
 		orderedMerits = MeritsDatabase.listAvailable(),
-		index = $row.data('index'),
+		index = rowData.index,
 		chosenMerit = null,
 		$meritSpecification = $('#meritSpecification').val(''),
 		$specificMerit = $('#specificMerit').css('display', 'none'),
-		currentMeritName = $node.data('name'),
+		currentMeritName = rowData.name,
 		currentMeritSpecialisation = $row.data('specialisation');
 	
 	$select.change(function(){
@@ -221,11 +223,6 @@ function loadMeritDialog()
 		}
 	}
 	
-	if(currentMeritName)
-	{
-		$select.val(currentMeritName);
-	}
-	
 	$meritModal.modal('show');
 	$('#addMeritButton').unbind().click(()=>{
 		if(chosenMerit)
@@ -237,6 +234,7 @@ function loadMeritDialog()
 			}
 			
 			toon.addMerit(index, chosenMerit);
+			chosenMerit.score = chosenMerit.levels[0];
 			
 			$meritModal.modal('hide');
 			let score = chosenMerit.score;
@@ -252,6 +250,14 @@ function loadMeritDialog()
 			saveCharacter();
 		}
 	});
+	
+	$('#deleteMeritButton').css('display', currentMeritName?'block':'none').unbind().click(()=>{
+		toon.removeMerit(index);
+		$node.text('');
+		saveCharacter();
+		$meritModal.modal('hide');
+	});
+	
 }
 
 function setHarmony()

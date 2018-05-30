@@ -219,3 +219,8 @@ h5
 {
     font-size: 0.8em;
 }
+
+#deleteMeritButton
+{
+    display:none;
+}

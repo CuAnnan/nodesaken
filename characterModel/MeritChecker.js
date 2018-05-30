@@ -6,6 +6,7 @@ module.exports = {
 		{
 			return false;
 		}
+		
 		if(comparison.gte)
 		{
 			let result = toonValue.score >= comparison.gte;
@@ -26,8 +27,7 @@ module.exports = {
 		{
 			return {validates:false};
 		}
-		
-		if(merit.prerequisites)
+		else if(merit.prerequisites)
 		{
 			let validates = false;
 			for(let prerequisiteSet of merit.prerequisites)

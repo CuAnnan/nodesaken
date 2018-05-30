@@ -88,6 +88,11 @@ class Character extends Listenable
 		this.merits.add(index, merit);
 	}
 	
+	removeMerit(index)
+	{
+		this.merits.removeMerit(index);
+	}
+	
 	getPurchasable(searchField)
 	{
 		return this.lookups[searchField.toLowerCase()];

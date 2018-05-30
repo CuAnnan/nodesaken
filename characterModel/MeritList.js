@@ -35,7 +35,6 @@ class MeritList extends UseGroup
 		}
 		
 		merit.useGroup = this;
-		
 		this.items['merit_'+index] = merit;
 	}
 	
@@ -69,7 +68,7 @@ class MeritList extends UseGroup
 	balanceCP()
 	{
 		let cpRemaining = this.cpRemaining;
-		for(let i = 0; i < this.items.length && cpRemaining > 0; i++)
+		for(let i = 0; i < this.count && cpRemaining > 0; i++)
 		{
 			let merit = this.items[i];
 			if(merit.xpLevels > 0)
@@ -82,16 +81,22 @@ class MeritList extends UseGroup
 	
 	hasMerit(meritName)
 	{
-		let found = false;
-		for(let i = 0; i < this.items.length && !found; i++)
+		let found = false,
+			keys = Object.keys(this.items);
+		
+		for(let i = 0; i < keys.length && !found; i++)
 		{
-			let merit = this.items[i];
-			if(merit.name == meritName)
+			let merit = this.items[keys[i]];
+			if(merit)
 			{
-				found = true;
+				if(merit.name == meritName)
+				{
+					found = true;
+				}
 			}
 		}
-		return false;
+		
+		return found;
 	}
 }
 

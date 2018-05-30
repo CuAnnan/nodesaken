@@ -77,7 +77,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 		let dexFormMod = this.formMods[form].mechanical.dexterity?this.formMods[form].mechanical.dexterity:0;
 		
 		let defense = Math.min(
-			this.addScores('Wits', this.defenseSkill, dexFormMod),
+			this.addScores('Wits', this.defenseSkill),
 			this.addScores('Dexterity', this.defenseSkill, dexFormMod)
 		);
 		

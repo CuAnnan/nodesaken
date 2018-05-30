@@ -137,16 +137,22 @@ class Character extends Listenable
 	
 	get defenseSkill()
 	{
-		let skill = 'Athletics';
-		if(this.hasMerit("Defensive Combat - Brawl") && (this.lookups.Brawl.score > this.lookups.Athletics.score))
+		let potentialSkills = [this.lookups.Athletics];
+		
+		if(this.hasMerit("Defensive Combat - Brawl") && this.hasMerit("Defensive Combat - Weaponry"))
 		{
-			skill = 'Brawl';
+			potentialSkills.push(this.lookups.Brawl, this.lookups.Weaponry);
+		}
+		else if(this.hasMerit("Defensive Combat - Brawl") && (this.lookups.Brawl.score > this.lookups.Athletics.score))
+		{
+			potentialSkills.push(this.lookups.Brawl);
 		}
 		else if(this.hasMerit("Defensive Combat - Weaponry") && (this.lookups.Weaponry.score > this.lookups.Athletics.score))
 		{
-			skill = 'Weaponry';
+			potentialSkills.push(this.lookups.Weaponry);
 		}
-		return skill;
+		potentialSkills.sort((a, b)=>{return b.score - a.score});
+		return potentialSkills[0].name;
 	}
 	
 	getDefense()

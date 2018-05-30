@@ -160,10 +160,17 @@ function updateDerivedUIFields()
 					let $attributeNode = $(node),
 						attribute = $attributeNode.data('attribute'),
 						modifier = $attributeNode.data('modifier');
-					if(toon.getDerivedAttribute(attribute))
+					if(attribute == 'defense')
 					{
-						modifier = modifier?parseInt(modifier):0;
-						$attributeNode.text(toon.getDerivedAttribute(attribute) + modifier);
+						if (toon.getDerivedAttribute(attribute))
+						{
+							modifier = modifier ? parseInt(modifier) : 0;
+							$attributeNode.text(toon.getDerivedAttribute(attribute) + modifier);
+						}
+					}
+					else
+					{
+						$attributeNode.text(toon.getDefense(form));
 					}
 				}
 			);

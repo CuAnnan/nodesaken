@@ -97,6 +97,7 @@ function setValue()
 					let merit = MeritsDatabase.fetch(data.name);
 					toon.addMerit(index, merit);
 					merit.loadJSON(data);
+					toon.calculateDerived();
 				}
 			});
 			MeritsDatabase.update();

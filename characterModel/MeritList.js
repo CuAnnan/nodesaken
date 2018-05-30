@@ -97,6 +97,30 @@ class MeritList extends UseGroup
 		}
 		return found;
 	}
+	
+	getModifiersFor(derivedAttribute)
+	{
+		let keys = Object.keys(this.items),
+			modifier = 0;
+		for(let i = 0; i < keys.length; i++)
+		{
+			let merit = this.items[keys[i]];
+			if(merit.effects == derivedAttribute)
+			{
+				if(merit.modifiers)
+				{
+					let modifierIndex = merit.levels.indexOf(merit.score);
+					modifier += merit.modifiers[modifierIndex];
+				}
+				else
+				{
+					modifier += merit.score;
+				}
+				
+			}
+		}
+		return modifier;
+	}
 }
 
 module.exports = MeritList;

@@ -108,7 +108,6 @@ class Character extends Listenable
 	{
 		let item = this.lookups[itemName];
 		let result = item.score = level;
-		console.log('Should be calculating derived now');
 		this.calculateDerived();
 		this.triggerEvent('changed');
 		return item.score;
@@ -116,6 +115,8 @@ class Character extends Listenable
 	
 	calculateDerived()
 	{
+		this.size = this.hasMerit('Giant') ? 6 : (this.hasMerit('Small-framed')?4:5);
+		
 		this.derivedAttributes = {
 			willpower:this.addScores('Resolve', 'Composure'),
 			health:this.addScores('Stamina', this.size),
@@ -126,6 +127,7 @@ class Character extends Listenable
 		};
 		for(let i in this.derivedAttributes)
 		{
+			this.derivedAttributes[i] += this.merits.getModifiersFor(i);
 			this.lookups[i] = {score: this.derivedAttributes[i]};
 		}
 	}

@@ -87,6 +87,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 	calculateDerived()
 	{
 		super.calculateDerived();
+		
 		this.lookups['harmony'] = {score:this.harmony};
 		let primalUrgeRow = primalUrgeTable[this.primalUrge.score];
 		this.essenceMax = primalUrgeRow.essence;

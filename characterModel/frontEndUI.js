@@ -80,7 +80,6 @@ function setValue()
 			toon.lookups[data.name].loadJSON(data);
 		});
 		toon.calculateDerived();
-		updateDerivedUIFields();
 		
 		$('#myTab a').on('click', function (e) {
 			e.preventDefault();
@@ -100,6 +99,7 @@ function setValue()
 				}
 			});
 			MeritsDatabase.update();
+			updateDerivedUIFields();
 			
 		}).catch((err)=>{
 			console.log(err);
@@ -247,6 +247,7 @@ function loadMeritDialog()
 			
 			$node.text(chosenMerit.displayName);
 			$row.data('specialisation', chosenMerit.specialisation);
+			updateDerivedUIFields();
 			saveCharacter();
 		}
 	});

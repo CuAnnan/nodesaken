@@ -95,7 +95,6 @@ class MeritList extends UseGroup
 				}
 			}
 		}
-		
 		return found;
 	}
 }

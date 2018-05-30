@@ -74,22 +74,11 @@ class ForsakenCharacter extends SupernaturalTemplate
 	
 	getDefense(form = 'hishu')
 	{
-		
-		let skill = 'Athletics';
-		if(this.hasMerit('Defensive Fighting - Brawl') && (this.lookups.Brawl.score > this.lookups.Athletics.score))
-		{
-			skill = 'Brawl';
-		}
-		else if(this.hasMerit('Defensive Fighting - Weaponry') && (this.lookups.Weaponry.score > this.lookups.Athletics.score))
-		{
-			skill = 'Weaponry';
-		}
-		
 		let dexFormMod = this.formMods[form].mechanical.dexterity?this.formMods[form].mechanical.dexterity:0;
 		
 		let defense = Math.min(
-			this.addScores('Wits', skill),
-			this.addScores('Dexterity', skill, dexFormMod)
+			this.addScores('Wits', this.defenseSkill, dexFormMod),
+			this.addScores('Dexterity', this.defenseSkill, dexFormMod)
 		);
 		
 		return defense;

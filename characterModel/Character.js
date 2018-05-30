@@ -86,6 +86,7 @@ class Character extends Listenable
 	addMerit(index, merit)
 	{
 		this.merits.add(index, merit);
+		this.calculateDerived();
 	}
 	
 	removeMerit(index)
@@ -107,6 +108,7 @@ class Character extends Listenable
 	{
 		let item = this.lookups[itemName];
 		let result = item.score = level;
+		console.log('Should be calculating derived now');
 		this.calculateDerived();
 		this.triggerEvent('changed');
 		return item.score;
@@ -133,21 +135,25 @@ class Character extends Listenable
 		return this.derivedAttributes[name];
 	}
 	
-	getDefense()
+	get defenseSkill()
 	{
 		let skill = 'Athletics';
-		if(this.hasMerit('Defensive Fighting - Brawl') && (this.lookups.Brawl.score > this.lookups.Athletics.score))
+		if(this.hasMerit("Defensive Combat - Brawl") && (this.lookups.Brawl.score > this.lookups.Athletics.score))
 		{
 			skill = 'Brawl';
 		}
-		else if(this.hasMerit('Defensive Fighting - Weaponry') && (this.lookups.Weaponry.score > this.lookups.Athletics.score))
+		else if(this.hasMerit("Defensive Combat - Weaponry") && (this.lookups.Weaponry.score > this.lookups.Athletics.score))
 		{
 			skill = 'Weaponry';
 		}
-		
+		return skill;
+	}
+	
+	getDefense()
+	{
 		return Math.min(
-			this.addScores('Wits', skill),
-			this.addScores('Dexterity', skill)
+			this.addScores('Wits', this.defenseSkill),
+			this.addScores('Dexterity', this.defenseSkill)
 		);
 	}
 	

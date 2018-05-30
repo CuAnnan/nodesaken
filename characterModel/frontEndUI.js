@@ -94,8 +94,9 @@ function setValue()
 					data = $node.data();
 				if(data.name)
 				{
-					let merit = MeritsDatabase.fetch(data.name, data);
+					let merit = MeritsDatabase.fetch(data.name);
 					toon.addMerit(index, merit);
+					merit.loadJSON(data);
 				}
 			});
 			MeritsDatabase.update();

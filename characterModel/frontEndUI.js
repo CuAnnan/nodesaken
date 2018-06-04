@@ -68,6 +68,7 @@ function setValue()
 		$('#cancelMeritButton').click(()=>{
 			$meritModal.modal('hide');
 		});
+		$('#primalUrge i').click(setPrimalUrge);
 		
 		toon = new ForsakenCharacter({
 			name:$('#characterName').text(),
@@ -171,13 +172,14 @@ function setMeritLevel()
 	
 	merit.score = newScore;
 	$row.data('score', merit.score);
-	$('.meritValue i', $row).each(
-		(index, element)=>{
-			$(element)
-				.removeClass('far fas')
-				.addClass(newScore > index ? 'fas':'far');
-		}
-	);
+	$('.meritValue i', $row)
+		.removeClass('far fas')
+		.each(
+			(index, element)=>{
+				$(element).addClass(newScore > index ? 'fas':'far');
+			}
+		);
+	saveCharacter();
 }
 
 function updateDerivedUIFields()
@@ -248,6 +250,10 @@ function updateDerivedUIFields()
 			);
 		}
 	);
+	
+	$('#essence i').removeClass('fas far').each((index, element)=>{
+		$(element).addClass(toon.essenceMax > index ? 'far' : 'fas');
+	});
 }
 
 window.getMeritsDB = function()
@@ -351,4 +357,18 @@ function setHarmony()
 		}
 	);
 	saveCharacter();
+}
+
+function setPrimalUrge()
+{
+	let $node = $(this), $primalUrge = $('#primalUrge'), score = $node.parent().data('score');
+	toon.primalUrge.score = score;
+	toon.calculateDerived();
+	$('i', $primalUrge)
+		.removeClass('fas far')
+		.each((index, element)=>{
+			$(element).addClass(score > index ? 'fas' : 'far');
+		});
+	
+	updateDerivedUIFields();
 }

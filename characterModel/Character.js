@@ -94,6 +94,11 @@ class Character extends Listenable
 		this.merits.removeMerit(index);
 	}
 	
+	getMerit(index)
+	{
+		return this.merits.getMerit(index);
+	}
+	
 	getPurchasable(searchField)
 	{
 		return this.lookups[searchField.toLowerCase()];

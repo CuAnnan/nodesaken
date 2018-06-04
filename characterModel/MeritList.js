@@ -43,6 +43,11 @@ class MeritList extends UseGroup
 		delete this.items['merit_'+index];
 	}
 	
+	getMerit(index)
+	{
+		return this.items['merit_'+index];
+	}
+	
 	addStyleMerit(merit)
 	{
 		for(let style of merit.styleTags)

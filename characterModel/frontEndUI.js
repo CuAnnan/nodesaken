@@ -53,7 +53,9 @@ function setValue()
 	
 }
 
-
+/**
+ * IIFE to bind all events, load the character from the data attributes and handle all event stuff
+ */
 (()=>{
 	$(()=>{
 		let $modal = $('#loadingModal').modal(),
@@ -61,6 +63,7 @@ function setValue()
 		$('[data-toggle="tooltip"]').tooltip();
 		$('#harmony span').click(setHarmony);
 		$('.meritName').click(loadMeritDialog);
+		$('.meritValue i').click(setMeritLevel);
 		$('.xpPurchasableValue span').click(setValue);
 		$('#cancelMeritButton').click(()=>{
 			$meritModal.modal('hide');
@@ -108,6 +111,74 @@ function setValue()
 		});
 	});
 })();
+
+function setMeritLevel()
+{
+	let $node = $(this),
+		$parent = $node.parent(),
+		$row = $node.closest('.row'),
+		rowData = $row.data(),
+		score = $parent.data('score');
+	
+	let merit = toon.getMerit(rowData.index);
+	if(merit.levels.length == 1)
+	{
+		return;
+	}
+	
+	let currentMeritLevelIndex = merit.levels.indexOf(merit.score),
+		newScore;
+	
+	if((score < merit.score && currentMeritLevelIndex == 0) || (score > merit.score && currentMeritLevelIndex == merit.levels.length - 1))
+	{
+		// you can't have a zero level merit or a merit of higher level than its max so fuck off
+		return;
+	}
+	else if(score > merit.score)
+	{
+		// find the lowest merit level that is greater than or equal to the new score and set that to be the newest level
+		let levelFound= false;
+		for(let i = 0; i < merit.levels.length && !levelFound; i++)
+		{
+			if(merit.levels[i] >= score)
+			{
+				levelFound = true;
+				newScore = merit.levels[i];
+			}
+		}
+		if(!levelFound)
+		{
+			newScore = merit.levels[merit.levels.length - 1];
+		}
+	}
+	else
+	{
+		// find the highest merit level that is less than or equal to the new score and set that to be the newest level
+		let levelFound = false;
+		for(let i = merit.levels.length - 1; i >= 0 && !levelFound; i--)
+		{
+			if(merit.levels[i] <= score)
+			{
+				levelFound = true;
+				newScore = merit.levels[i];
+			}
+		}
+		if(!levelFound)
+		{
+			newScore = merit.levels[0];
+		}
+	}
+	
+	merit.score = newScore;
+	$row.data('score', merit.score);
+	$('.meritValue i', $row).each(
+		(index, element)=>{
+			$(element)
+				.removeClass('far fas')
+				.addClass(newScore > index ? 'fas':'far');
+		}
+	);
+}
 
 function updateDerivedUIFields()
 {

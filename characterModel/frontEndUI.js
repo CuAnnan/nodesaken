@@ -77,6 +77,8 @@ function setValue()
 			reference:$('#characterDetails').data('reference')
 		});
 		
+		toon.primalUrge.loadJSON($('#primalUrge').data());
+		
 		MeritsDatabase.setToon(toon);
 		
 		$('.xpPurchasable').each(function (index, node){
@@ -371,4 +373,5 @@ function setPrimalUrge()
 		});
 	
 	updateDerivedUIFields();
+	saveCharacter();
 }

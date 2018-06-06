@@ -213,7 +213,7 @@ function meritRow(index, item)
                             <div class="row" id="primalUrgeContainer">
                                 <div class="col">
                                     <h5>Primal Urge</h5>
-                                    <div class="row fillables" id="primalUrge">
+                                    <div class="row fillables" id="primalUrge" data-cp-levels="<%= character.primalUrge.cpLevels%>" data-xp-levels="<%= character.primalUrge.xpLevels%>">
                                         <%for (let i = 1; i <= 10; i++){
                                         %><span class="healthLevel fillableCircleSmall" data-score="<%=i%>"><i class="<% if(character.primalUrge.score >= i){%>fas<%} else{ %>far<%}%> fa-circle"></i></span><%
                                         }%>
@@ -223,7 +223,8 @@ function meritRow(index, item)
                             <div class="row" id="essenceContainer">
                                 <div class="col">
                                     <h5>Essence</h5>
-                                    <div class="row fillables" id="essence"><% for(let row = 0; row < 2; row++){%>
+                                    <div class="row fillables" id="essence"><%
+                                        for(let row = 0; row < 2; row++){%>
                                         <div>
                                         <%for (let i = 1; i <= 10; i++){
                                         	let score = row * 10 + i;

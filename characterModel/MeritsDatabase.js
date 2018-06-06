@@ -12,11 +12,17 @@ let Merit = require('./Merit'),
 	],
 	fs = require('fs');
 
+function shallowClone(object)
+{
+	return JSON.parse(JSON.stringify(object));
+}
+
 let MeritsDatabase = {
-	data:[], searchable:{}, ordered:{}, toon:null, availableMerits:{},dataLoaded:false,
+	data:[], searchable:{}, ordered:{}, toon:null, availableMerits:{},dataLoaded:false,maneuvers:[],
 	reset:function()
 	{
 		this.data = [];
+		this.ordered = {};
 	},
 	addToOrder:function(source)
 	{
@@ -44,6 +50,35 @@ let MeritsDatabase = {
 					this.data[source].push(merit);
 					this.searchable[merit.name] = merit;
 				}
+				if(merit.maneuvers)
+				{
+					this.addManeuvers(merit);
+				}
+			}
+		}
+	},
+	addManeuvers:function(merit)
+	{
+		for(let styleTag of merit.styleTags)
+		{
+			if(!this.maneuvers[styleTag])
+			{
+				this.maneuvers[styleTag] = [];
+			}
+		}
+		
+		for(let i in merit.maneuvers)
+		{
+			let maneuver = shallowClone(merit.maneuvers[i]);
+			maneuver.prerequisites = shallowClone(merit.prerequisites);
+			let stylePrerequisite = {"styleTags":merit.styleTags, "comparison":{gte:maneuver.level}};
+			for(let prereq of maneuver.prerequisites)
+			{
+				prereq.push(stylePrerequisite);
+			}
+			for(let styleTag of merit.styleTags)
+			{
+				this.maneuvers[styleTag].push(maneuver);
 			}
 		}
 	},

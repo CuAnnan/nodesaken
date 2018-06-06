@@ -28,6 +28,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 		};
 		
 		this.primalUrge = new PrimalUrge(this.merits);
+		this.lookups['Primal Urge'] = this.primalUrge;
 		
 		this.formMods = {
 			hishu: {mechanical:{perception: 1}},
@@ -70,6 +71,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.primalUrge.loadJSON(data.primalUrge?data.primalUrge:{});
 		this.touchstones = data.touchstones;
 		this.harmony = data.harmony?parseInt(data.harmony):7;
+		this.calculateDerived();
 	}
 	
 	getDefense(form = 'hishu')

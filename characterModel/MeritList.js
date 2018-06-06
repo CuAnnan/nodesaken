@@ -1,5 +1,6 @@
 let UseGroup = require('./UseGroup'),
 	Merit = require('./Merit'),
+	FightingStyle = require('./FightingStyle'),
 	StyleIndividualMerit = require('./StyleIndividualMerit');
 
 class MeritList extends UseGroup
@@ -8,7 +9,11 @@ class MeritList extends UseGroup
 	{
 		super('Merits', null);
 		this.maxCP = 10;
-		this.styleMerits = {};
+		
+		this.fightingStyles = {};
+		this.individualStyleMerits = {};
+		this.allStyleMerits = {};
+		
 		this.items = {};
 	}
 	
@@ -27,36 +32,107 @@ class MeritList extends UseGroup
 		return json;
 	}
 	
+	/**
+	 * Merits are added at a specific index to allow them to be laid out where the player wants, for organisational
+	 * reasons. You might want all your social merits together, or all your influences and statuses, etc.
+	 * @param index The index to put it at
+	 * @param merit The merit
+	 */
 	addMerit(index, merit)
 	{
-		if(merit instanceof StyleIndividualMerit)
+		if (merit instanceof FightingStyle)
 		{
-			this.addStyleMerit(merit);
+			this.addFightingStyle(merit);
+		}
+		else if(merit instanceof StyleIndividualMerit)
+		{
+			this.addIndividualStyleMerit(merit);
+		}
+		
+		if(this.items['merit'+index])
+		{
+			this.removeMerit(index);
 		}
 		
 		merit.useGroup = this;
 		this.items['merit_'+index] = merit;
 	}
-	
-	removeMerit(index)
-	{
-		delete this.items['merit_'+index];
-	}
-	
+
 	getMerit(index)
 	{
 		return this.items['merit_'+index];
 	}
 	
-	addStyleMerit(merit)
+	/**
+	 * TODO: Handle fighting style removal. Which is going to involve looping through the list of styles in their various locations and deleting them.
+	 * @param index
+	 */
+	removeMerit(index)
+	{
+		let merit = this.items['merit_'+index];
+		if(merit instanceof FightingStyle)
+		{
+			this.removeFightingStyle(merit);
+		}
+		else if(merit instanceof StyleIndividualMerit)
+		{
+			this.removeIndividualStyleMerit(merit);
+		}
+		delete this.items['merit_'+index];
+	}
+	
+	addFightingStyle(merit)
+	{
+		this.addMeritToSpecificList(merit, this.fightingStyles);
+		this.addMeritToSpecificList(merit, this.allStyleMerits);
+	}
+	
+	removeFightingStyle(merit)
+	{
+		this.removeMeritFromSpecificList(merit, this.fightingStyles);
+		this.removeMeritFromSpecificList(merit, this.allStyleMerits);
+	}
+	
+	getStyleTagScore(styleTag)
+	{
+		let styleTagScore = 0;
+		for(let merit of this.allStyleMerits[styleTag])
+		{
+			styleTagScore += merit.score;
+		}
+		return Math.min(styleTagScore, 5);
+	}
+	
+	addIndividualStyleMerit(merit)
+	{
+		this.addMeritToSpecificList(merit, this.individualStyleMerits);
+		this.addMeritToSpecificList(merit, this.allStyleMerits);
+	}
+	
+	removeIndividualStyleMerit(merit)
+	{
+		this.removeMeritFromSpecificList(merit, this.individualStyleMerits);
+		this.removeMeritFromSpecificList(merit, this.allStyleMerits);
+	}
+	
+	addMeritToSpecificList(merit, list)
 	{
 		for(let style of merit.styleTags)
 		{
-			if(!this.styleMerits[style])
+			if(!list[style])
 			{
-				this.styleMerits[style] = [];
+				list[style] = [];
 			}
-			this.styleMerits[style].push(merit);
+			list[style].push(merit);
+		}
+	}
+	
+	removeMeritFromSpecificList(merit, list)
+	{
+		for(let style of merit.styleTags)
+		{
+			let index = list.indexOf(merit);
+			delete list[index];
 		}
 	}
 	

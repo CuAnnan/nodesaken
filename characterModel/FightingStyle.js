@@ -11,6 +11,7 @@ class FightingStyle extends StyleIndividualMerit
 			this.addManeuver(maneuver.level, maneuver.name)
 		}
 		this.styleTags = data.styleTags;
+		this.crossLearnedManeuvers = [];
 	}
 	
 	addManeuver(level, maneuverName)
@@ -21,6 +22,31 @@ class FightingStyle extends StyleIndividualMerit
 		}
 		this.maneuvers[level].push(maneuverName);
 	}
+	
+	get learnedManeuvers()
+	{
+		let maneuvers = [];
+		for (let i = 0; i < this.score; i++)
+		{
+			maneuvers.push(this.maneuvers[i]);
+		}
+		maneuvers = maneuvers.concat(this.crossLearnedManeuvers);
+		return maneuvers;
+	}
+	
+	addCrossLearnedManeuver(maneuver)
+	{
+		this.crossLearnedManeuvers.push(maneuver);
+	}
+	
+	toJSON()
+	{
+		let json = super.toJSON();
+		json.crossLearnedManeuvers = this.crossLearnedManeuvers;
+		return json;
+	}
+	
+	
 }
 
 module.exports = FightingStyle;

@@ -1,5 +1,6 @@
 let SupernaturalTemplate = require('./SupernaturalTemplate'),
-	PrimalUrge = require('./PrimalUrge');
+	PrimalUrge = require('./PrimalUrge'),
+	RenownList = require('./RenownList');
 
 let primalUrgeTable = {
 	"1":{"essence":10,"essencePerTurn":1,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"None","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
@@ -12,15 +13,19 @@ let primalUrgeTable = {
 	"8":{"essence":30,"essencePerTurn":8,"regenerationPerTurn":4,"basuImTime":180,"feedingRestriction":"Essence","huntTime":"1 week","lunacyPenalty":-3,"trackingBonus":3},
 	"9":{"essence":50,"essencePerTurn":10,"regenerationPerTurn":5,"basuImTime":360,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-4,"trackingBonus":3},
 	"10":{"essence":75,"essencePerTurn":15,"regenerationPerTurn":6,"basuImTime":720,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-5,"trackingBonus":4}
-}
+};
 
 class ForsakenCharacter extends SupernaturalTemplate
 {
 	constructor(data)
 	{
 		super(data);
+		this.blood = data.blood;
+		this.bone = data.bone;
 		this.auspice = data.auspice;
 		this.tribe = data.tribe;
+		this.lodge = data.lodge;
+		this.trigger = data.trigger;
 		this.reference = data.reference;
 		this.touchstones = {
 			'flesh':(data.touchstones && data.touchstones.flesh)?data.touchstones.flesh:'',
@@ -29,6 +34,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 		
 		this.primalUrge = new PrimalUrge(this.merits);
 		this.lookups['Primal Urge'] = this.primalUrge;
+		this.renown = new RenownList();
 		
 		this.formMods = {
 			hishu: {mechanical:{perception: 1}},
@@ -37,6 +43,21 @@ class ForsakenCharacter extends SupernaturalTemplate
 			urshul: {mechanical:{strength: 2, dexterity: 2, stamina: 2, manipulation: -1, speed: 7, size: 1, perception: 3}, informative:{initiative:2}},
 			urhan: {mechanical:{dexterity: 2, stamina: 1, manipulation: -1, size: -1, speed: 5, perception: 4}, informative:{initiative:2}},
 		};
+	}
+	
+	setBlood(blood)
+	{
+		this.blood = blood;
+	}
+	
+	setBone(bone)
+	{
+		this.bone = bone;
+	}
+	
+	setAuspice(auspice)
+	{
+		this.auspice = auspice;
 	}
 	
 	get morality()
@@ -60,6 +81,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 			spirit:this.touchstones.spirit
 		};
 		json.primalUrge = this.primalUrge.toJSON();
+		json.renown = this.renown.toJSON();
 		
 		return json;
 	}

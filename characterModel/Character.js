@@ -39,6 +39,7 @@ class Character extends Listenable
 		super();
 		this.name = data.name;
 		this.player = data.player;
+		this.concept = data.concept?data.concept:'';
 		this.skills = null;
 		this.attributes = null;
 		this.lookups = {};
@@ -46,11 +47,21 @@ class Character extends Listenable
 		this.derivedAttributes = {size:5};
 		this.size = 5;
 		this.merits = null;
-		this.personalDetails = {};
 		this.populateUseGroups();
 		this.morality = new Morality('Integrity');
 		this.lookups['Morality'] = this.lookups['morality'] = this.morality;
 	}
+	
+	setName(name)
+	{
+		this.name = name;
+	}
+	
+	setConcept(concept)
+	{
+		this.concept = concept;
+	}
+	
 	
 	populateUseGroups()
 	{

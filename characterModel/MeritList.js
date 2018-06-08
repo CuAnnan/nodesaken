@@ -136,20 +136,27 @@ class MeritList extends UseGroup
 		}
 	}
 	
+	get count()
+	{
+		return Object.values(this.items).length;
+	}
+	
 	get cpRemaining()
 	{
-		let cpRemaining = this.maxCP;
-		for(let i in this.items)
+		let cpRemaining = this.maxCP,
+			merits = Object.values(this.items);
+		for(let merit of merits)
 		{
-			cpRemaining -= this.items.cost.cp;
+			cpRemaining -= merit.cost.cp;
 		}
 		return cpRemaining;
 	}
 	
 	balanceCP()
 	{
-		let cpRemaining = this.cpRemaining;
-		for(let i = 0; i < this.count && cpRemaining > 0; i++)
+		let cpRemaining = this.cpRemaining,
+			count = this.count;
+		for(let i = 0; i < count && cpRemaining > 0; i++)
 		{
 			let merit = this.items[i];
 			if(merit.xpLevels > 0)

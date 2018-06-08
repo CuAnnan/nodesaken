@@ -14,6 +14,12 @@ window.getToon = () =>{
 function saveCharacter()
 {
 	let xhrData = {
+		name:toon.name,
+		blood:toon.blood,
+		bone:toon.bone,
+		concept:toon.concept,
+		auspice:toon.auspice,
+		tribe:toon.tribe,
 		json:toon.toJSON(),
 		timestamp:Date.now(),
 	};

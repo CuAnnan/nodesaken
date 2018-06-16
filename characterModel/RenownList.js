@@ -1,19 +1,18 @@
 let UseGroup = require('./UseGroup'),
 	Renown = require('./Renown'),
-	auspiceRenowns = {'cahalith':'Glory', 'elodoth':'Honor', 'irraka':'Cunning', 'ithaeur':'Wisdom','rahu':'Purity'},
-	tribalRenowns = {};
+	auspiceRenowns = {'Cahalith':'Glory', 'Elodoth':'Honor', 'Irraka':'Cunning', 'Ithaeur':'Wisdom','Rahu':'Purity'},
+	tribalRenowns = {'Bone Shadows':'Wisdom', 'Hunters in Darkness':'Purity', 'Storm Lords':'Honor', 'Blood Talons':'Glory', 'Iron Masters':'Cunning'};
 class RenownList extends UseGroup
 {
 	constructor()
 	{
 		super();
 		let renowns = ['Cunning','Glory', 'Honor', 'Purity', 'Wisdom'];
+		this.items = {};
 		for(let renown of renowns)
 		{
 			this.addRenown(new Renown(renown));
 		}
-		this.items = {};
-
 	}
 	
 	addRenown(renown)
@@ -27,8 +26,9 @@ class RenownList extends UseGroup
 		let renowns = Object.values(this.items);
 		for(let renown of renowns)
 		{
-			renown.auspicious = renown.name == auspiceRenowns[auspice.toLowerCase()];
+			renown.auspicious = renown.name == auspiceRenowns[auspice];
 		}
+		return this;
 	}
 	
 	setTribe(tribe)
@@ -36,8 +36,10 @@ class RenownList extends UseGroup
 		let renowns = Object.values(this.items);
 		for(let renown of renowns)
 		{
-			renown.tribal = renown.name == tribalRenowns[tribe.toLowerCase()];
+			//console.log(renown, renown.name, tribalRenowns[tribe]);
+			renown.tribal = renown.name == tribalRenowns[tribe];
 		}
+		return this;
 	}
 	
 	get cpRemaining()

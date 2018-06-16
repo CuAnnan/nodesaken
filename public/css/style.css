@@ -90,7 +90,7 @@ h5
 
 }
 
-.xpPurchasableValue, .meritValue
+.xpPurchasableValue, .meritValue, .renownValue
 {
     font-size: 0.83em;
 }
@@ -174,13 +174,13 @@ h5
     padding-right: 1px;
 }
 
-.merit
+.merit, .renown
 {
     margin-left: 1em;
     margin-right: 2em;
 }
 
-.meritName, .touchStone
+.meritName, .touchStone, .renownName
 {
     border-bottom: 1px solid black;
 }
@@ -215,7 +215,7 @@ h5
     display: none;
 }
 
-.meritName
+.meritName, .renownName
 {
     font-size: 0.8em;
 }

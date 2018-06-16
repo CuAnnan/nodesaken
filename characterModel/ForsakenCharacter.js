@@ -34,7 +34,8 @@ class ForsakenCharacter extends SupernaturalTemplate
 		
 		this.primalUrge = new PrimalUrge(this.merits);
 		this.lookups['Primal Urge'] = this.primalUrge;
-		this.renown = new RenownList();
+		
+		this.renown = new RenownList().setAuspice(this.auspice).setTribe(this.tribe);
 		
 		this.formMods = {
 			hishu: {mechanical:{perception: 1}},
@@ -43,6 +44,11 @@ class ForsakenCharacter extends SupernaturalTemplate
 			urshul: {mechanical:{strength: 2, dexterity: 2, stamina: 2, manipulation: -1, speed: 7, size: 1, perception: 3}, informative:{initiative:2}},
 			urhan: {mechanical:{dexterity: 2, stamina: 1, manipulation: -1, size: -1, speed: 5, perception: 4}, informative:{initiative:2}},
 		};
+	}
+	
+	getResistance ()
+	{
+		return this.primalUrge;
 	}
 	
 	setBlood(blood)

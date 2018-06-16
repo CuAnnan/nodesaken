@@ -8,7 +8,7 @@ function xpPurchasableRow(className, item)
         'cp-levels':'cpLevels',
         'xp-levels':'xpLevels',
         'name':'name',
-    }
+    };
     for(let dataName in dataValues)
     {
     	let value = dataValues[dataName];
@@ -28,6 +28,38 @@ function xpPurchasableRow(className, item)
 </div><%
 }
 
+function renownRow(renown)
+{
+
+    %><div class="row renown text-left"<%
+    let dataValues = {
+        'name':'name',
+        'score':'score',
+        'cp-levels':'cpLevels',
+        'xp-levels':'xpLevels',
+        'name':'name',
+        'auspicious':'auspicious',
+        'tribal':'tribal'
+    };
+        for(let dataName in dataValues)
+        {
+            let value = dataValues[dataName];
+        %> data-<%=dataName%>="<%=renown[value]%>"<%
+        }
+    %>>
+    <div class="col-8 renownName"><%= renown.name %></div>
+    <div class="col-4 renownValue"><%
+        for (let i = 1; i <= renown.score; i++)
+        {
+        %><span data-score="<%= i%>"><i class="fas fa-circle"></i></span><%
+        }
+        for(let i = renown.score+1; i<= 5; i++)
+        {
+        %><span data-score="<%= i%>"><i class="far fa-circle"></i></span><%
+        } %></div>
+    </div><%
+}
+
 function meritRow(index, item)
 {
 	item = item?item:{name:'', score:0, cpLevels:0, xpLevels:0};
@@ -38,7 +70,7 @@ function meritRow(index, item)
         'cp-levels':'cpLevels',
         'xp-levels':'xpLevels',
         'specification':'specification',
-    }
+    };
     for(let dataName in dataValues)
     {
         let value = dataValues[dataName];
@@ -167,7 +199,15 @@ function meritRow(index, item)
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="container-fluid text-center"><h5>Renown</h5></div>
+                                <div class="container-fluid text-center">
+                                    <h5>Renown</h5>
+                                    <%
+                                    for(let i in character.renown.items)
+                                    {
+                                    	renownRow(character.renown.items[i]);
+                                    }
+                                    %>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="container-fluid text-center"><h5>Aspirations</h5></div>

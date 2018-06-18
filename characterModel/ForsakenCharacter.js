@@ -76,6 +76,11 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.harmony = value;
 	}
 	
+	getRenownByName(name)
+	{
+		return this.renown.getRenownByName(name);
+	}
+	
 	toJSON()
 	{
 		let json = super.toJSON();

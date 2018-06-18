@@ -70,6 +70,7 @@ function setValue()
 		$('#harmony span').click(setHarmony);
 		$('.meritName').click(loadMeritDialog);
 		$('.meritValue i').click(setMeritLevel);
+		$('.renown i').click(setRenownLevel);
 		$('.xpPurchasableValue span').click(setValue);
 		$('#cancelMeritButton').click(()=>{
 			$meritModal.modal('hide');
@@ -380,4 +381,10 @@ function setPrimalUrge()
 	
 	updateDerivedUIFields();
 	saveCharacter();
+}
+
+function setRenownLevel()
+{
+	let $node = $(this);
+	console.log($node);
 }

@@ -7,6 +7,7 @@ var $email, $password, $loginModal, $form;
 		$password = $('#login_password');
 		$loginModal = $('#loginModal');
 		$form = $('#loginForm');
+		$('#passwordForgotButton').click(passwordForgotten);
 		
 		$('#login_modal_link').click(function(evt){
 			evt.preventDefault();
@@ -42,4 +43,9 @@ function tryToLogin()
 	);
 	
 	return false;
+}
+
+function passwordForgotten()
+{
+
 }

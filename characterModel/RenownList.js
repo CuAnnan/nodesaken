@@ -15,6 +15,11 @@ class RenownList extends UseGroup
 		}
 	}
 	
+	getRenownByName(name)
+	{
+		return this.items[name];
+	}
+	
 	addRenown(renown)
 	{
 		renown.useGroup = this;

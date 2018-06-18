@@ -142,6 +142,17 @@ class UserController extends Controller
 		return;
 	}
 	
+	static async generateLostPasswordEmail(req, res, next)
+	{
+		let user = await Controller.getUserByEmail(req.body.email);
+		if (!user)
+		{
+		
+		}
+		//res.json({requestReceived:true});
+	}
+	
+	
 	static async hashPassword(password)
 	{
 		let salt = await bcrypt.genSalt(10);
@@ -182,7 +193,7 @@ class UserController extends Controller
 			res.json({error:'Could not find a user with matching email and password', success:false});
 			return;
 		}
-		let passwordMatch = bcrypt.compare(req.body.password, user.passwordHash);
+		let passwordMatch = await bcrypt.compare(req.body.password, user.passwordHash);
 		if(!passwordMatch)
 		{
 			res.json({error:'Could not find a user with matching email and password', success:false});

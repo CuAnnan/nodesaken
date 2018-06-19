@@ -1,4 +1,4 @@
-var $email, $password, $loginModal, $form;
+var $email, $password, $loginModal, $form, $lostPasswordModal;
 
 (function(){
 	$(function(){
@@ -6,6 +6,7 @@ var $email, $password, $loginModal, $form;
 		$email = $('#login_email');
 		$password = $('#login_password');
 		$loginModal = $('#loginModal');
+		$lostPasswordModal = $('#passwordLostModal');
 		$form = $('#loginForm');
 		$('#passwordForgotButton').click(passwordForgotten);
 		
@@ -47,5 +48,15 @@ function tryToLogin()
 
 function passwordForgotten()
 {
-
+	$.post(
+		'/users/lostPassword',
+		{
+			email:$email.val()
+		}
+	).then(
+		()=> {
+			$loginModal.modal('hide');
+			$lostPasswordModal.modal();
+		}
+	);
 }

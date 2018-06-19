@@ -1,7 +1,12 @@
 let Controller = require('./Controller'),
 	validator = require('email-validator'),
 	User = require('../schemas/UserSchema'),
-	bcrypt = require('bcrypt');
+	bcrypt = require('bcrypt'),
+	fs = require('fs'),
+	sendmail = require('sendmail')(),
+	ejs = require('ejs'),
+	shortid = require('shortid'),
+	moment = require('moment');
 
 function validatePassword(password)
 {
@@ -142,16 +147,134 @@ class UserController extends Controller
 		return;
 	}
 	
-	static async generateLostPasswordEmail(req, res, next)
+	static async updateLostPasswordDetails(user)
 	{
-		let user = await Controller.getUserByEmail(req.body.email);
-		if (!user)
-		{
-		
-		}
-		//res.json({requestReceived:true});
+		user.resetKey = shortid.generate();
+		user.resetNeeded = true;
+		user.resetRequested = Date.now();
+		await user.save();
 	}
 	
+	static async generateLostPasswordEmail(req, res, next)
+	{
+		try
+		{
+			let user = await Controller.getUserByEmail(req.body.email);
+			if (user)
+			{
+				if(user.resetRequested)
+				{
+					let when = moment(user.resetRequested),
+						now = moment(),
+						days = when.diff(now, "days");
+					if(days > 7)
+					{
+						await UserController.updateLostPasswordDetails(user);
+					}
+				}
+				else
+				{
+					await UserController.updateLostPasswordDetails(user);
+				}
+				
+				let template = fs.readFileSync('views/users/passwordEmail.ejs', 'utf8'),
+					passwordResetLink = `${Controller.getHost(req)}/users/lostPassword/${user.resetKey}`,
+					message = ejs.render(template, {link:passwordResetLink});
+				
+				sendmail(
+					{
+						from:'no-reply@sheets.so-4pt.net',
+						to:user.email,
+						subject:'Nodesaken Account Retrieval',
+						html:message
+					},
+					function(err, reply)
+					{
+						console.log('Handling mail function callback');
+						if(err)
+						{
+							console.log('Have an error');
+							console.log(err && err.stack);
+						}
+						else
+						{
+							console.log("Don't have an error");
+							console.log(reply);
+						}
+					}
+				);
+			}
+			res.json({requestReceived:true});
+		}
+		catch(e)
+		{
+			console.log(e);
+		}
+	}
+	
+	static async displayLostPasswordForm(req, res, next)
+	{
+		let user = await User.findOne({resetKey:req.params.resetKey});
+		if(user)
+		{
+			res.render('users/resetPassword', {user: user});
+		}
+		else
+		{
+			res.render('users/noUserFound');
+		}
+		return;
+	}
+	
+	static async updatePassword(req, res, next)
+	{
+		if(req.body.newPassword != req.body.newPasswordConf)
+		{
+			res.json({success:false, passwordError:'Password strings do not match'});
+			return;
+		}
+		let passwordError = validatePassword(req.body.newPassword);
+		if(passwordError)
+		{
+			res.json({success:false, passwordError:passwordError});
+			return;
+		}
+		try
+		{
+			let user = await User.findOne({resetKey:req.body.resetKey, resetNeeded:true});
+			if(user)
+			{
+				let when = moment(user.resetRequested),
+					now = moment(),
+					days = when.diff(now, "days");
+				if(days > 7)
+				{
+					res.json({success:false, expired:true});
+					return;
+				}
+				
+				let hash = await UserController.hashPassword(req.body.newPassword);
+				
+				user.resetKey = null;
+				user.resetRequested = null;
+				user.resetNeeded = false;
+				user.passwordHash = hash.hash;
+				user.passwordSalt = hash.salt;
+				user.save();
+				res.json({success:true});
+				return;
+			}
+			
+			res.json({success:false, found:false});
+			console.log(req.body);
+		}
+		catch(e)
+		{
+			res.json({success:false, error:e});
+			console.log(e);
+		}
+		return;
+	}
 	
 	static async hashPassword(password)
 	{
@@ -193,6 +316,7 @@ class UserController extends Controller
 			res.json({error:'Could not find a user with matching email and password', success:false});
 			return;
 		}
+		
 		let passwordMatch = await bcrypt.compare(req.body.password, user.passwordHash);
 		if(!passwordMatch)
 		{

@@ -385,6 +385,27 @@ function setPrimalUrge()
 
 function setRenownLevel()
 {
-	let $node = $(this);
-	console.log($node);
+	let $node = $(this),
+		$row = $node.closest('.row'),
+		$renownValue = $node.closest('.renownValue'),
+		score = $node.parent().data('score'),
+		renownName = $row.data('name'),
+		renown = toon.getRenownByName(renownName);
+	
+	if(score <= renown.getFreeLevels())
+	{
+		score = renown.getFreeLevels();
+	}
+	else if (score == renown.score)
+	{
+		score --;
+	}
+	renown.score = score;
+	
+	$('i', $renownValue).removeClass('fas far').each(
+		(i, node)=>{
+			$(node).addClass(i < score ? 'fas' : 'far');
+		}
+	);
+	saveCharacter();
 }

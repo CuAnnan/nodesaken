@@ -95,7 +95,7 @@ h5
     font-size: 0.83em;
 }
 
-.xpPurchasableValue span, .meritValue span, .meritName, #harmony i
+.xpPurchasableValue span, .meritValue span, .meritName, #harmony i, .renownValue i
 {
     cursor: pointer;
 }

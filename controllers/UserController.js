@@ -230,13 +230,13 @@ class UserController extends Controller
 	{
 		if(req.body.newPassword != req.body.newPasswordConf)
 		{
-			res.json({success:false, passwordError:'Password strings do not match'});
+			res.json({success:false, error:'Password strings do not match'});
 			return;
 		}
 		let passwordError = validatePassword(req.body.newPassword);
 		if(passwordError)
 		{
-			res.json({success:false, passwordError:passwordError});
+			res.json({success:false, error:passwordError});
 			return;
 		}
 		try
@@ -249,7 +249,7 @@ class UserController extends Controller
 					days = when.diff(now, "days");
 				if(days > 7)
 				{
-					res.json({success:false, expired:true});
+					res.json({success:false, expired:true, error:'Reset request timed out'});
 					return;
 				}
 				
@@ -265,7 +265,7 @@ class UserController extends Controller
 				return;
 			}
 			
-			res.json({success:false, found:false});
+			res.json({success:false, found:false, error:'User not found'});
 		}
 		catch(e)
 		{

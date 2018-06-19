@@ -20,11 +20,10 @@ class ForsakenCharacter extends SupernaturalTemplate
 	constructor(data)
 	{
 		super(data);
+		console.log('Constructor invoked');
 		this.blood = data.blood;
 		this.bone = data.bone;
 		this.auspice = data.auspice;
-		this.tribe = data.tribe;
-		this.lodge = data.lodge;
 		this.trigger = data.trigger;
 		this.reference = data.reference;
 		this.touchstones = {
@@ -36,6 +35,8 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.lookups['Primal Urge'] = this.primalUrge;
 		
 		this.renown = new RenownList().setAuspice(this.auspice).setTribe(this.tribe);
+		this.setTribe(data.tribe);
+		this.setAuspice(data.auspice);
 		
 		this.formMods = {
 			hishu: {mechanical:{perception: 1}},
@@ -63,7 +64,16 @@ class ForsakenCharacter extends SupernaturalTemplate
 	
 	setAuspice(auspice)
 	{
+		console.log(auspice);
 		this.auspice = auspice;
+		this.renown.setAuspice(auspice);
+	}
+	
+	setTribe(tribe)
+	{
+		console.log(tribe);
+		this.tribe = tribe;
+		this.renown.setTribe(tribe);
 	}
 	
 	get morality()
@@ -79,6 +89,11 @@ class ForsakenCharacter extends SupernaturalTemplate
 	getRenownByName(name)
 	{
 		return this.renown.getRenownByName(name);
+	}
+	
+	setRenownLevel(name, value)
+	{
+		this.renown.setRenownLevel(name, value);
 	}
 	
 	toJSON()
@@ -102,8 +117,9 @@ class ForsakenCharacter extends SupernaturalTemplate
 		super.loadJSON(data);
 		this.json = data.json;
 		this.primalUrge.loadJSON(data.primalUrge?data.primalUrge:{});
-		this.touchstones = data.touchstones;
+		this.touchstones = data.touchstones?data.touchstones:{flesh:'', spirit:''};
 		this.harmony = data.harmony?parseInt(data.harmony):7;
+		this.renown.loadJSON(data.renown?data.renown:{});
 		this.calculateDerived();
 	}
 	

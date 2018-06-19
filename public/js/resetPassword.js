@@ -3,7 +3,8 @@
 	$(()=>{
 		let $newPassword = $('#newPassword'),
 			$newPasswordConf = $('#newPasswordConf'),
-			resetKey = $('#resetKey').val();
+			resetKey = $('#resetKey').val(),
+			$feedback = $('#feedback');
 		
 		$('#passwordFromResetButton').click(
 			()=>{
@@ -16,7 +17,15 @@
 					}
 				).then(
 					(response)=>{
-						console.log(response);
+						let data = JSON.parse(response);
+						if(data.success)
+						{
+							$feedback.text('Password updated');
+						}
+						else
+						{
+							$feedback.text(data.error);
+						}
 					}
 				);
 				return false;

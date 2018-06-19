@@ -9,10 +9,49 @@ class RenownList extends UseGroup
 		super();
 		let renowns = ['Cunning','Glory', 'Honor', 'Purity', 'Wisdom'];
 		this.items = {};
+		this.hsr = 1;
 		for(let renown of renowns)
 		{
 			this.addRenown(new Renown(renown));
 		}
+	}
+	
+	updateHSR()
+	{
+		let totalRenown = 0;
+		for(let renown of Object.values(this.items))
+		{
+			totalRenown += renown.score;
+		}
+		
+		if(totalRenown > 3)
+		{
+			if(totalRenown < 8)
+			{
+				this.hsr = 2;
+				return;
+			}
+			else if (totalRenown < 13)
+			{
+				this.hsr = 3;
+				return;
+			}
+			else if(totalRenown < 19)
+			{
+				this.hsr = 4;
+				return;
+			}
+			this.hsr = 5;
+			return;
+		}
+		this.hsr = 1;
+		return;
+	}
+	
+	setRenownLevel(name, value)
+	{
+		this.items[name].score = value;
+		this.updateHSR();
 	}
 	
 	getRenownByName(name)
@@ -70,8 +109,16 @@ class RenownList extends UseGroup
 				cpRemaining = merit.convertXPToSP(cpRemaining);
 			}
 		}
-		
 	}
+	
+	loadJSON(json)
+	{
+		for(let renown of Object.values(json))
+		{
+			this.items[renown.name].loadJSON(renown);
+		}
+	}
+
 }
 
 module.exports = RenownList;

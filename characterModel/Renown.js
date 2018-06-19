@@ -12,15 +12,29 @@ class Renown extends XPPurchasable
 	
 	get score()
 	{
-		return this.xpLevels + this.cpLevels + (this.auspicious?1:0) + (this.tribal?1:0);
+		return this.xpLevels + this.cpLevels + this.getFreeLevels();
+	}
+	
+	getFreeLevels()
+	{
+		return 0 + (this.auspicious?1:0) + (this.tribal?1:0);
+	}
+	
+	set score(level)
+	{
+		this.setScore(level);
 	}
 	
 	toJSON()
 	{
 		let json = super.toJSON();
-		json.auspicious = true;
-		json.tribal = true;
 		return json;
+	}
+	
+	loadJSON(json)
+	{
+		console.log(json);
+		super.loadJSON(json);
 	}
 }
 

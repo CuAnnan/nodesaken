@@ -266,7 +266,6 @@ class UserController extends Controller
 			}
 			
 			res.json({success:false, found:false});
-			console.log(req.body);
 		}
 		catch(e)
 		{

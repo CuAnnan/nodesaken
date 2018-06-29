@@ -1,0 +1,763 @@
+{
+  "affinities": {
+    "auspices": {
+      "Rahu": {
+        "moon": ["Full Moon"],
+        "shadowGifts": ["Dominance","Strength"]
+      },
+      "Cahalith": {
+        "moon": ["Gibbous Moon"],
+        "shadow": ["Inspiration","Knowledge"]
+      },
+      "Elodoth": {
+        "moon": ["Half Moon"],
+        "shadow": ["Insight","Warding"]
+      },
+      "Ithaeur": {
+        "moon": ["Cresent Moon"],
+        "shadow": ["Elemental","Shaping"]
+      },
+      "Irraka": {
+        "moon": ["New Moon"],
+        "shadow": ["Evasion","Stealth"]
+      }
+    },
+    "tribes": {
+      "Blood Talons": {
+        "shadow": ["Inspiration","Rage","Strength"]
+      },
+      "Bone Shadows": {
+        "shadow": ["Death","Elemental","Insight"]
+      },
+      "Hunters in Darkness": {
+        "shadow": ["Nature","Stealth","Warding"]
+      },
+      "Iron Masters": {
+        "shadow": ["Knowledge","Shaping","Technology"]
+      },
+      "Storm Lords": {
+        "shadow": ["Evasion","Dominance","Weather"]
+      }
+    }
+  },
+  "shadow": [
+    {
+      "name": "Gift of Death",
+      "shorthand": "Death",
+      "facets": {
+        "Cunning": {
+          "name": "Cold Embrace",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 Hour per Success",
+          "pool": {
+            "attribute": "Stamina",
+            "skill": "Medicine",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Barghest"
+        },
+        "Honor": {
+          "name": "Memento Mori",
+          "essence cost": "1",
+          "action": "Reflexive",
+          "duration": "One Scene"
+        },
+        "Purity": {
+          "name": "Bone Gnaw",
+          "essence cost": "1",
+          "action": "Instant"
+        },
+        "Wisdom": {
+          "name": "Eyes of the Dead",
+          "essence cost": "1",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Occult",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gift of Dominance",
+      "shorthand": "Dominance",
+      "facets": {
+        "Cunning": {
+          "name": "Primal Allure",
+          "essence cost": "1",
+          "resisted by": "Resolve + Primal Urge",
+          "action": "Contested",
+          "duration": "One Scene",
+          "pool": {
+            "attribute": "Manipulation",
+            "skill": "Subterfuge",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Glorious Lunacy",
+          "essence cost": "1",
+          "duration": "One Scene"
+        },
+        "Honor": {
+          "name": "Lay Low the Challenger",
+          "essence cost": "1",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Reflexive and Contested",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Intimidate",
+            "renown": "Honor"
+          }
+        },
+        "Purity": {
+          "name": "Snarl of the Predator",
+          "essence cost": "1",
+          "action": "Instant"
+        },
+        "Wisdom": {
+          "name": "Lead the Lesser Pack",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "One Day"
+        }
+      }
+    },
+    {
+      "name": "Gift of the Elementals",
+      "shorthand": "Elementals",
+      "facets": {
+        "Cunning": {
+          "name": "Breath of Air",
+          "essence cost": "Varies",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Athletics",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Catastrophe",
+          "essence cost": "5 Essence per Level of Influence",
+          "action": "Extended",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Survival",
+            "renown": "Glory"
+          }
+        },
+        "Honor": {
+          "name": "Flesh of Earth",
+          "action": "Instant",
+          "essence cost": "Varies",
+          "pool": {
+            "attribute": "Strength",
+            "skill": "Survival",
+            "renown": "Honor"
+          }
+        },
+        "Purity": {
+          "name": "Tonge of Flame",
+          "action": "Instant",
+          "essence cost": "Varies",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Empathy",
+            "renown": "Purity"
+          }
+        },
+        "Wisdom": {
+          "name": "Heart of Water",
+          "action": "Instant",
+          "essence cost": "Varies",
+          "pool": {
+            "attribute": "Manipulation",
+            "skill": "Occult",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gift of Evasion",
+      "shorthand": "Evasion",
+      "facets": {
+        "Cunning": {
+          "name": "Feet of Mist",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 hour"
+        },
+        "Glory": {
+          "name": "Fog of War",
+          "essence cost": "1",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Reflexive",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Subterfuge",
+            "renown": "Glory"
+          }
+        },
+        "Honor": {
+          "name": "Deny Everything",
+          "essence cost": "1",
+          "action": "Reflexive"
+        },
+        "Purity": {
+          "name": "Hit and Run",
+          "essence cost": "1",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Reflexive",
+          "pool": {
+            "attribute": "Dexterity",
+            "skill": "Stealth",
+            "renown": "Purity"
+          }
+        },
+        "Wisdom": {
+          "name": "Exit Strategy",
+          "essence cost": "1",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Streetwise",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gift of Insight",
+      "shorthand": "Insight",
+      "facets": {
+        "Cunning": {
+          "name": "Prey on Weakness",
+          "essence cost": "1",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Empathy",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Read the World's Loom",
+          "essence cost": "5",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Streetwise",
+            "renown": "Glory"
+          }
+        },
+        "Honor": {
+          "name": "Echo Dream",
+          "essence cost": "1",
+          "action": "Instant",
+          "pool": {
+            "attribute": "WIts",
+            "skill": "Investigation",
+            "renown": "Honor"
+          }
+        },
+        "Purity": {
+          "name": "Scent the Unnatural",
+          "essence cost": "1",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Occult",
+            "renown": "Purity"
+          }
+        },
+        "Wisdom": {
+          "name": "One Step Ahead",
+          "essence cost": "1",
+          "action": "Instant"
+        }
+      }
+    },
+    {
+      "name": "Gift of Inspiration",
+      "shorthand": "Inspiration",
+      "facets": {
+        "Cunning": {
+          "name": "Lunatic Inspiration",
+          "essence cost": "1",
+          "resisted by": "Composure",
+          "action": "Instant",
+          "duration": "1 lunar cycle",
+          "pool": {
+            "attribute": "Manipulation",
+            "skill": "Empathy",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Fearless Hunter",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 scene"
+        },
+        "Honor": {
+          "name": "Pack Triumps together",
+          "essence cost": "1 per target",
+          "action": "Reflexive",
+          "duration": "1 scene"
+        },
+        "Purity": {
+          "name": "Unity",
+          "essence cost": "1",
+          "action": "Instant"
+        },
+        "Wisdom": {
+          "name": "Still Small Voice",
+          "essence cost": "1 per target",
+          "resisted by": "Resolve + Primal Urge",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Persuasion",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gift of Knowledge",
+      "shorthand": "Knowledge",
+      "facets": {
+        "Cunning": {
+          "name": "Needle",
+          "essence cost": "1",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Instant",
+          "duration": "1 month",
+          "pool": {
+            "attribute": "Manipulation",
+            "skill": "Subterfuge",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "This Story is True",
+          "essence cost": "2",
+          "action": "Instant",
+          "duration": "1 hour per success",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Academics",
+            "renown": "Glory"
+          }
+        },
+        "Honor": {
+          "name": "Know Thy Prey",
+          "essence cost": "1",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Socialize",
+            "renown": "Honor"
+          }
+        },
+        "Purity": {
+          "name": "Lore of the Land",
+          "essence cost": "2",
+          "action": "Instant",
+          "duration": "1 scene",
+          "pool": {
+            "attribute": "Intelligence",
+            "skill": "Survival",
+            "renown": "Purity"
+          }
+        },
+        "Wisdom": {
+          "name": "Sift the Sands",
+          "essence cost": "1/2",
+          "action": "Extended (10 minutes per roll)",
+          "pool": {
+            "attribute": "Intelligence",
+            "skill": "Academics",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    },
+    {
+      "name": "Nature's Gift",
+      "shorthand": "Nature",
+      "facets": {
+        "Cunning": {
+          "name": "Nature's Lure",
+          "essence cost": "1",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Instant",
+          "duration": "1 scene",
+          "pool": {
+            "attribute": "Manipulation",
+            "skill": "Survival",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Black Earth, Red Hunger",
+          "essence cost": "1",
+          "action": "Instant"
+        },
+        "Honor": {
+          "name": "Knotted Paths",
+          "essence cost": "1 per target",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Instant",
+          "duration": "1 day",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Survival",
+            "renown": "Honor"
+          }
+        },
+        "Purity": {
+          "name": "Pack Kin",
+          "essence cost": "1",
+          "action": "Extended",
+          "duration": "Indefinite",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Animal Ken",
+            "renown": "Purity"
+          }
+        },
+        "Wisdom": {
+          "name": "Beast Ride",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "Indefinite",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Animal Ken",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gift of Rage",
+      "shorthand": "Rage",
+      "facets": {
+        "Cunning": {
+          "name": "Incite Fury",
+          "essence cost": "2",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Manipulation",
+            "skill": "Subterfuge",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Berserker's Might",
+          "essence cost": "1",
+          "action": "Reflexive"
+        },
+        "Honor": {
+          "name": "Perfected Rage",
+          "essence cost": "1",
+          "action": "Reflexive"
+        },
+        "Purity": {
+          "name": "Slaughterer",
+          "essence cost": "1",
+          "action": "Reflexive"
+        },
+        "Wisdom": {
+          "name": "Raging Lunacy",
+          "essence cost": "1",
+          "action": "Reflexive",
+          "duration": "1 scene"
+        }
+      }
+    },
+    {
+      "name": "Gift of Shaping",
+      "shorthand": "Shaping",
+      "facets": {
+        "Cunning": {
+          "name": "Moldywarp",
+          "essence cost": "",
+          "resisted by": "1",
+          "action": "Instant",
+          "duration": "1 scene"
+        },
+        "Glory": {
+          "name": "Shield-breaker",
+          "essence cost": "1",
+          "action": "Reflexive"
+        },
+        "Honor": {
+          "name": "Entropy's Toll",
+          "essence cost": "1",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Expression",
+            "renown": "Honor"
+          }
+        },
+        "Purity": {
+          "name": "Perfection of Form",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 day",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Crafts",
+            "renown": "Purity"
+          }
+        },
+        "Wisdom": {
+          "name": "Sculpt",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "30 minutes",
+          "pool": {
+            "attribute": "Intelligence",
+            "skill": "Crafts",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gift of Stealth",
+      "shorthand": "Stealth",
+      "facets": {
+        "Cunning": {
+          "name": "Shadow Pelt",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 Scene"
+        },
+        "Glory": {
+          "name": "Preadator's Shadow",
+          "essence cost": "1 per target",
+          "resisted by": "Composure + Primal Urge",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Intimidation",
+            "renown": "Glory"
+          }
+        },
+        "Honor": {
+          "name": "Pack Stalks the Prey",
+          "essence cost": "1 per ally",
+          "action": "Reflexive"
+        },
+        "Purity": {
+          "name": "The Hunter Waits",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 scene"
+        },
+        "Wisdom": {
+          "name": "Running Silent",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 scene"
+        }
+      }
+    },
+    {
+      "name": "Gift of Strength",
+      "shorthand": "Strength",
+      "facets": {
+        "Cunning": {
+          "name": "Unchained",
+          "essence cost": "1",
+          "action": "Reflexive"
+        },
+        "Glory": {
+          "name": "Preadator's Unmatched Pursuit",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "Scene"
+        },
+        "Honor": {
+          "name": "Crushing Blow",
+          "essence cost": "1",
+          "action": "Reflexive"
+        },
+        "Purity": {
+          "name": "Primal Strength",
+          "essence cost": "1",
+          "action": "Reflexive",
+          "duration": "1 scene"
+        },
+        "Wisdom": {
+          "name": "Rending Claws",
+          "duration": "Permanent"
+        }
+      }
+    },
+    {
+      "name": "Gift of Technology",
+      "shorthand": "Garble",
+      "facets": {
+        "Cunning": {
+          "name": "Garble",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 scene",
+          "pool": {
+            "attribute": "Intelligence",
+            "skill": "Science",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Unmake",
+          "essence cost": "1",
+          "action": "Instant",
+          "resisted by": "Resolve + Primal Urge",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Crafts",
+            "renown": "Glory"
+          }
+        },
+        "Honor": {
+          "name": "Command Artifice",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "(Honor) hours",
+          "pool": {
+            "attribute": "Intelligence",
+            "skill": "Science",
+            "renown": "Honor"
+          }
+        },
+        "Purity": {
+          "name": "Shutdown",
+          "essence cost": "2",
+          "action": "Instant",
+          "duration": "1 scene",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Intimidate",
+            "renown": "Purity"
+          }
+        },
+        "Wisdom": {
+          "name": "Iron Slave",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 scene",
+          "pool": {
+            "attribute": "Wits",
+            "skill": "Crafts",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    },
+    {
+      "name": "Gift of Warding",
+      "shorthand": "Warding",
+      "facets": {
+        "Cunning": {
+          "name": "Maze Ward",
+          "essence cost": "5",
+          "action": "Instant",
+          "duration": "1 month"
+        },
+        "Glory": {
+          "name": "Ward the Wolf's Den",
+          "essence cost": "5",
+          "action": "Instant",
+          "duration": "1 month"
+        },
+        "Honor": {
+          "name": "All Doors Locked",
+          "essence cost": "1",
+          "action": "Instant",
+          "duration": "1 Scene"
+        },
+        "Purity": {
+          "name": "Predator's Claim",
+          "essence cost": "5",
+          "action": "Instant",
+          "duration": "1 month"
+        },
+        "Wisdom": {
+          "name": "Boundary Ward",
+          "essence cost": "5",
+          "action": "Instant",
+          "duration": "1 month"
+        }
+      }
+    },
+    {
+      "name": "Gift of Weather",
+      "shorthand": "Weather",
+      "facets": {
+        "Cunning": {
+          "name": "Cloak of Mist and Haze",
+          "essence cost": "1",
+          "action": "Extended",
+          "duration": "1 hour per success",
+          "pool": {
+            "attribute": "Dexterity",
+            "skill": "Stealth",
+            "renown": "Cunning"
+          }
+        },
+        "Glory": {
+          "name": "Heavens Unleashed",
+          "essence cost": "5",
+          "action": "Extended",
+          "duration": "1 hour per succes",
+          "pool": {
+            "attribute": "Presence",
+            "skill": "Survival",
+            "renown": "Glory"
+          }
+        },
+        "Honor": {
+          "name": "Hunt Under Iron Skies",
+          "essence cost": "1 per ally",
+          "duration": "Permanent"
+        },
+        "Purity": {
+          "name": "Grasp of Howling Winds",
+          "essence cost": "2",
+          "action": "Instant",
+          "duration": "1 turn per success",
+          "pool": {
+            "attribute": "Manipulation",
+            "skill": "Survival",
+            "renown": "Purity"
+          }
+        },
+        "Wisdom": {
+          "name": "Hunt of Ice and Fire",
+          "essence cost": "5",
+          "action": "Extended",
+          "duration": "1 hour per success",
+          "pool": {
+            "attribute": "Intelligence",
+            "skill": "Occult",
+            "renown": "Wisdom"
+          }
+        }
+      }
+    }
+  ]
+}

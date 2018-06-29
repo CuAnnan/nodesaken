@@ -1,4 +1,4 @@
-let ForsakenCharacter = require('./ForsakenCharacter'),
+let ForsakenCharacter = require('./Forsaken/ForsakenCharacter'),
 	Merit = require('./Merit'),
 	toon, characterReference,
 	MeritsDatabase = require('./MeritsDatabase');
@@ -119,6 +119,13 @@ function setValue()
 		}).catch((err)=>{
 			console.log(err);
 		});
+		
+		$.get('/js/GiftsDB/Forsaken.json').then(
+			(data)=>{
+				let json = JSON.parse(data);
+				toon.loadShadowGiftsJSON(json.shadow);
+			}
+		);
 	});
 })();
 

@@ -1,4 +1,4 @@
-let UseGroup = require('./UseGroup'),
+let UseGroup = require('../UseGroup'),
 	Renown = require('./Renown'),
 	auspiceRenowns = {'Cahalith':'Glory', 'Elodoth':'Honor', 'Irraka':'Cunning', 'Ithaeur':'Wisdom','Rahu':'Purity'},
 	tribalRenowns = {'Bone Shadows':'Wisdom', 'Hunters in Darkness':'Purity', 'Storm Lords':'Honor', 'Blood Talons':'Glory', 'Iron Masters':'Cunning'};
@@ -106,7 +106,7 @@ class RenownList extends UseGroup
 			let renown = this.items[i];
 			if(renown.xpLevels > 0)
 			{
-				cpRemaining = merit.convertXPToSP(cpRemaining);
+				cpRemaining = renown.convertXPToSP(cpRemaining);
 			}
 		}
 	}
@@ -117,6 +117,16 @@ class RenownList extends UseGroup
 		{
 			this.items[renown.name].loadJSON(renown);
 		}
+	}
+	
+	get unlockedRenown()
+	{
+		let unlocked = {};
+		for(let renown of Object.values(this.items))
+		{
+			unlocked[renown.name] = renown.score > 0;
+		}
+		return unlocked;
 	}
 
 }

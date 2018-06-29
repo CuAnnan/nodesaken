@@ -1,6 +1,7 @@
-let SupernaturalTemplate = require('./SupernaturalTemplate'),
+let SupernaturalTemplate = require('../SupernaturalTemplate'),
 	PrimalUrge = require('./PrimalUrge'),
-	RenownList = require('./RenownList');
+	RenownList = require('./RenownList'),
+	GiftListsContainer = require('./Gifts/GiftListsContainer');
 
 let primalUrgeTable = {
 	"1":{"essence":10,"essencePerTurn":1,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"None","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
@@ -20,7 +21,6 @@ class ForsakenCharacter extends SupernaturalTemplate
 	constructor(data)
 	{
 		super(data);
-		console.log('Constructor invoked');
 		this.blood = data.blood;
 		this.bone = data.bone;
 		this.auspice = data.auspice;
@@ -37,6 +37,8 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.renown = new RenownList().setAuspice(this.auspice).setTribe(this.tribe);
 		this.setTribe(data.tribe);
 		this.setAuspice(data.auspice);
+		
+		this.gifts = new GiftListsContainer();
 		
 		this.formMods = {
 			hishu: {mechanical:{perception: 1}},
@@ -64,14 +66,12 @@ class ForsakenCharacter extends SupernaturalTemplate
 	
 	setAuspice(auspice)
 	{
-		console.log(auspice);
 		this.auspice = auspice;
 		this.renown.setAuspice(auspice);
 	}
 	
 	setTribe(tribe)
 	{
-		console.log(tribe);
 		this.tribe = tribe;
 		this.renown.setTribe(tribe);
 	}
@@ -121,6 +121,16 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.harmony = data.harmony?parseInt(data.harmony):7;
 		this.renown.loadJSON(data.renown?data.renown:{});
 		this.calculateDerived();
+	}
+	
+	loadShadowGiftsJSON(json)
+	{
+		this.gifts.loadShadowGiftsFromJSON(json);
+	}
+	
+	get availableShadowGifts()
+	{
+		return this.gifts.fetchAvailableShadowGiftFacets(this.renown.unlockedRenown);
 	}
 	
 	getDefense(form = 'hishu')

@@ -1,5 +1,5 @@
 let Controller = require('./Controller'),
-	ForsakenCharacter = require('../characterModel/ForsakenCharacter'),
+	ForsakenCharacter = require('../characterModel/Forsaken/ForsakenCharacter'),
 	User = require('../schemas/UserSchema'),
 	Character= require('../schemas/CharacterSchema'),
 	MeritsDatabase = require('../characterModel/MeritsDatabase');

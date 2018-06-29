@@ -1,4 +1,4 @@
-let XPPurchasable = require('./XPPurchasable');
+let XPPurchasable = require('../XPPurchasable');
 
 class Renown extends XPPurchasable
 {

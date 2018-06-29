@@ -1,4 +1,4 @@
-let XPPurchasable = require('./XPPurchasable');
+let XPPurchasable = require('../XPPurchasable');
 
 class PrimalUrge extends XPPurchasable
 {

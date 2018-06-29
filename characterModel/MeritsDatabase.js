@@ -86,9 +86,12 @@ let MeritsDatabase = {
 	{
 		// the only time we're worried about reconciling merits is when it's a fighting style
 		// so we need to add new maneuvers
-		for(let maneuver of newMerit.maneuvers)
+		if(newMerit.maneuvers)
 		{
-			extantMerit.maneuvers.push(maneuver);
+			for (let maneuver of newMerit.maneuvers)
+			{
+				extantMerit.maneuvers.push(maneuver);
+			}
 		}
 	},
 	list:function()

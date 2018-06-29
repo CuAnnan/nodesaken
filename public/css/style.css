@@ -146,9 +146,14 @@ h5
     left: unset !important;
 }
 
-.formName
+.formName, .giftTitle
 {
     font-size: 1.2em;
+}
+
+.giftTitle
+{
+    width:100%;
 }
 
 .formNameEnglish
@@ -162,6 +167,11 @@ h5
     border-right: 1px solid black;
     padding-right: 5px;
     padding-left: 5px;
+}
+
+.wwForm:last-child
+{
+    border: none;
 }
 
 .formAttributeMods .wwForm
@@ -223,4 +233,26 @@ h5
 #deleteMeritButton
 {
     display:none;
+}
+
+.formSpecial
+{
+    margin-top: 1rem;
+    font-size: 0.8em;
+    font-style: italic;
+    list-style: none;
+    margin-bottom: 0px;
+    padding-left:0px;
+}
+
+.formHeading
+{
+    border-bottom: 1px solid black;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.formAttributeMods .wwForm
+{
+    margin-top: 10px;
 }

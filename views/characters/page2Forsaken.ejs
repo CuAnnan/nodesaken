@@ -60,23 +60,23 @@
 <div class="page tab-pane" id="page2" role="tabpanel" aria-labelledby="page2-tab">
     <div class="container-fluid">
         <div class="row">
-            <div class="col text-center">
+            <div class="col text-center formHeading">
                 <h5 class="formName">Hishu</h5>
                 <div class="formNameEnglish">(Human)</div>
             </div>
-            <div class="col text-center">
+            <div class="col text-center formHeading">
                 <h5 class="formName">Dalu</h5>
                 <div class="formNameEnglish">(Near-Human)</div>
             </div>
-            <div class="col text-center">
+            <div class="col text-center formHeading">
                 <h5 class="formName">Gauru</h5>
                 <div class="formNameEnglish">(Wolf-man)</div>
             </div>
-            <div class="col text-center">
+            <div class="col text-center formHeading">
                 <h5 class="formName">Urshul</h5>
                 <div class="formNameEnglish">(Near-wolf)</div>
             </div>
-            <div class="col text-center">
+            <div class="col text-center formHeading">
                 <h5 class="formName">Urhan</h5>
                 <div class="formNameEnglish">(Wolf)</div>
             </div>
@@ -92,6 +92,65 @@
             <% for(let i in character.formMods){%>
                 <% formDerivedColumn(i, character.formMods[i]) %>
             <%}%>
+        </div>
+
+        <div class="row">
+            <div class="col text-center wwForm">
+                <ul class="formSpecial">
+                    <li>Sheep's Clothing</li>
+                </ul>
+            </div>
+            <div class="col text-center wwForm">
+                <ul class="formSpecial">
+                    <li>Teeth/Claws +0L</li>
+                    <li>Defense vs. Firearms</li>
+                    <li>Mild Lunacy</li>
+                    <li>Badass Motherfucker</li>
+                </ul>
+            </div>
+            <div class="col text-center wwForm">
+                <ul class="formSpecial">
+                    <li>Teeth/Claws +2L</li>
+                    <li>(Initiative +3)</li>
+                    <li>Defense vs. Firearms</li>
+                    <li>Full Lunacy</li>
+                    <li>Regeneration</li>
+                    <li>Rage</li>
+                    <li>Primal Fear</li>
+                </ul>
+            </div>
+            <div class="col text-center wwForm">
+                <ul class="formSpecial">
+                    <li>Teeth +2L/Claws +1L</li>
+                    <li>Defense vs. Firearms</li>
+                    <li>Moderate Lunacy</li>
+                    <li>Weaken the Prey</li>
+                </ul>
+            </div>
+            <div class="col text-center wwForm">
+                <ul class="formSpecial">
+                    <li>Teeth +1L</li>
+                    <li>Chase Down</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row" id="totemGiftsAndRites">
+            <div class="col-4">
+                <div class="strike"><span class="sectionHeading">Totem</span></div>
+            </div>
+            <div class="col">
+                <div class="strike"><span class="sectionHeading">Gifts and Rites</span></div>
+                <div class="row text-center"><h5 class="giftTitle">Moon Gifts</h5></div>
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                    <div class="col">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

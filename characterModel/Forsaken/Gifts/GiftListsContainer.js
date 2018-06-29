@@ -19,9 +19,14 @@ class GiftListsContainer
 		let gifts = {};
 		for(let gift of Object.values(this.shadow))
 		{
-			gifts[gift.name] = gift.getAvailableFacets(unlockedRenowns);
+			gifts[gift.shorthand] = gift.getAvailableFacets(unlockedRenowns);
 		}
 		return gifts;
+	}
+	
+	unlockShadowGiftFacet(giftShorthand, renown)
+	{
+		this.gifts[giftShorthand].unlock(renown);
 	}
 	
 	loadShadowGiftsFromJSON(json)

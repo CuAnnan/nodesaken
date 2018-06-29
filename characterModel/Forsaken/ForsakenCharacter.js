@@ -133,6 +133,11 @@ class ForsakenCharacter extends SupernaturalTemplate
 		return this.gifts.fetchAvailableShadowGiftFacets(this.renown.unlockedRenown);
 	}
 	
+	buyShadowGiftFacet(giftShorthand, renown)
+	{
+		this.gifts.unlockShadowGiftFacet(giftShorthand, renown);
+	}
+	
 	getDefense(form = 'hishu')
 	{
 		let dexFormMod = this.formMods[form].mechanical.dexterity?this.formMods[form].mechanical.dexterity:0;

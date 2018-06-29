@@ -93,6 +93,11 @@ let MeritsDatabase = {
 				extantMerit.maneuvers.push(maneuver);
 			}
 		}
+		else
+		{
+			console.log('Cannot reconsile');
+			console.log(extantMerit.name, newMerit.name);
+		}
 	},
 	list:function()
 	{

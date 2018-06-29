@@ -1,0 +1,28 @@
+{
+  "Supernatural": [
+    {
+      "name": "Rune Caster",
+      "levels": [2],
+      "prerequisites": [
+        [
+          {"compare": "Occult","useGroup": "skills","comparison": {"gte": 2}}
+        ]
+      ]
+    },
+    {
+      "name": "Animal Speech",
+      "levels": [1,2]
+    },
+    {
+      "name": "Skinthief",
+      "level": [3,4,5],
+      "multiple": true,
+      "prerequisites": [
+        [
+          {"compare": "Animal Ken","useGroup": "skills","comparison": {"gte": 1}},
+          {"compare": "Occult","useGroup": "skills","comparison": {"gte": 2}}
+        ]
+      ]
+    }
+  ]
+}

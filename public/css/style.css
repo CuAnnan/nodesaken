@@ -190,7 +190,7 @@ h5
     margin-right: 2em;
 }
 
-.meritName, .touchStone, .renownName
+.meritName, .touchStone, .renownName, .giftFacet
 {
     border-bottom: 1px solid black;
 }
@@ -225,7 +225,7 @@ h5
     display: none;
 }
 
-.meritName, .renownName
+.meritName, .renownName, .giftFacet div
 {
     font-size: 0.8em;
 }
@@ -255,4 +255,10 @@ h5
 .formAttributeMods .wwForm
 {
     margin-top: 10px;
+}
+
+.giftFacet
+{
+    margin-left:1px;
+    margin-right:1px;
 }

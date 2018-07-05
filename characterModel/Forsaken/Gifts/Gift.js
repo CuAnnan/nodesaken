@@ -9,7 +9,10 @@ class Gift
 		this.facets = {};
 		for(let i in data.facets)
 		{
-			this.facets[i] = new GiftFacet(data.facets[i]);
+			let facet = data.facets[i];
+			facet.renown = i;
+			facet.giftList = this.shorthand;
+			this.facets[i] = new GiftFacet(facet);
 		}
 		this.unlocked = false;
 	}

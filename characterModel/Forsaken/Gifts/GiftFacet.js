@@ -7,6 +7,8 @@ class GiftFacet
 		this.pool = data.pool;
 		this.data = data;
 		this.freeFacet = false;
+		this.giftList = data.giftList;
+		this.renown = data.renown;
 	}
 	
 	

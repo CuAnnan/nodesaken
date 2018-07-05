@@ -37,9 +37,41 @@ class GiftListsContainer
 		}
 	}
 	
+	get firstTenShadowFacets()
+	{
+		return this.getFirstTenFacets(this.shadow);
+	}
+	
+	getFirstTenFacets(source)
+	{
+		let giftFacets = [], giftIndex = 0, gifts = Object.values(source);
+		while(giftFacets.length < 10 && giftIndex < gifts.length)
+		{
+			let gift = gifts[i],
+				facets = Object.values(gift.facets),
+				facetIndex = 0;
+			while(facetIndex < facets.length && giftFacets.length < 10)
+			{
+				let facet = facets[i];
+				if(facet.unlocked)
+				{
+					giftFacets.push(facet);
+				}
+				facetIndex++;
+			}
+			giftIndex++;
+		}
+		return giftFacets;
+	}
+	
 	loadMoonGifts()
 	{
 	
+	}
+	
+	get firstTenWolfFacets()
+	{
+		return this.getFirstTenFacets(this.wolf);
 	}
 	
 	loadWolfGifts()

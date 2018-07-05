@@ -158,6 +158,16 @@ class ForsakenCharacter extends SupernaturalTemplate
 		let primalUrgeRow = primalUrgeTable[this.primalUrge.score];
 		this.essenceMax = primalUrgeRow.essence;
 	}
+	
+	get firstTenShadowFacets()
+	{
+		return this.gifts.firstTenShadowFacets;
+	}
+	
+	get firstTenWolfFacets()
+	{
+		return this.gifts.firstTenWolfFacets;
+	}
 }
 
 module.exports = ForsakenCharacter;

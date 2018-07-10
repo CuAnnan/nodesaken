@@ -38,7 +38,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.setTribe(data.tribe);
 		this.setAuspice(data.auspice);
 		
-		this.gifts = new GiftListsContainer();
+		this.gifts = new GiftListsContainer().setAuspice(this.auspice).setTribe(this.tribe);
 		
 		this.formMods = {
 			hishu: {mechanical:{perception: 1}},

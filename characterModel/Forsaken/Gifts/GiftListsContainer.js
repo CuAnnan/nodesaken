@@ -1,4 +1,18 @@
-let ShadowGift = require('./ShadowGift');
+let ShadowGift = require('./ShadowGift'),
+	tribalGifts = {
+		'Blood Talons':['Inspiration', 'Rage', 'Strength'],
+		'Bone Shadows':['Death', 'Elemental', 'Insight'],
+		'Hunters in Darkness':['Nature', 'Stealth', 'Warding'],
+		'Iron Masters':['Knowledge', 'Shaping', 'Technology'],
+		'Storm Lords':['Evasion', 'Dominance', 'Weather'],
+	},
+	auspiciousGifts = {
+		'Cahalith':['Inspiration', 'Knowledge'],
+		'Elodoth':['Insight', 'Warding'],
+		'Irraka':['Evasion', 'Stealth'],
+		'Ithaeur':['Elemental', 'Shaping'],
+		'Rahu':['Dominance', 'Strength'],
+	};
 
 class GiftListsContainer
 {
@@ -7,6 +21,39 @@ class GiftListsContainer
 		this.shadow = {};
 		this.moon = {};
 		this.wolf = {};
+		this.auspice = null;
+		this.tribe = null;
+		this.affinityGifts = [];
+	}
+	
+	setAuspice(auspice)
+	{
+		this.auspice = auspice;
+		this.setAffinityGifts();
+		return this;
+	}
+	
+	setTribe(tribe)
+	{
+		this.tribe = tribe;
+		this.setAffinityGifts();
+		return this;
+	}
+	
+	setAffinityGifts()
+	{
+		this.affinityGifts = [];
+		// build up the array of affinity gifts
+		if(this.tribe)
+		{
+			// spread in the tribal gifts;
+			this.affinityGifts.push(...tribalGifts[this.tribe]);
+		}
+		if(this.auspice)
+		{
+			// spread in the auspicious gifts
+			this.affinityGifts.push(...auspiciousGifts[this.auspice]);
+		}
 	}
 	
 	/**
@@ -16,10 +63,13 @@ class GiftListsContainer
 	 */
 	fetchAvailableShadowGiftFacets(unlockedRenowns)
 	{
-		let gifts = {};
+		let gifts = [];
+		
 		for(let gift of Object.values(this.shadow))
 		{
-			gifts[gift.shorthand] = gift.getAvailableFacets(unlockedRenowns);
+			gift.availableRenown = unlockedRenowns;
+			gift.affinity = this.affinityGifts.indexOf(gift.shorthand) >= 0;
+			gifts.push(gift);
 		}
 		return gifts;
 	}

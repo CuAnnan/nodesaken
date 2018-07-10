@@ -159,12 +159,28 @@ function giftRow(gift = null)
                 <div class="strike"><span class="sectionHeading">Gifts and Rites</span></div>
                 <div class="row text-center"><h5 class="giftTitle">Moon Gifts</h5></div>
                 <div class="row">
-                    <div class="col"></div>
-                    <div class="col"></div>
+                    <div class="col">
+                        <div class="row moonGift">
+                            <div class="giftName col-7">&nbsp;</div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row moonGift">
+                            <div class="giftName col-7">&nbsp;</div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row text-center">
                     <div class="col">
-                        <div class="row text-center"><h5 class="giftTitle">Shadow Gifts</h5></div>
+                        <div class="row text-center">
+                            <h5 class="giftTitle">
+                                Shadow Gifts
+                                <button id="addShadowGiftsButton" class="btn">+</button>
+                            </h5>
+
+                        </div>
                         <%
                             let shadowGiftFacetsForPage2 = character.firstTenShadowFacets;
                             for(let i = 0; i < 10; i++)
@@ -174,7 +190,12 @@ function giftRow(gift = null)
                         %>
                     </div>
                     <div class="col">
-                        <div class="row text-center"><h5 class="giftTitle">Wolf Gifts</h5></div>
+                        <div class="row text-center">
+                            <h5 class="giftTitle">
+                                Wolf Gifts
+                                <button class="btn">+</button>
+                            </h5>
+                        </div>
                         <%
                             let wolfGiftFacetsForPage2 = character.firstTenWolfFacets;
                             for(let i = 0; i < 10; i++)

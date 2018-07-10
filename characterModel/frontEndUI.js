@@ -76,6 +76,7 @@ function setValue()
 			$meritModal.modal('hide');
 		});
 		$('#primalUrge i').click(setPrimalUrge);
+		$('#addShadowGiftsButton').click(showShadowGiftSelector);
 		
 		toon = new ForsakenCharacter({
 			name:$('#characterName').text(),
@@ -415,4 +416,23 @@ function setRenownLevel()
 		}
 	);
 	saveCharacter();
+}
+
+function showShadowGiftSelector()
+{
+	let gifts = toon.availableShadowGifts,
+		$affinityGifts = $('#giftsModalAffinityGifts').empty(),
+		$nonAffinityGifts = $('#giftsModalNonAffinityGifts').empty();
+	for(let gift of gifts)
+	{
+		for (facet of gift.availableFacets)
+		{
+			$('<option/>')
+				.text(`${gift.shorthand} (${facet.renown}) - (${facet.name})`)
+				.appendTo(
+					gift.affinity ? $affinityGifts : $nonAffinityGifts
+				);
+		}
+	}
+	$('#giftsSelectorModal').modal('show');
 }

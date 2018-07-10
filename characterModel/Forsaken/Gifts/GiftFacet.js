@@ -9,9 +9,8 @@ class GiftFacet
 		this.freeFacet = false;
 		this.giftList = data.giftList;
 		this.renown = data.renown;
+		this.available = false;
 	}
-	
-	
 	
 	lock()
 	{

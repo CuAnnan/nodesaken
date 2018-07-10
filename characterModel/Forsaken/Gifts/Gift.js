@@ -38,6 +38,27 @@ class Gift
 	{
 		this.unlocked = false;
 	}
+	
+	set availableRenown(availableRenown)
+	{
+		for(let facet of Object.values(this.facets))
+		{
+			facet.available = availableRenown[facet.renown];
+		}
+	}
+	
+	get availableFacets()
+	{
+		let facets = [];
+		for(let facet of Object.values(this.facets))
+		{
+			if(facet.available)
+			{
+				facets.push(facet);
+			}
+		}
+		return facets;
+	}
 }
 
 module.exports = Gift;

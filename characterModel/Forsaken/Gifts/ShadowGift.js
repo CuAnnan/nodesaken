@@ -22,18 +22,7 @@ class ShadowGift extends Gift
 		};
 	}
 	
-	getAvailableFacets(unlockedRenowns)
-	{
-		let facets = {};
-		for(let renown in this.facets)
-		{
-			if(unlockedRenowns[renown])
-			{
-				facets[renown] = this.facets[renown];
-			}
-		}
-		return facets;
-	}
+	
 	
 	setAffinity(affinity)
 	{

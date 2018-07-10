@@ -262,3 +262,13 @@ h5
     margin-left:1px;
     margin-right:1px;
 }
+
+.moonGift .giftName
+{
+    border-bottom: 1px solid black;
+}
+
+.moonGift
+{
+    margin-left: 1px;
+}

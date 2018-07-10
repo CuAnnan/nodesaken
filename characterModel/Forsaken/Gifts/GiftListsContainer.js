@@ -69,7 +69,10 @@ class GiftListsContainer
 		{
 			gift.availableRenown = unlockedRenowns;
 			gift.affinity = this.affinityGifts.indexOf(gift.shorthand) >= 0;
-			gifts.push(gift);
+			if(!gift.unlocked)
+			{
+				gifts.push(gift);
+			}
 		}
 		return gifts;
 	}

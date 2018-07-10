@@ -77,6 +77,7 @@ function setValue()
 		});
 		$('#primalUrge i').click(setPrimalUrge);
 		$('#addShadowGiftsButton').click(showShadowGiftSelector);
+		$('#giftsModalChooseBtn').click(chooseGift);
 		
 		toon = new ForsakenCharacter({
 			name:$('#characterName').text(),
@@ -420,19 +421,34 @@ function setRenownLevel()
 
 function showShadowGiftSelector()
 {
-	let gifts = toon.availableShadowGifts,
-		$affinityGifts = $('#giftsModalAffinityGifts').empty(),
+	let gifts = toon.availableShadowGifts;
+	populateAndShowGiftsUI('shadow', gifts);
+}
+
+function populateAndShowGiftsUI(listName, gifts)
+{
+	let $affinityGifts = $('#giftsModalAffinityGifts').empty(),
 		$nonAffinityGifts = $('#giftsModalNonAffinityGifts').empty();
 	for(let gift of gifts)
 	{
-		for (facet of gift.availableFacets)
+		for(let facet of gift.availableFacets)
 		{
 			$('<option/>')
 				.text(`${gift.shorthand} (${facet.renown}) - (${facet.name})`)
 				.appendTo(
 					gift.affinity ? $affinityGifts : $nonAffinityGifts
-				);
+				).data({
+					'list':listName,
+					'gift':gift.shorthand,
+					'facet':facet.renown
+				});
 		}
 	}
 	$('#giftsSelectorModal').modal('show');
+}
+
+function chooseGift()
+{
+	let $chosenGift = $('#giftsModalGift option:selected');
+	console.log($chosenGift.data());
 }

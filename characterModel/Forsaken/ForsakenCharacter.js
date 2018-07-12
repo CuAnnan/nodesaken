@@ -168,6 +168,11 @@ class ForsakenCharacter extends SupernaturalTemplate
 	{
 		return this.gifts.firstTenWolfFacets;
 	}
+	
+	unlockFacet(list, gift, facet)
+	{
+		this.gifts.unlockFacet(list, gift, facet);
+	}
 }
 
 module.exports = ForsakenCharacter;

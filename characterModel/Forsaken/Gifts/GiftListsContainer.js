@@ -69,24 +69,16 @@ class GiftListsContainer
 		{
 			gift.availableRenown = unlockedRenowns;
 			gift.affinity = this.affinityGifts.indexOf(gift.shorthand) >= 0;
-			if(!gift.unlocked)
-			{
-				gifts.push(gift);
-			}
+			gifts.push(gift);
 		}
 		return gifts;
-	}
-	
-	unlockShadowGiftFacet(giftShorthand, renown)
-	{
-		this.gifts[giftShorthand].unlock(renown);
 	}
 	
 	loadShadowGiftsFromJSON(json)
 	{
 		for(let giftJSON of Object.values(json))
 		{
-			this.shadow[giftJSON.name] = new ShadowGift(giftJSON);
+			this.shadow[giftJSON.shorthand] = new ShadowGift(giftJSON);
 		}
 	}
 	
@@ -100,12 +92,12 @@ class GiftListsContainer
 		let giftFacets = [], giftIndex = 0, gifts = Object.values(source);
 		while(giftFacets.length < 10 && giftIndex < gifts.length)
 		{
-			let gift = gifts[i],
+			let gift = gifts[giftIndex],
 				facets = Object.values(gift.facets),
 				facetIndex = 0;
 			while(facetIndex < facets.length && giftFacets.length < 10)
 			{
-				let facet = facets[i];
+				let facet = facets[facetIndex];
 				if(facet.unlocked)
 				{
 					giftFacets.push(facet);
@@ -130,6 +122,17 @@ class GiftListsContainer
 	loadWolfGifts()
 	{
 	
+	}
+	
+	/**
+	 * This is straight forward
+	 * @param list The list the gift facet belongs to
+	 * @param gift The gift the gift facet belongs to
+	 * @param facet The facet to unlock
+	 */
+	unlockFacet(list, gift, facet)
+	{
+		this[list][gift].unlockFacet(facet);
 	}
 }
 

@@ -64,6 +64,9 @@ function setValue()
  */
 (()=>{
 	$(()=>{
+		/*
+		 * UI Event handlers
+		 */
 		let $modal = $('#loadingModal').modal(),
 			$meritModal = $('#meritsModal');
 		$('[data-toggle="tooltip"]').tooltip();
@@ -79,6 +82,12 @@ function setValue()
 		$('#addShadowGiftsButton').click(showShadowGiftSelector);
 		$('#giftsModalChooseBtn').click(chooseGift);
 		
+		/*
+		 Instantiate a new character
+		 The load order of toon and merits is currently tightly coupled
+		 This is a problem.
+		 But it is a fix-later problem.
+		 */
 		toon = new ForsakenCharacter({
 			name:$('#characterName').text(),
 			auspice:$('#characterAuspice').text(),
@@ -434,7 +443,7 @@ function populateAndShowGiftsUI(listName, gifts)
 		for(let facet of gift.availableFacets)
 		{
 			$('<option/>')
-				.text(`${gift.shorthand} (${facet.renown}) - (${facet.name})`)
+				.text(`${gift.shorthand} (${facet.renown}) - ${facet.name}`)
 				.appendTo(
 					gift.affinity ? $affinityGifts : $nonAffinityGifts
 				).data({
@@ -449,6 +458,18 @@ function populateAndShowGiftsUI(listName, gifts)
 
 function chooseGift()
 {
-	let $chosenGift = $('#giftsModalGift option:selected');
-	console.log($chosenGift.data());
+	let $chosenGift = $('#giftsModalGift option:selected'),
+		giftData = $chosenGift.data();
+	
+	toon.unlockFacet(giftData.list, giftData.gift, giftData.facet);
+	let shadowFacets = toon.firstTenShadowFacets;
+	$('#firstTenShadowGiftFacets .giftFacet').each(
+		function(index, element)
+		{
+			if(shadowFacets[index])
+			{
+				$(element).text(`${shadowFacets[index].giftList} (${shadowFacets[index].renown}) - ${shadowFacets[index].name}`);
+			}
+		}
+	);
 }

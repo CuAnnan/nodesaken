@@ -4,7 +4,8 @@ class GiftFacet
 	{
 		this.name = data.name;
 		this.unlocked = false;
-		this.pool = data.pool;
+		this.poolParts = data.pool;
+		this.activationCost = data.cost;
 		this.data = data;
 		this.freeFacet = false;
 		this.giftList = data.giftList;
@@ -22,6 +23,17 @@ class GiftFacet
 		this.unlocked = true;
 	}
 	
+	get pool()
+	{
+		if(this.poolParts)
+		{
+			return Object.values(this.poolParts).join('+');
+		}
+		else
+		{
+			return '-';
+		}
+	}
 	
 }
 

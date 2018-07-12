@@ -52,12 +52,18 @@ class Gift
 		let facets = [];
 		for(let facet of Object.values(this.facets))
 		{
-			if(facet.available)
+			if(facet.available && !facet.unlocked)
 			{
 				facets.push(facet);
 			}
 		}
 		return facets;
+	}
+	
+	unlockFacet(renown)
+	{
+		this.unlock();
+		this.facets[renown].unlock();
 	}
 }
 

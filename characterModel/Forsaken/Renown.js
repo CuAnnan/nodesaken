@@ -33,7 +33,6 @@ class Renown extends XPPurchasable
 	
 	loadJSON(json)
 	{
-		console.log(json);
 		super.loadJSON(json);
 	}
 }

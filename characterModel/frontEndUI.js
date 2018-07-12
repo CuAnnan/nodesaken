@@ -81,7 +81,10 @@ function setValue()
 		$('#primalUrge i').click(setPrimalUrge);
 		$('#addShadowGiftsButton').click(showShadowGiftSelector);
 		$('#giftsModalChooseBtn').click(chooseGift);
-		
+		$('#myTab a').on('click', function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
 		/*
 		 Instantiate a new character
 		 The load order of toon and merits is currently tightly coupled
@@ -98,43 +101,27 @@ function setValue()
 		toon.primalUrge.loadJSON($('#primalUrge').data());
 		
 		MeritsDatabase.setToon(toon);
-		
-		$('.xpPurchasable').each(function (index, node){
-			let $node = $(node), data = $node.data();
-			toon.lookups[data.name].loadJSON(data);
-		});
-		toon.calculateDerived();
-		
-		$('#myTab a').on('click', function (e) {
-			e.preventDefault();
-			$(this).tab('show');
-		});
-		
-		MeritsDatabase.loadRemote().then(()=>{
-			$modal.modal('hide');
-			
-			$('.merit').each(function(index, node){
-				let $node = $(node),
-					data = $node.data();
-				if(data.name)
-				{
-					let merit = MeritsDatabase.fetch(data.name);
-					toon.addMerit(index, merit);
-					merit.loadJSON(data);
-					toon.calculateDerived();
-				}
-			});
-			MeritsDatabase.update();
-			updateDerivedUIFields();
-			
-		}).catch((err)=>{
-			console.log(err);
-		});
-		
-		$.get('/js/GiftsDB/Forsaken.json').then(
-			(data)=>{
-				let json = JSON.parse(data);
-				toon.loadShadowGiftsJSON(json.shadow);
+		let meritsPromise = MeritsDatabase
+				.loadRemote()
+				.then(()=>{
+					MeritsDatabase.update();
+				}),
+			giftsPromise = $.get('/js/GiftsDB/Forsaken.json')
+				.then(
+					(data)=>{
+						let json = JSON.parse(data);
+						toon.loadShadowGiftsJSON(json.shadow);
+					}
+				);
+		Promise.all([meritsPromise, giftsPromise]).then(
+			()=>
+			{
+				let jsonString = $('#toonJSON').html(),
+					json = JSON.parse(jsonString);
+				
+				toon.loadJSON(json.json);
+				$modal.modal('hide');
+				updateDerivedUIFields();
 			}
 		);
 	});
@@ -472,4 +459,7 @@ function chooseGift()
 			}
 		}
 	);
+	
+	$('#giftsSelectorModal').modal('hide');
+	saveCharacter();
 }

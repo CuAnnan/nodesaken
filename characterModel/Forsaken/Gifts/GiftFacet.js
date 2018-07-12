@@ -35,6 +35,14 @@ class GiftFacet
 		}
 	}
 	
+	toJSON()
+	{
+		return {
+			name:this.name,
+			renown:this.renown
+		};
+	}
+	
 }
 
 module.exports = GiftFacet;

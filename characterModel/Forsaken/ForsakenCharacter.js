@@ -108,7 +108,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 		};
 		json.primalUrge = this.primalUrge.toJSON();
 		json.renown = this.renown.toJSON();
-		
+		json.gifts = this.gifts.toJSON();
 		return json;
 	}
 	
@@ -120,6 +120,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.touchstones = data.touchstones?data.touchstones:{flesh:'', spirit:''};
 		this.harmony = data.harmony?parseInt(data.harmony):7;
 		this.renown.loadJSON(data.renown?data.renown:{});
+		this.gifts.loadJSON(data.gifts);
 		this.calculateDerived();
 	}
 	

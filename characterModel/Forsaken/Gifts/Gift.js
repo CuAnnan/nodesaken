@@ -65,6 +65,30 @@ class Gift
 		this.unlock();
 		this.facets[renown].unlock();
 	}
+	
+	toJSON()
+	{
+		let JSON = {
+			'shorthand':this.shorthand,
+			facets:[]
+		};
+		for(let facet of Object.values(this.facets))
+		{
+			if(facet.unlocked)
+			{
+				JSON.facets.push(facet.toJSON());
+			}
+		}
+		return JSON;
+	}
+	
+	loadJSON(json)
+	{
+		for(let facet of json.facets)
+		{
+			this.unlockFacet(facet.renown);
+		}
+	}
 }
 
 module.exports = Gift;

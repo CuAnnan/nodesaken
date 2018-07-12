@@ -62,9 +62,8 @@ function formDerivedColumn(formName, form)
 }
 function giftFacetRow(giftFacet = null)
 {
-    giftFacet = giftFacet?giftFacet:{name:'&nbsp;'};
 %>
-    <div class="giftFacet row text-left"><%- giftFacet.name %></div><%
+    <div class="giftFacet row text-left"><%- giftFacet?`${giftFacet.giftList} (${giftFacet.renown})- ${giftFacet.name}`:'&nbsp;' %></div><%
 }
 %>
 

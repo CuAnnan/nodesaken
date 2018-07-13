@@ -141,9 +141,10 @@ class ForsakenCharacter extends SupernaturalTemplate
 	
 	getDefense(form = 'hishu')
 	{
-		let dexFormMod = this.formMods[form].mechanical.dexterity?this.formMods[form].mechanical.dexterity:0;
-		
-		let defense = Math.min(
+		let dexFormMod = this.formMods[form].mechanical.dexterity?this.formMods[form].mechanical.dexterity:0,
+			func = (this.hasMerit('Instinctive Defense') && (form == 'Urshul' || form =='Urhan')) ? Math.min:Math.max;
+			
+		let defense = func(
 			this.addScores('Wits', this.defenseSkill),
 			this.addScores('Dexterity', this.defenseSkill, dexFormMod)
 		);
@@ -170,9 +171,14 @@ class ForsakenCharacter extends SupernaturalTemplate
 		return this.gifts.firstTenWolfFacets;
 	}
 	
-	unlockFacet(list, gift, facet)
+	unlockFacet(list, gift, renown)
 	{
-		this.gifts.unlockFacet(list, gift, facet);
+		this.gifts.unlockFacet(list, gift, renown);
+	}
+	
+	removeGiftFacet(list, gift, renown)
+	{
+		this.gifts.lockFacet(list, gift, renown);
 	}
 }
 

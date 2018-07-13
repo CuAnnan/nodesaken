@@ -60,10 +60,23 @@ function formDerivedColumn(formName, form)
 </div>
 <%
 }
-function giftFacetRow(giftFacet = null)
+function giftFacetRow(list, giftFacet = null)
 {
+	if(giftFacet)
+    {
 %>
-    <div class="giftFacet row text-left"><%- giftFacet?`${giftFacet.giftList} (${giftFacet.renown})- ${giftFacet.name}`:'&nbsp;' %></div><%
+        <div class="giftFacet row text-left" data-list="<%=list%>" data-gift="<%=giftFacet.giftList%>" data-renown="<%=giftFacet.renown%>" data-name="<%=giftFacet.name%>">
+            <div class="col-11"><%- `${giftFacet.giftList} (${giftFacet.renown})- ${giftFacet.name}` %></div>
+            <div class="col-1">[<a href="#" class="giftFacetDelete" title="Remove Facet">x</a>]</div>
+        </div>
+<%
+    }
+    else
+    {
+%>
+        <div class="giftFacet row text-left">&nbsp;</div>
+<%
+    }
 }
 %>
 
@@ -175,12 +188,12 @@ function giftFacetRow(giftFacet = null)
                             </h5>
 
                         </div>
-                        <div id="firstTenShadowGiftFacets">
+                        <div id="firstTenShadowGiftFacets" class="pageTwoGiftList">
                             <%
                                 let shadowGiftFacetsForPage2 = character.firstTenShadowFacets;
                                 for(let i = 0; i < 10; i++)
                                 {
-                                    giftFacetRow(shadowGiftFacetsForPage2[i]);
+                                    giftFacetRow('shadow', shadowGiftFacetsForPage2[i]);
                                 }
                             %>
                         </div>
@@ -192,12 +205,12 @@ function giftFacetRow(giftFacet = null)
                                 <button class="btn">+</button>
                             </h5>
                         </div>
-                        <div id="firstTenWolfGiftFacets">
+                        <div id="firstTenWolfGiftFacets" class="pageTwoGiftList">
                             <%
                                 let wolfGiftFacetsForPage2 = character.firstTenWolfFacets;
                                 for(let i = 0; i < 10; i++)
                                 {
-                                    giftFacetRow(wolfGiftFacetsForPage2[i]);
+                                    giftFacetRow('wolf', wolfGiftFacetsForPage2[i]);
                                 }
                             %>
                         </div>

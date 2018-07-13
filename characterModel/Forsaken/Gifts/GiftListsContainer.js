@@ -76,10 +76,8 @@ class GiftListsContainer
 	
 	loadShadowGiftsFromJSON(json)
 	{
-		console.log('Loading JSON for gifts');
 		for(let giftJSON of Object.values(json))
 		{
-			console.log(giftJSON);
 			this.shadow[giftJSON.shorthand] = new ShadowGift(giftJSON);
 		}
 	}
@@ -132,9 +130,15 @@ class GiftListsContainer
 	 * @param gift The gift the gift facet belongs to
 	 * @param facet The facet to unlock
 	 */
-	unlockFacet(list, gift, facet)
+	unlockFacet(list, gift, renown)
 	{
-		this[list][gift].unlockFacet(facet);
+		this[list][gift].unlockFacet(renown);
+	}
+	
+	lockFacet(list, gift, renown)
+	{
+		console.log(list, gift, renown);
+		this[list][gift].lockFacet(renown);
 	}
 	
 	toJSON()

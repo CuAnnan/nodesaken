@@ -85,6 +85,8 @@ function setValue()
 			e.preventDefault();
 			$(this).tab('show');
 		});
+		$('.giftFacetDelete').click(removeGiftFacet);
+		
 		/*
 		 Instantiate a new character
 		 The load order of toon and merits is currently tightly coupled
@@ -436,7 +438,7 @@ function populateAndShowGiftsUI(listName, gifts)
 				).data({
 					'list':listName,
 					'gift':gift.shorthand,
-					'facet':facet.renown
+					'renown':facet.renown
 				});
 		}
 	}
@@ -448,18 +450,47 @@ function chooseGift()
 	let $chosenGift = $('#giftsModalGift option:selected'),
 		giftData = $chosenGift.data();
 	
-	toon.unlockFacet(giftData.list, giftData.gift, giftData.facet);
+	toon.unlockFacet(giftData.list, giftData.gift, giftData.renown);
+	updateGiftFacets();
+	$('#giftsSelectorModal').modal('hide');
+	saveCharacter();
+}
+
+function removeGiftFacet(e)
+{
+	e.preventDefault();
+	let $element = $(this),
+		$row = $element.closest('.row'),
+		data = $row.data();
+	console.log(data);
+	toon.removeGiftFacet(data.list, data.gift, data.renown);
+	updateGiftFacets();
+	saveCharacter();
+}
+
+function updateGiftFacets()
+{
+	$('.giftFacet').html('&nbsp;');
 	let shadowFacets = toon.firstTenShadowFacets;
 	$('#firstTenShadowGiftFacets .giftFacet').each(
 		function(index, element)
 		{
 			if(shadowFacets[index])
 			{
-				$(element).text(`${shadowFacets[index].giftList} (${shadowFacets[index].renown}) - ${shadowFacets[index].name}`);
+				let facet = shadowFacets[index],
+					$element = $(element);
+				$element
+					.empty()
+					.data({
+						'gift':facet.giftList,
+						'renown':facet.renown,
+						'name':facet.name,
+						'list':'shadow'
+					})
+					.append($('<div class="col-11"/>').text(`${facet.giftList} (${facet.renown}) - ${facet.name}`))
+					.append($('<div class="col-1">[<a href="#" class="giftFacetDelete" title="Remove Facet">x</a>]</div>'));
+				$('.giftFacetDelete', $element).click(removeGiftFacet);
 			}
 		}
 	);
-	
-	$('#giftsSelectorModal').modal('hide');
-	saveCharacter();
 }

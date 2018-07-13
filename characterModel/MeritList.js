@@ -159,9 +159,12 @@ class MeritList extends UseGroup
 		for(let i = 0; i < count && cpRemaining > 0; i++)
 		{
 			let merit = this.items[i];
-			if(merit.xpLevels > 0)
+			if(merit)
 			{
-				cpRemaining = merit.convertXPToSP(cpRemaining);
+				if (merit.xpLevels > 0)
+				{
+					cpRemaining = merit.convertXPToSP(cpRemaining);
+				}
 			}
 		}
 		

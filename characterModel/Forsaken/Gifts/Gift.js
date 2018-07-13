@@ -14,6 +14,7 @@ class Gift
 			facet.giftList = this.shorthand;
 			this.facets[i] = new GiftFacet(facet);
 		}
+		this.unlockedFacets = 0;
 		this.unlocked = false;
 	}
 	
@@ -62,8 +63,19 @@ class Gift
 	
 	unlockFacet(renown)
 	{
+		this.unlockedFacets++;
 		this.unlock();
 		this.facets[renown].unlock();
+	}
+	
+	lockFacet(renown)
+	{
+		this.facets[renown].lock();
+		this.unlockedFacets--;
+		if(!this.unlockedFacets)
+		{
+			this.lock();
+		}
 	}
 	
 	toJSON()

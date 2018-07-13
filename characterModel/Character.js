@@ -232,6 +232,7 @@ class Character extends Listenable
 		}
 		
 		this.calculateDerived();
+		this.triggerEvent('changed');
 	}
 	
 	toJSON()

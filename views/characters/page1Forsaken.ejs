@@ -31,7 +31,7 @@ function xpPurchasableRow(className, item)
     }
 %>
         </div>
-        <div class="col-6 <%=className%>Name"><%= item.name %></div>
+        <div class="col-6 <%=className%>Name"><%= item.name %><%= item.specialities?'('+item.specialities.join(', ')+')':''%></div>
 <%
     }
     else

@@ -6,7 +6,6 @@ module.exports = {
 		{
 			return false;
 		}
-		
 		if(comparison.gte)
 		{
 			let result = toonValue.score >= comparison.gte;
@@ -17,6 +16,7 @@ module.exports = {
 			let result = toonValue.score <= comparison.lte;
 			return result;
 		}
+		
 		return false;
 	},
 	validates:function(toon, merit)

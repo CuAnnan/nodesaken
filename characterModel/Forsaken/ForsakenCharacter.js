@@ -144,6 +144,7 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.renown.loadJSON(data.renown?data.renown:{});
 		this.gifts.loadJSON(data.gifts);
 		this.calculateDerived();
+		this.triggerEvent('changed');
 	}
 	
 	loadShadowGiftsJSON(json)

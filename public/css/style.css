@@ -272,3 +272,19 @@ h5
 {
     margin-left: 1px;
 }
+
+.skillRow .col-2, .skillRow .col-5, .skillRow .col-2
+{
+    padding:0px;
+}
+
+.assetSkill.disabled
+{
+    cursor: default;
+    color: grey;
+}
+
+.assetSkill, .auspiceSkill
+{
+    cursor:pointer;
+}

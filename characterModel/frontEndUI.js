@@ -86,6 +86,7 @@ function setValue()
 			$(this).tab('show');
 		});
 		$('.giftFacetDelete').click(removeGiftFacet);
+		$('.auspiceSkill').click(setFavouredAuspiceSkill);
 		
 		/*
 		 Instantiate a new character
@@ -128,6 +129,31 @@ function setValue()
 		);
 	});
 })();
+
+function setFavouredAuspiceSkill()
+{
+	let $node = $(this),
+		$row = $node.closest('.row'),
+		skillName = $row.data('name'),
+		$skillsContainer = $('.skillsCol');
+	
+	$('.auspiceSkill.fas').removeClass('fas').addClass('far');
+	
+	toon.favouredAuspiceSkill = skillName;
+	$node.removeClass('far').addClass('fas');
+	for(let skill of toon.auspiceSkills)
+	{
+		let $skillRow = $skillsContainer.find(`[data-name="${skill}"]`),
+			$scoreContainer = $('.xpPurchasableValue', $skillRow),
+			score = toon.lookups[skill].score;
+		$('i', $scoreContainer).removeClass('fas far').each(
+			(i, node)=>{
+				$(node).addClass(i < score ? 'fas' : 'far');
+			}
+		);
+	}
+	saveCharacter();
+}
 
 function setMeritLevel()
 {

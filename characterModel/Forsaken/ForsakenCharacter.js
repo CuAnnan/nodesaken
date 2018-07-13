@@ -16,6 +16,14 @@ let primalUrgeTable = {
 	"10":{"essence":75,"essencePerTurn":15,"regenerationPerTurn":6,"basuImTime":720,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-5,"trackingBonus":4}
 };
 
+let auspiceSkills = {
+	'Cahalith':['Crafts', 'Expression', 'Persuasion'],
+	'Elodoth':['Empathy', 'Investigation', 'Politics'],
+	'Irraka':['Larceny', 'Stealth', 'Subterfuge'],
+	'Ithaeur':['Animal Ken', 'Medicine', 'Occult'],
+	'Rahu':['Brawl', 'Intimidation', 'Survival']
+};
+
 class ForsakenCharacter extends SupernaturalTemplate
 {
 	constructor(data)
@@ -23,8 +31,8 @@ class ForsakenCharacter extends SupernaturalTemplate
 		super(data);
 		this.blood = data.blood;
 		this.bone = data.bone;
-		this.auspice = data.auspice;
 		this.trigger = data.trigger;
+		
 		this.reference = data.reference;
 		this.touchstones = {
 			'flesh':(data.touchstones && data.touchstones.flesh)?data.touchstones.flesh:'',
@@ -34,9 +42,8 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.primalUrge = new PrimalUrge(this.merits);
 		this.lookups['Primal Urge'] = this.primalUrge;
 		
-		this.renown = new RenownList().setAuspice(this.auspice).setTribe(this.tribe);
-		this.setTribe(data.tribe);
-		this.setAuspice(data.auspice);
+		this.renown = new RenownList();
+		this.setTribe(data.tribe).setAuspice(data.auspice);
 		
 		this.gifts = new GiftListsContainer().setAuspice(this.auspice).setTribe(this.tribe);
 		
@@ -68,12 +75,27 @@ class ForsakenCharacter extends SupernaturalTemplate
 	{
 		this.auspice = auspice;
 		this.renown.setAuspice(auspice);
+		return this;
+	}
+	
+	get auspiceSkills()
+	{
+		return auspiceSkills[this.auspice];
+	}
+	
+	set favouredAuspiceSkill(favouredSkill)
+	{
+		for(let skill of this.auspiceSkills)
+		{
+			this.lookups[skill].favoured = skill == favouredSkill;
+		}
 	}
 	
 	setTribe(tribe)
 	{
 		this.tribe = tribe;
 		this.renown.setTribe(tribe);
+		return this;
 	}
 	
 	get morality()

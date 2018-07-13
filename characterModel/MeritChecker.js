@@ -16,6 +16,11 @@ module.exports = {
 			let result = toonValue.score <= comparison.lte;
 			return result;
 		}
+		if(comparison.matches)
+		{
+			let result = toonValue == comparison.matches;
+			return result;
+		}
 		
 		return false;
 	},
@@ -27,7 +32,7 @@ module.exports = {
 		{
 			return {validates:false};
 		}
-		else if(merit.prerequisites)
+		if(merit.prerequisites)
 		{
 			let validates = false;
 			for(let prerequisiteSet of merit.prerequisites)
@@ -92,6 +97,7 @@ module.exports = {
 					}
 					else
 					{
+						
 						prerequisiteMet = false;
 					}
 					

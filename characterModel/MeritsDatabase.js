@@ -125,12 +125,13 @@ let MeritsDatabase = {
 	},
 	update:function()
 	{
+		console.log('Updating');
 		let available = {};
 		for(let source in this.ordered)
 		{
 			for(let i in this.ordered[source])
 			{
-				available[i] = [];
+				available[i] = available[i]?available[i]:[];
 				for (let merit of this.ordered[source][i])
 				{
 					let result = MeritChecker.validates(this.toon, merit);
@@ -140,10 +141,8 @@ let MeritsDatabase = {
 					}
 					else
 					{
-						/*
 						console.log(merit.name + " doesn't meet prereqs");
 						console.log(result.failurePoints);
-						*/
 					}
 				}
 			}

@@ -336,15 +336,21 @@ function loadMeritDialog()
 		{
 			let merit = orderedMerits[t][m],
 				dots = [];
-			
-			for(let i of merit.levels)
+			try
 			{
-				let dotsString = '';
-				for(let j = 0; j < i; j++)
+				for(let i of merit.levels)
 				{
-					dotsString += '•';
+					let dotsString = '';
+					for(let j = 0; j < i; j++)
+					{
+						dotsString += '•';
+					}
+					dots.push(dotsString);
 				}
-				dots.push(dotsString);
+			}
+			catch(e)
+			{
+				console.log(merit);
 			}
 			
 			$('<option/>').text(merit.name+'('+dots.join(',')+')').appendTo($optGroup).attr('value', merit.name);

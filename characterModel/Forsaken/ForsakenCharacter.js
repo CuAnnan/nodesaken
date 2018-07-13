@@ -43,7 +43,13 @@ class ForsakenCharacter extends SupernaturalTemplate
 		this.lookups['Primal Urge'] = this.primalUrge;
 		
 		this.renown = new RenownList();
+		for(let renownItem of Object.values(this.renown.items))
+		{
+			this.lookups[renownItem.name] = renownItem;
+		}
 		this.setTribe(data.tribe).setAuspice(data.auspice);
+		this.lookups['tribe'] = this.tribe;
+		this.lookups['auspice'] = this.auspice;
 		
 		this.gifts = new GiftListsContainer().setAuspice(this.auspice).setTribe(this.tribe);
 		

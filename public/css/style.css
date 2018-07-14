@@ -95,7 +95,7 @@ h5
     font-size: 0.83em;
 }
 
-.xpPurchasableValue span, .meritValue span, .meritName, #harmony i, .renownValue i
+.xpPurchasableValue span, .meritValue span, .meritName, #harmony i, .renownValue i, .assetSkill, .auspiceSkill, .skillName
 {
     cursor: pointer;
 }
@@ -282,9 +282,4 @@ h5
 {
     cursor: default;
     color: grey;
-}
-
-.assetSkill, .auspiceSkill
-{
-    cursor:pointer;
 }

@@ -3,6 +3,27 @@ let ForsakenCharacter = require('./Forsaken/ForsakenCharacter'),
 	toon, characterReference,
 	MeritsDatabase = require('./MeritsDatabase');
 
+(function($) {
+	$.fn.textfill = function(maxFontSize) {
+		maxFontSize = parseInt(maxFontSize, 10);
+		return this.each(function(){
+			var ourText = $("span", this),
+				parent = ourText.parent(),
+				maxHeight = parent.height(),
+				maxWidth = parent.width(),
+				fontSize = parseInt(ourText.css("fontSize"), 10),
+				multiplier = maxWidth/ourText.width(),
+				newSize = (fontSize*(multiplier-0.1));
+			ourText.css(
+				"fontSize",
+				(maxFontSize > 0 && newSize > maxFontSize) ?
+					maxFontSize :
+					newSize
+			);
+		});
+	};
+})(jQuery);
+
 window.debugToon = ()=>{
 	console.log(toon);
 };
@@ -23,7 +44,7 @@ function saveCharacter()
 		json:toon.toJSON(),
 		timestamp:Date.now(),
 	};
-	$.post(
+	return $.post(
 		'/characters/save',
 		xhrData
 	).then(
@@ -87,7 +108,8 @@ function setValue()
 		});
 		$('.giftFacetDelete').click(removeGiftFacet);
 		$('.auspiceSkill').click(setFavouredAuspiceSkill);
-		
+		$('.skillName').click(showSpecialtyModal);
+		$('#specialityModalNewButton').click(addSpecialty);
 		/*
 		 Instantiate a new character
 		 The load order of toon and merits is currently tightly coupled
@@ -525,4 +547,71 @@ function updateGiftFacets()
 			}
 		}
 	);
+}
+
+function showSpecialtyModal()
+{
+	let $element = $(this),
+		$row = $element.closest('.row'),
+		skillName = $row.data('name');
+	updateSkillSpecialties(skillName);
+	$('#specialtyModalNewSpecialty').val('');
+	$('#specialtySkillName').text(skillName);
+	$('#specialtyModal').modal('show');
+}
+
+function addSpecialty()
+{
+	let specialtyName = $('#specialtyModalNewSpecialty').val(),
+		skill = $('#specialtySkillName').text(),
+		$skillsContainer = $('.skillsCol'),
+		$skillRow = $skillsContainer.find(`[data-name="${skill}"]`);
+	
+	toon.addSkillSpecialty(skill, specialtyName);
+	updateSkillSpecialties(skill);
+	
+	$('#specialtyModalNewSpecialty').val('');
+	$('.skillName', $skillRow).text(`${skill}*`);
+	
+	saveCharacter();
+}
+
+function updateSkillSpecialties(skill)
+{
+	let $modalBody = $('#specialtyModalBody').empty(),
+		specialties = toon.getSkillSpecialties(skill);
+	
+	for(let specialty of specialties)
+	{
+		let $row = $(
+				`<div class="row" data-specialty="${specialty}" data-skill="${skill}">
+					<div class="col-9 specialtyName">${specialty}</div>
+					<div class="col-3">
+						<button class="btn btn-secondary editSpecialtyButton"><i class="fas fa-edit"></i></button>
+						<button class="btn btn-danger deleteSpecialtyButton"><i class="fas fa-trash"></i></button>
+					</div>
+				</div>
+				`
+			).appendTo($modalBody);
+	}
+	$('.editSpecialtyButton').click(editSpecialty);
+}
+
+function editSpecialty()
+{
+	let $row = $(this).closest('.row'),
+		data = $row.data(),
+		$specialtyNode = $('.specialty', $row);
+	$('<input type="text"/>').val(data.specialty).appendTo(
+		$row.empty()
+	).change(
+		function()
+		{
+			let $node = $(this);
+			let newSpecialty = node.val();
+			toon.replaceSpecialty(data.skill, data.specialty, newSpeciatly);
+			$row.empty().text(newSpecialty);
+		}
+	);
+	saveCharacter();
 }

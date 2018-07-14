@@ -6,7 +6,7 @@ class Skill extends XPPurchasable
 	{
 		super(name);
 		this.xpCost = 2;
-		this.specialities = [];
+		this.specialties = [];
 	}
 	
 	get penalty()
@@ -17,19 +17,24 @@ class Skill extends XPPurchasable
 	loadJSON(json)
 	{
 		super.loadJSON(json);
-		this.specialities = json.specialties;
+		this.specialties = json.specialties?json.specialties:[];
 	}
 	
 	toJSON()
 	{
 		let json = super.toJSON();
-		json.specialities = this.specialities;
+		json.specialties = this.specialties;
 		return json;
 	}
 	
-	addSpeciality(specialityName)
+	addSpecialty(specialty)
 	{
-		this.specialities.push(specialityName);
+		this.specialties.push(specialty);
+	}
+	
+	replaceSpecialty(oldSpecialty, newSpecialty)
+	{
+		this.specialties[this.specialties.indexOf(oldSpecialty)] = newSpecialty;
 	}
 }
 

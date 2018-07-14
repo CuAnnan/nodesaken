@@ -8,8 +8,6 @@ class Attribute extends XPPurchasable
 		this.min = 1;
 		this.xpCost = 4;
 	}
-	
-	
 }
 
 module.exports = Attribute;

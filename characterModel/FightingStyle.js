@@ -34,19 +34,12 @@ class FightingStyle extends StyleIndividualMerit
 		return maneuvers;
 	}
 	
-	addCrossLearnedManeuver(maneuver)
-	{
-		this.crossLearnedManeuvers.push(maneuver);
-	}
-	
 	toJSON()
 	{
 		let json = super.toJSON();
 		json.crossLearnedManeuvers = this.crossLearnedManeuvers;
 		return json;
 	}
-	
-	
 }
 
 module.exports = FightingStyle;

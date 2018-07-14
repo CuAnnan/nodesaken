@@ -22,16 +22,18 @@ function xpPurchasableRow(className, item)
         <div class="col-2">
             <i class="assetSkill far fa-square disabled" title="Asset Skill"></i>
 <%
-    if(character.auspiceSkills.indexOf(item.name) >= 0)
-    {
-    	let isFavoured = character.lookups[item.name].favoured;
+        if(character.auspiceSkills.indexOf(item.name) >= 0)
+        {
+            let isFavoured = character.lookups[item.name].favoured;
 %>
             <i class="auspiceSkill fa<%= isFavoured?'s':'r'%> fa-square" title="Favoured Auspice Skill"></i>
 <%
-    }
+        }
 %>
         </div>
-        <div class="col-6 <%=className%>Name"><%= item.name %><%= item.specialities?'('+item.specialities.join(', ')+')':''%></div>
+        <div class="col-6 <%=className%>Name">
+            <%= item.name %><%= item.specialties.length?' *':''%>
+        </div>
 <%
     }
     else

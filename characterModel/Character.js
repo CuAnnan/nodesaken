@@ -245,6 +245,21 @@ class Character extends Listenable
 		
 		return json;
 	}
+	
+	addSkillSpecialty(skill, specialty)
+	{
+		this.lookups[skill].addSpecialty(specialty);
+	}
+	
+	getSkillSpecialties(skill)
+	{
+		return this.lookups[skill].specialties;
+	}
+	
+	replaceSpecialty(skill, oldSpecialty, newSpecialty)
+	{
+		this.lookups[skill].replaceSpecialty(oldSpecialty, newSpecialty);
+	}
 }
 
 module.exports = Character;

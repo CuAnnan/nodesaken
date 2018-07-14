@@ -125,7 +125,6 @@ let MeritsDatabase = {
 	},
 	update:function()
 	{
-		console.log('Updating');
 		let available = {};
 		for(let source in this.ordered)
 		{
@@ -141,8 +140,8 @@ let MeritsDatabase = {
 					}
 					else
 					{
-						console.log(merit.name + " doesn't meet prereqs");
-						console.log(result.failurePoints);
+						// console.log(merit.name + " doesn't meet prereqs");
+						// console.log(result.failurePoints);
 					}
 				}
 			}

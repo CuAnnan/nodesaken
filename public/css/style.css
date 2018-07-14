@@ -283,3 +283,19 @@ h5
     cursor: default;
     color: grey;
 }
+
+h4
+{
+    font-family:'arnova';
+    width:100%;
+}
+
+#page5 h5
+{
+    width: 100%;
+}
+
+#page5 .disabled
+{
+    color: grey;
+}

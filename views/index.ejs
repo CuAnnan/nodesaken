@@ -6,12 +6,13 @@
         <p>The last attempt at this stalled owing to health concerns, but I was prompted to resume owing to the advances of Node.js and wanting a piece of sufficiently involved domain specific software that I can show off on a resume.</p>
         <p>The project is open source, under the ISC licence, and the git repository is located <a href="https://github.com/CuAnnan/nodesaken" target="_blank">here</a>.</p>
         <p>If you want to start using it here, you will need to register an account first. I intend on eventually handling anonymously created characters, but binding to account is easier and frees me to program the more interesting stuff sooner rather than later.</p>
-        <p>Changes to the character are made by pressing the level you want to acquire. If you have CP left, they are used. Otherwise, XP is spent. The system currently provides no means to add XP, it merely stores how much XP is spent.</p>
+        <p>Changes to the character are made by pressing the level you want to acquire. If you have CP left, they are used. Otherwise, XP is spent. The system currently provides no means to add XP, it merely stores how much XP is spent. Changes are saved as they are made.</p>
     </div>
     <div class="container-fluid">
-        <h2>Limitations</h2>
-        <p>Very little of the Forsaken&trade; Template has been programmed yet. Skills, attributes, forms, derived attributes are all done, merits are mostly done; the framework for loading and saving characters is done and the things that are done save and load properly</p>
-        <p>I'm not adding functionality for the other supernatural templates as it would involve a lot of reading for how their splats work. If you are that interested in those splats, check out the code and start learning JavaScript</p>
+        <h2>Current Project Status</h2>
+        <p>The Forsaken Template has seen tremendous work since I last edited the landing page. The code for modelling Shadow Gifts is finished. I've opted to show Gift Cards for all the Gifts rather than trying to list the extra Gifts in an extra page. It's a cleaner approach and it allows for a unified approach.</p>
+        <p>Rites, Moon Gifts, Wolf Gifts need to be done. Moon Gifts will be the messiest, owing to the fact that the Cahalith (and only the Cahalith so far) get two and so the rules for extra Moon Gifts have to be applied, and you need to be able to choose your primary shadow gift and optionally buy more. Wolf Shadow Gifts are straight forward and will largely reuse the Shadow Gifts code.</p>
+        <p>I have decided to architect a separate solution for packs, involving establishing a pack as an entity in its own right, whereupon the person who made the pack entity can invite other characters to the pack using their reference (think database ID for those familiar with RDBMS). None of this is programmed, mind you, but it's the approach I plan on taking. Once a pack entity has members, the rules for creating totem from the core can be applied. The totem can then be applied to the character sheets using Mongoose's inflation lookups.</p>
     </div>
     <div class="containerfluid">
         <h3>Outstanding tasks</h3>
@@ -23,7 +24,6 @@
                         Gifts
                         <ul>
                             <li>Moon</li>
-                            <li>Shadow (Currently under progress)</li>
                             <li>Wolf Facets</li>
                         </ul>
                     </li>
@@ -34,18 +34,21 @@
                             <li>Wolf</li>
                         </ul>
                     </li>
-                    <li>Kuruth Triggers</li>
                     <li>
-                        Personal Details
+                        Personal Details. These are simple editable fields that have no mechanical bearing on the character's mathy objects, but need to be stored.
                         <ul>
                             <li>Name</li>
                             <li>Bone & Blood</li>
                             <li>Tribe and Auspice</li>
                             <li>Lodge</li>
+                            <li>Kuruth Triggers</li>
+                            <li>Aspirations</li>
+                            <li>Conditions</li>
+                            <li>Touch stones</li>
                         </ul>
                     </li>
-                    <li>UI for extra Gifts, Rites & Merits (Gifts UI is currently being worked on)</li>
-                    <li>Structure
+                    <li>UI for extra Gifts, Rites & Merits</li>
+                    <li>Back end data Structure
                         <ul>
                             <li>Packs</li>
                             <li>Totems</li>
@@ -54,6 +57,7 @@
                     </li>
                     <li>2FA</li>
                     <li>Character publication</li>
+                    <li>QR Codes</li>
                 </ul>
             </div>
             <div class="col">
@@ -71,7 +75,6 @@
                         <ul>
                             <li>Subclass for Forsaken&trade;</li>
                             <li>Testing against Fighting Styles for maneuvers as merits</li>
-                            <li>LTE Testing</li>
                             <li>Harmony Testing</li>
                         </ul>
                     </li>

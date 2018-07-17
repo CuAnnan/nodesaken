@@ -50,6 +50,7 @@ class Character extends Listenable
 		this.populateUseGroups();
 		this.morality = new Morality('Integrity');
 		this.lookups['Morality'] = this.lookups['morality'] = this.morality;
+		this.assetSkills = [];
 	}
 	
 	setName(name)
@@ -230,6 +231,7 @@ class Character extends Listenable
 			merit.loadJSON(json);
 			this.addMerit(index, merit);
 		}
+		this.assetSkills = data.assetSkills;
 		
 		this.calculateDerived();
 		this.triggerEvent('changed');
@@ -241,6 +243,7 @@ class Character extends Listenable
 			skills: this.skills.toJSON(),
 			attributes: this.attributes.toJSON(),
 			merits:this.merits.toJSON(),
+			assetSkills:this.assetSkills
 		};
 		
 		return json;
@@ -259,6 +262,20 @@ class Character extends Listenable
 	replaceSpecialty(skill, oldSpecialty, newSpecialty)
 	{
 		this.lookups[skill].replaceSpecialty(oldSpecialty, newSpecialty);
+	}
+	
+	addAssetSkill(skill)
+	{
+		this.assetSkills.push(skill);
+	}
+	
+	removeAssetSkill(skill)
+	{
+		let index = this.assetSkills.indexOf(skill);
+		if(index >= 0)
+		{
+			this.assetSkills.splice(index, 1);
+		}
 	}
 }
 

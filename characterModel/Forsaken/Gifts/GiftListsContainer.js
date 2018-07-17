@@ -109,6 +109,19 @@ class GiftListsContainer
 		return giftFacets;
 	}
 	
+	get unlockedShadowGiftFacets()
+	{
+		let unlockedShadowGiftFacets = [];
+		for(let gift of Object.values(this.shadow))
+		{
+			for(let facet of gift.unlockedFacets)
+			{
+				unlockedShadowGiftFacets.push(facet);
+			}
+		}
+		return unlockedShadowGiftFacets;
+	}
+	
 	loadMoonGifts()
 	{
 	

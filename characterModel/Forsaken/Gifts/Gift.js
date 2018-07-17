@@ -14,7 +14,7 @@ class Gift
 			facet.giftList = this.shorthand;
 			this.facets[i] = new GiftFacet(facet);
 		}
-		this.unlockedFacets = 0;
+		this.unlockedFacetCount = 0;
 		this.unlocked = false;
 	}
 	
@@ -61,9 +61,22 @@ class Gift
 		return facets;
 	}
 	
+	get unlockedFacets()
+	{
+		let facets = [];
+		for(let facet of Object.values(this.facets))
+		{
+			if(facet.unlocked)
+			{
+				facets.push(facet);
+			}
+		}
+		return facets;
+	}
+	
 	unlockFacet(renown)
 	{
-		this.unlockedFacets++;
+		this.unlockedFacetCount++;
 		this.unlock();
 		this.facets[renown].unlock();
 	}
@@ -71,8 +84,8 @@ class Gift
 	lockFacet(renown)
 	{
 		this.facets[renown].lock();
-		this.unlockedFacets--;
-		if(!this.unlockedFacets)
+		this.unlockedFacetCount--;
+		if(!this.unlockedFacetCount)
 		{
 			this.lock();
 		}

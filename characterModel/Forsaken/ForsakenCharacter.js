@@ -209,6 +209,11 @@ class ForsakenCharacter extends SupernaturalTemplate
 	{
 		this.gifts.lockFacet(list, gift, renown);
 	}
+	
+	get unlockedShadowGiftFacets()
+	{
+		return this.gifts.unlockedShadowGiftFacets;
+	}
 }
 
 module.exports = ForsakenCharacter;

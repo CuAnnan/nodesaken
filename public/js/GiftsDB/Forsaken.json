@@ -47,7 +47,7 @@
       "facets": {
         "Cunning": {
           "name": "Cold Embrace",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 Hour per Success",
           "pool": {
@@ -61,18 +61,18 @@
         },
         "Honor": {
           "name": "Memento Mori",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive",
           "duration": "One Scene"
         },
         "Purity": {
           "name": "Bone Gnaw",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant"
         },
         "Wisdom": {
           "name": "Eyes of the Dead",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "pool": {
             "attribute": "Wits",
@@ -88,7 +88,7 @@
       "facets": {
         "Cunning": {
           "name": "Primal Allure",
-          "essence cost": "1",
+          "activationCost": "1",
           "resisted by": "Resolve + Primal Urge",
           "action": "Contested",
           "duration": "One Scene",
@@ -100,12 +100,12 @@
         },
         "Glory": {
           "name": "Glorious Lunacy",
-          "essence cost": "1",
+          "activationCost": "1",
           "duration": "One Scene"
         },
         "Honor": {
           "name": "Lay Low the Challenger",
-          "essence cost": "1",
+          "activationCost": "1",
           "resisted by": "Composure + Primal Urge",
           "action": "Reflexive and Contested",
           "pool": {
@@ -116,12 +116,12 @@
         },
         "Purity": {
           "name": "Snarl of the Predator",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant"
         },
         "Wisdom": {
           "name": "Lead the Lesser Pack",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "One Day"
         }
@@ -133,7 +133,7 @@
       "facets": {
         "Cunning": {
           "name": "Breath of Air",
-          "essence cost": "Varies",
+          "activationCost": "Varies",
           "action": "Instant",
           "pool": {
             "attribute": "Wits",
@@ -143,7 +143,7 @@
         },
         "Glory": {
           "name": "Catastrophe",
-          "essence cost": "5 Essence per Level of Influence",
+          "activationCost": "5 Essence per Level of Influence",
           "action": "Extended",
           "pool": {
             "attribute": "Presence",
@@ -154,7 +154,7 @@
         "Honor": {
           "name": "Flesh of Earth",
           "action": "Instant",
-          "essence cost": "Varies",
+          "activationCost": "Varies",
           "pool": {
             "attribute": "Strength",
             "skill": "Survival",
@@ -164,7 +164,7 @@
         "Purity": {
           "name": "Tonge of Flame",
           "action": "Instant",
-          "essence cost": "Varies",
+          "activationCost": "Varies",
           "pool": {
             "attribute": "Presence",
             "skill": "Empathy",
@@ -174,7 +174,7 @@
         "Wisdom": {
           "name": "Heart of Water",
           "action": "Instant",
-          "essence cost": "Varies",
+          "activationCost": "Varies",
           "pool": {
             "attribute": "Manipulation",
             "skill": "Occult",
@@ -189,13 +189,13 @@
       "facets": {
         "Cunning": {
           "name": "Feet of Mist",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 hour"
         },
         "Glory": {
           "name": "Fog of War",
-          "essence cost": "1",
+          "activationCost": "1",
           "resisted by": "Composure + Primal Urge",
           "action": "Reflexive",
           "pool": {
@@ -206,12 +206,12 @@
         },
         "Honor": {
           "name": "Deny Everything",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive"
         },
         "Purity": {
           "name": "Hit and Run",
-          "essence cost": "1",
+          "activationCost": "1",
           "resisted by": "Composure + Primal Urge",
           "action": "Reflexive",
           "pool": {
@@ -222,7 +222,7 @@
         },
         "Wisdom": {
           "name": "Exit Strategy",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "pool": {
             "attribute": "Wits",
@@ -238,7 +238,7 @@
       "facets": {
         "Cunning": {
           "name": "Prey on Weakness",
-          "essence cost": "1",
+          "activationCost": "1",
           "resisted by": "Composure + Primal Urge",
           "action": "Instant",
           "pool": {
@@ -249,7 +249,7 @@
         },
         "Glory": {
           "name": "Read the World's Loom",
-          "essence cost": "5",
+          "activationCost": "5",
           "action": "Instant",
           "pool": {
             "attribute": "Wits",
@@ -259,7 +259,7 @@
         },
         "Honor": {
           "name": "Echo Dream",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "pool": {
             "attribute": "WIts",
@@ -269,7 +269,7 @@
         },
         "Purity": {
           "name": "Scent the Unnatural",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "pool": {
             "attribute": "Wits",
@@ -279,7 +279,7 @@
         },
         "Wisdom": {
           "name": "One Step Ahead",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant"
         }
       }
@@ -290,7 +290,7 @@
       "facets": {
         "Cunning": {
           "name": "Lunatic Inspiration",
-          "essence cost": "1",
+          "activationCost": "1",
           "resisted by": "Composure",
           "action": "Instant",
           "duration": "1 lunar cycle",
@@ -302,24 +302,24 @@
         },
         "Glory": {
           "name": "Fearless Hunter",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 scene"
         },
         "Honor": {
           "name": "Pack Triumps together",
-          "essence cost": "1 per target",
+          "activationCost": "1 per target",
           "action": "Reflexive",
           "duration": "1 scene"
         },
         "Purity": {
           "name": "Unity",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant"
         },
         "Wisdom": {
           "name": "Still Small Voice",
-          "essence cost": "1 per target",
+          "activationCost": "1 per target",
           "resisted by": "Resolve + Primal Urge",
           "action": "Instant",
           "pool": {
@@ -336,7 +336,7 @@
       "facets": {
         "Cunning": {
           "name": "Needle",
-          "essence cost": "1",
+          "activationCost": "1",
           "resisted by": "Composure + Primal Urge",
           "action": "Instant",
           "duration": "1 month",
@@ -348,7 +348,7 @@
         },
         "Glory": {
           "name": "This Story is True",
-          "essence cost": "2",
+          "activationCost": "2",
           "action": "Instant",
           "duration": "1 hour per success",
           "pool": {
@@ -359,7 +359,7 @@
         },
         "Honor": {
           "name": "Know Thy Prey",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "pool": {
             "attribute": "Wits",
@@ -369,7 +369,7 @@
         },
         "Purity": {
           "name": "Lore of the Land",
-          "essence cost": "2",
+          "activationCost": "2",
           "action": "Instant",
           "duration": "1 scene",
           "pool": {
@@ -380,7 +380,7 @@
         },
         "Wisdom": {
           "name": "Sift the Sands",
-          "essence cost": "1/2",
+          "activationCost": "1/2",
           "action": "Extended (10 minutes per roll)",
           "pool": {
             "attribute": "Intelligence",
@@ -396,7 +396,7 @@
       "facets": {
         "Cunning": {
           "name": "Nature's Lure",
-          "essence cost": "1",
+          "activationCost": "1",
           "resisted by": "Composure + Primal Urge",
           "action": "Instant",
           "duration": "1 scene",
@@ -408,12 +408,12 @@
         },
         "Glory": {
           "name": "Black Earth, Red Hunger",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant"
         },
         "Honor": {
           "name": "Knotted Paths",
-          "essence cost": "1 per target",
+          "activationCost": "1 per target",
           "resisted by": "Composure + Primal Urge",
           "action": "Instant",
           "duration": "1 day",
@@ -425,7 +425,7 @@
         },
         "Purity": {
           "name": "Pack Kin",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Extended",
           "duration": "Indefinite",
           "pool": {
@@ -436,7 +436,7 @@
         },
         "Wisdom": {
           "name": "Beast Ride",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "Indefinite",
           "pool": {
@@ -453,7 +453,7 @@
       "facets": {
         "Cunning": {
           "name": "Incite Fury",
-          "essence cost": "2",
+          "activationCost": "2",
           "resisted by": "Composure + Primal Urge",
           "action": "Instant",
           "pool": {
@@ -464,22 +464,22 @@
         },
         "Glory": {
           "name": "Berserker's Might",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive"
         },
         "Honor": {
           "name": "Perfected Rage",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive"
         },
         "Purity": {
           "name": "Slaughterer",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive"
         },
         "Wisdom": {
           "name": "Raging Lunacy",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive",
           "duration": "1 scene"
         }
@@ -491,19 +491,19 @@
       "facets": {
         "Cunning": {
           "name": "Moldywarp",
-          "essence cost": "",
+          "activationCost": "",
           "resisted by": "1",
           "action": "Instant",
           "duration": "1 scene"
         },
         "Glory": {
           "name": "Shield-breaker",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive"
         },
         "Honor": {
           "name": "Entropy's Toll",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "pool": {
             "attribute": "Presence",
@@ -513,7 +513,7 @@
         },
         "Purity": {
           "name": "Perfection of Form",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 day",
           "pool": {
@@ -524,7 +524,7 @@
         },
         "Wisdom": {
           "name": "Sculpt",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "30 minutes",
           "pool": {
@@ -541,13 +541,13 @@
       "facets": {
         "Cunning": {
           "name": "Shadow Pelt",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 Scene"
         },
         "Glory": {
           "name": "Preadator's Shadow",
-          "essence cost": "1 per target",
+          "activationCost": "1 per target",
           "resisted by": "Composure + Primal Urge",
           "action": "Instant",
           "pool": {
@@ -558,18 +558,18 @@
         },
         "Honor": {
           "name": "Pack Stalks the Prey",
-          "essence cost": "1 per ally",
+          "activationCost": "1 per ally",
           "action": "Reflexive"
         },
         "Purity": {
           "name": "The Hunter Waits",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 scene"
         },
         "Wisdom": {
           "name": "Running Silent",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 scene"
         }
@@ -581,23 +581,23 @@
       "facets": {
         "Cunning": {
           "name": "Unchained",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive"
         },
         "Glory": {
           "name": "Preadator's Unmatched Pursuit",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "Scene"
         },
         "Honor": {
           "name": "Crushing Blow",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive"
         },
         "Purity": {
           "name": "Primal Strength",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Reflexive",
           "duration": "1 scene"
         },
@@ -613,7 +613,7 @@
       "facets": {
         "Cunning": {
           "name": "Garble",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 scene",
           "pool": {
@@ -624,7 +624,7 @@
         },
         "Glory": {
           "name": "Unmake",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "resisted by": "Resolve + Primal Urge",
           "pool": {
@@ -635,7 +635,7 @@
         },
         "Honor": {
           "name": "Command Artifice",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "(Honor) hours",
           "pool": {
@@ -646,7 +646,7 @@
         },
         "Purity": {
           "name": "Shutdown",
-          "essence cost": "2",
+          "activationCost": "2",
           "action": "Instant",
           "duration": "1 scene",
           "pool": {
@@ -657,7 +657,7 @@
         },
         "Wisdom": {
           "name": "Iron Slave",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 scene",
           "pool": {
@@ -674,31 +674,31 @@
       "facets": {
         "Cunning": {
           "name": "Maze Ward",
-          "essence cost": "5",
+          "activationCost": "5",
           "action": "Instant",
           "duration": "1 month"
         },
         "Glory": {
           "name": "Ward the Wolf's Den",
-          "essence cost": "5",
+          "activationCost": "5",
           "action": "Instant",
           "duration": "1 month"
         },
         "Honor": {
           "name": "All Doors Locked",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Instant",
           "duration": "1 Scene"
         },
         "Purity": {
           "name": "Predator's Claim",
-          "essence cost": "5",
+          "activationCost": "5",
           "action": "Instant",
           "duration": "1 month"
         },
         "Wisdom": {
           "name": "Boundary Ward",
-          "essence cost": "5",
+          "activationCost": "5",
           "action": "Instant",
           "duration": "1 month"
         }
@@ -710,7 +710,7 @@
       "facets": {
         "Cunning": {
           "name": "Cloak of Mist and Haze",
-          "essence cost": "1",
+          "activationCost": "1",
           "action": "Extended",
           "duration": "1 hour per success",
           "pool": {
@@ -721,7 +721,7 @@
         },
         "Glory": {
           "name": "Heavens Unleashed",
-          "essence cost": "5",
+          "activationCost": "5",
           "action": "Extended",
           "duration": "1 hour per succes",
           "pool": {
@@ -732,12 +732,12 @@
         },
         "Honor": {
           "name": "Hunt Under Iron Skies",
-          "essence cost": "1 per ally",
+          "activationCost": "1 per ally",
           "duration": "Permanent"
         },
         "Purity": {
           "name": "Grasp of Howling Winds",
-          "essence cost": "2",
+          "activationCost": "2",
           "action": "Instant",
           "duration": "1 turn per success",
           "pool": {
@@ -748,7 +748,7 @@
         },
         "Wisdom": {
           "name": "Hunt of Ice and Fire",
-          "essence cost": "5",
+          "activationCost": "5",
           "action": "Extended",
           "duration": "1 hour per success",
           "pool": {

@@ -1,0 +1,23 @@
+<div class="page tab-pane" id="giftCardsPage" role="tabpanel" aria-labelledby="gift-cards-page-tab">
+    <div class="container-fluid">
+        <div class="row text-center"><h4>Gift Cards</h4></div>
+        <div class="row text-center"><h5 style="width:100%">Shadow Gifts</h5></div>
+        <div class="giftRow row">
+        <%
+            for(let facet of character.unlockedShadowGiftFacets)
+            {
+            	console.log(facet);
+            	%>
+                <div class="col-3 giftFacetCard">
+                    <div class="row">Facet: <%= facet.name %></div>
+                    <div class="row">Gift list: <%= facet.giftList %></div>
+                    <div class="row">Renown: <%= facet.renown %></div>
+                    <div class="row">Activation cost: <%= facet.activationCost?facet.activationCost:'-'%></div>
+                    <div class="row">Pool: <%= facet.pool%></div>
+                </div>
+                <%
+            }
+        %>
+        </div>
+    </div>
+</div>

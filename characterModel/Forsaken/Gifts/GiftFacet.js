@@ -5,12 +5,13 @@ class GiftFacet
 		this.name = data.name;
 		this.unlocked = false;
 		this.poolParts = data.pool;
-		this.activationCost = data.cost;
+		this.activationCost = data.activationCost;
 		this.data = data;
 		this.freeFacet = false;
 		this.giftList = data.giftList;
 		this.renown = data.renown;
 		this.available = false;
+		this.action = data.action;
 	}
 	
 	lock()

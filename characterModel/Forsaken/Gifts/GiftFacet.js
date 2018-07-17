@@ -12,6 +12,7 @@ class GiftFacet
 		this.renown = data.renown;
 		this.available = false;
 		this.action = data.action;
+		this.duration = data.duration;
 	}
 	
 	lock()

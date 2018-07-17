@@ -103,13 +103,13 @@ function setValue()
 		$('#addShadowGiftsButton').click(showShadowGiftSelector);
 		$('#giftsModalChooseBtn').click(chooseGift);
 		$('#myTab a').on('click', function (e) {
-			e.preventDefault();
 			$(this).tab('show');
 		});
 		$('.giftFacetDelete').click(removeGiftFacet);
 		$('.auspiceSkill').click(setFavouredAuspiceSkill);
 		$('.skillName').click(showSpecialtyModal);
 		$('#specialityModalNewButton').click(addSpecialty);
+		$('.deleteFacetLink').click(removeGiftFacet)
 		/*
 		 Instantiate a new character
 		 The load order of toon and merits is currently tightly coupled
@@ -514,9 +514,8 @@ function removeGiftFacet(e)
 {
 	e.preventDefault();
 	let $element = $(this),
-		$row = $element.closest('.row'),
+		$row = $element.closest('.giftFacet'),
 		data = $row.data();
-	console.log(data);
 	toon.removeGiftFacet(data.list, data.gift, data.renown);
 	updateGiftFacets();
 	saveCharacter();

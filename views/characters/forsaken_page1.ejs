@@ -197,20 +197,24 @@ function meritRow(index, item)
                 <% for(let u in character.skills.useGroups)
                 {
                     let skillUseGroup = character.skills.useGroups[u];
-                %><div class="row">
-                    <div class="container-fluid text-center">
-                        <h5><%= u %></h5>
-                        <div class="unskilledPenalty">(-<%= skillUseGroup.penalty%> unskilled)</div>
+                %>
+                <div class="skillUseGroupContainer">
+                    <div class="row">
+                        <div class="container-fluid text-center">
+                            <h5><%= u %></h5>
+                            <div class="unskilledPenalty">(-<%= skillUseGroup.penalty%> unskilled)</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <%
+                        for(let skillName in skillUseGroup.items)
+                        {
+                            let skill = skillUseGroup.items[skillName];
+                            xpPurchasableRow('skill', skill)
+                        }%>
                     </div>
                 </div>
-                <div class="col">
-                    <%
-                    for(let skillName in skillUseGroup.items)
-                    {
-                        let skill = skillUseGroup.items[skillName];
-                        xpPurchasableRow('skill', skill)
-                    }%>
-                </div><%
+                <%
                 }%>
             </div>
 

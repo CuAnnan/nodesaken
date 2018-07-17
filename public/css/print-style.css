@@ -1,0 +1,32 @@
+.tab-pane
+{
+    display:block !important;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+@page :left {
+    margin-left: 0.5cm;
+}
+
+@page :right {
+    margin-left: 0.5cm;
+}
+
+body
+{
+    font-size: 0.85em;
+    padding: 0px;
+    margin: 0px;
+}
+
+#myTab, nav. .doNotPrint
+{
+    display: none !important;
+}
+
+.skillUseGroupContainer
+{
+    margin-bottom: 1cm;
+}

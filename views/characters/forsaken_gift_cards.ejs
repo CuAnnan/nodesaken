@@ -6,14 +6,45 @@
         <%
             for(let facet of character.unlockedShadowGiftFacets)
             {
-            	console.log(facet);
-            	%>
-                <div class="col-3 giftFacetCard">
-                    <div class="row">Facet: <%= facet.name %></div>
-                    <div class="row">Gift list: <%= facet.giftList %></div>
-                    <div class="row">Renown: <%= facet.renown %></div>
-                    <div class="row">Activation cost: <%= facet.activationCost?facet.activationCost:'-'%></div>
-                    <div class="row">Pool: <%= facet.pool%></div>
+                	%>
+                <div class="col-4 giftFacet giftFacetCard" data-gift-list="shadow" data-gift="<%= facet.giftList %>" data-renown="<%= facet.renown%>">
+                    <div class="row">
+                        <div class="col-4 giftFacetTitle">Gift list:</div>
+                        <div class="col">
+                            <div class="row giftFacetList">
+                                <div class="col-sm-11"><%= facet.giftList %></div>
+                                <div class="col deleteFacetLink doNotPrint">[<a href="#" id="deleteFacetFromCard">x</a>]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 giftFacetTitle">Renown:</div>
+                        <div class="col"><%= facet.renown %></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 giftFacetTitle">Facet:</div>
+                        <div class="col"><%= facet.name %></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 giftFacetTitle">Cost:</div>
+                        <div class="col"><%= facet.activationCost?facet.activationCost:'-'%></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 giftFacetTitle">Pool parts:</div>
+                        <div class="col"><%= facet.pool%></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 giftFacetTitle">Dicepool:</div>
+                        <div class="col"><%= character.calculateGiftFacetPool(facet) %></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 giftFacetTitle">Action:</div>
+                        <div class="col"><%= facet.action %></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 giftFacetTitle">Duration:</div>
+                        <div class="col"><%= facet.duration %></div>
+                    </div>
                 </div>
                 <%
             }

@@ -303,6 +303,25 @@ h4
 
 #giftCardsPage .giftFacetCard
 {
-    font-size: 0.7em;
     padding-bottom: 1em;
+}
+
+#giftCardsPage .giftFacetCard
+{
+    border: 1px solid grey;
+}
+
+.giftFacetTitle
+{
+    font-weight: bold;
+}
+
+.giftFacetList > div
+{
+    padding: 0px;
+}
+
+.giftFacetList
+{
+    padding-left: 15px;
 }

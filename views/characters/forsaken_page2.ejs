@@ -67,7 +67,7 @@ function giftFacetRow(list, giftFacet = null)
 %>
         <div class="giftFacet row text-left" data-list="<%=list%>" data-gift="<%=giftFacet.giftList%>" data-renown="<%=giftFacet.renown%>" data-name="<%=giftFacet.name%>">
             <div class="col-11"><%- `${giftFacet.giftList} (${giftFacet.renown})- ${giftFacet.name}` %></div>
-            <div class="col-1">[<a href="#" class="giftFacetDelete" title="Remove Facet">x</a>]</div>
+            <div class="col-1 doNotPrint">[<a href="#" class="giftFacetDelete" title="Remove Facet">x</a>]</div>
         </div>
 <%
     }

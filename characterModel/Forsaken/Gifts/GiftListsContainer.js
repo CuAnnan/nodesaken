@@ -71,6 +71,8 @@ class GiftListsContainer
 			gift.affinity = this.affinityGifts.indexOf(gift.shorthand) >= 0;
 			gifts.push(gift);
 		}
+		gifts.sort((a, b)=>{return a.name > b.name});
+		
 		return gifts;
 	}
 	
@@ -143,15 +145,14 @@ class GiftListsContainer
 	 * @param gift The gift the gift facet belongs to
 	 * @param facet The facet to unlock
 	 */
-	unlockFacet(list, gift, renown)
+	unlockFacet(list, gift, renown, freePick)
 	{
-		this[list][gift].unlockFacet(renown);
+		return this[list][gift].unlockFacet(renown, freePick);
 	}
 	
 	lockFacet(list, gift, renown)
 	{
-		console.log(list, gift, renown);
-		this[list][gift].lockFacet(renown);
+		return this[list][gift].lockFacet(renown);
 	}
 	
 	toJSON()

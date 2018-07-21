@@ -18,11 +18,13 @@ class GiftFacet
 	lock()
 	{
 		this.unlocked = false;
+		this.freeFacet = false;
 	}
 	
-	unlock()
+	unlock(freeFacet)
 	{
 		this.unlocked = true;
+		this.freeFacet = freeFacet;
 	}
 	
 	get pool()
@@ -41,8 +43,14 @@ class GiftFacet
 	{
 		return {
 			name:this.name,
-			renown:this.renown
+			renown:this.renown,
+			freeFacet:this.freeFacet
 		};
+	}
+	
+	get cost()
+	{
+		return (!this.unlocked || this.freeFacet) ? 0 : 1;
 	}
 	
 }

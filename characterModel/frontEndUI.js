@@ -109,7 +109,9 @@ function setValue()
 		$('.auspiceSkill').click(setFavouredAuspiceSkill);
 		$('.skillName').click(showSpecialtyModal);
 		$('#specialityModalNewButton').click(addSpecialty);
-		$('.deleteFacetLink').click(removeGiftFacet)
+		$('.deleteFacetLink').click(removeGiftFacet);
+		$('#giftsModalGift').change(checkForFreeFacets);
+		
 		/*
 		 Instantiate a new character
 		 The load order of toon and merits is currently tightly coupled
@@ -126,19 +128,24 @@ function setValue()
 		toon.primalUrge.loadJSON($('#primalUrge').data());
 		
 		MeritsDatabase.setToon(toon);
+		
+		
 		let meritsPromise = MeritsDatabase
 				.loadRemote()
 				.then(()=>{
 					MeritsDatabase.update();
 				}),
-			giftsPromise = $.get('/js/GiftsDB/Forsaken.json')
-				.then(
-					(data)=>{
-						let json = JSON.parse(data);
-						toon.loadShadowGiftsJSON(json.shadow);
-					}
-				);
-		Promise.all([meritsPromise, giftsPromise]).then(
+				giftURLs = [
+					'/js/GiftsDB/Forsaken.json',
+					'/js/GiftsDB/GiverOfGifts.json'
+				],
+				giftPromises = [];
+		for(let url of giftURLs)
+		{
+			giftPromises.push($.get(url).then(loadGiftsJSON));
+		}
+		
+		Promise.all([meritsPromise, ...giftPromises]).then(
 			()=>
 			{
 				let jsonString = $('#toonJSON').html(),
@@ -151,6 +158,13 @@ function setValue()
 		);
 	});
 })();
+
+function loadGiftsJSON(jsonText)
+{
+	let json = JSON.parse(jsonText);
+	toon.loadShadowGiftsJSON(json.shadow);
+}
+
 
 function setFavouredAuspiceSkill()
 {
@@ -481,6 +495,7 @@ function populateAndShowGiftsUI(listName, gifts)
 {
 	let $affinityGifts = $('#giftsModalAffinityGifts').empty(),
 		$nonAffinityGifts = $('#giftsModalNonAffinityGifts').empty();
+	$('#giftsModalRenownFreePick').attr('disabled', 'disabled');
 	for(let gift of gifts)
 	{
 		for(let facet of gift.availableFacets)
@@ -499,12 +514,28 @@ function populateAndShowGiftsUI(listName, gifts)
 	$('#giftsSelectorModal').modal('show');
 }
 
+function checkForFreeFacets()
+{
+	let $chosenGift = $('#giftsModalGift option:selected'),
+		giftData = $chosenGift.data(),
+		remainingRenownPicks = toon.getRemainingRenownPicks(giftData.renown);
+	if(remainingRenownPicks == 0)
+	{
+		$('#giftsModalRenownFreePick').attr('disabled', 'disabled');
+	}
+	else
+	{
+		$('#giftsModalRenownFreePick').removeAttr('disabled');
+	}
+}
+
 function chooseGift()
 {
 	let $chosenGift = $('#giftsModalGift option:selected'),
 		giftData = $chosenGift.data();
 	
-	toon.unlockFacet(giftData.list, giftData.gift, giftData.renown);
+	toon.unlockFacet(giftData.list, giftData.gift, giftData.renown, $('#giftsModalRenownFreePick').is(':checked'));
+	
 	updateGiftFacets();
 	$('#giftsSelectorModal').modal('hide');
 	saveCharacter();
@@ -516,7 +547,7 @@ function removeGiftFacet(e)
 	let $element = $(this),
 		$row = $element.closest('.giftFacet'),
 		data = $row.data();
-	toon.removeGiftFacet(data.list, data.gift, data.renown);
+	toon.lockGiftFacet(data.list, data.gift, data.renown);
 	updateGiftFacets();
 	saveCharacter();
 }

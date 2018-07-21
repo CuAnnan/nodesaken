@@ -12,17 +12,27 @@ class ShadowGift extends Gift
 	
 	get cost()
 	{
-		if(this.startingGift)
+		if(!this.unlocked)
 		{
-			return {xp:0, cp:1};
+			return {xp:0,cp:0};
 		}
-		return {
-			xp:this.affinity?3:5,
-			cp:0
+		let cost = {
+			xp:this.startingGift?0:(this.affinity?3:5),
+			cp:this.startingGift?1:0
 		};
+		for(let facet of Object.values(this.facets))
+		{
+			cost.xp += facet.cost;
+		}
+		return cost;
 	}
 	
-	
+	toJSON()
+	{
+		let json = super.toJSON();
+		json.cost = this.cost;
+		return json;
+	}
 	
 	setAffinity(affinity)
 	{
@@ -32,12 +42,6 @@ class ShadowGift extends Gift
 	getAffinity()
 	{
 		return this.affinity;
-	}
-	
-	unlockRenownFacet(renown)
-	{
-		this.unlock();
-		this.facets[renown].unlock();
 	}
 }
 

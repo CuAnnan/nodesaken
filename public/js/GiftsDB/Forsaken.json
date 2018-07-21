@@ -40,6 +40,106 @@
       }
     }
   },
+  "wolf":[
+    {
+      "name": "Gift of Change",
+      "shorthand":"Change",
+      "facets":{
+        "Cunning":{
+          "name":"Skin Thief",
+          "activationCost":"4",
+          "action":"Instant"
+        },
+        "Glory":{
+          "name":"Gaze of the Mooon",
+          "activationCost":"1",
+          "action":"Instant"
+        },
+        "Honor":{
+          "name":"Luna's Embrace",
+          "activationCost":"1",
+          "action":"Instant"
+        },
+        "Purity":{
+          "name":"The Father's Form"
+        },
+        "Wisdom": {
+          "name": "Quicksilver Flesh",
+          "activationCost": "1",
+          "action": "Instant",
+          "duration": "1 scene"
+        }
+      }
+    },
+    {
+      "name": "Gift of Hunting",
+      "shorthand":"Hunting",
+      "facets":{
+        "Cunning":{
+          "name":"Honed Senses",
+          "duration":"Permanent"
+        },
+        "Glory":{
+          "name":"Cow the Prey",
+          "activationCost":"1",
+          "action":"Reflexive"
+        },
+        "Honor":{
+          "name":"Beast Talker",
+          "duration":"Permanent"
+        },
+        "Purity":{
+          "name":"Tireless Hunter",
+          "activationCost":"1",
+          "action":"Instant",
+          "duration":"1 day"
+        },
+        "Wisdom":{
+          "name":"Impossible Spoor",
+          "activationCost":"0/1",
+          "action":"Reflexive",
+          "duration":"Scene"
+        }
+      }
+    },
+    {
+      "name": "Gift of Pack",
+      "shorthand":"Pack",
+      "facets":{
+        "Cunning":{
+          "name":"Reflected Facets",
+          "activationCost":"+1",
+          "duration":"Special"
+        },
+        "Glory":{
+          "name":"Down the Prey",
+          "activationCost":"1",
+          "action":"Reflexive"
+        },
+        "Honor":{
+          "name":"Totem's Wrath",
+          "activationCost":"5",
+          "action":"",
+          "duration":"",
+          "pool":{},
+          "resistedBy":{}
+        },
+        "Purity":{
+          "name":"Maw of Madness",
+          "activationCost":"1",
+          "action":"Reflexive"
+        },
+        "Wisdom":{
+          "name":"Pack Awareness",
+          "activationCost":"",
+          "action":"",
+          "duration":"",
+          "pool":{},
+          "resistedBy":{}
+        }
+      }
+    }
+  ],
   "shadow": [
     {
       "name": "Gift of Death",

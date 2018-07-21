@@ -211,19 +211,25 @@ class ForsakenCharacter extends SupernaturalTemplate
 		return this.gifts.firstTenWolfFacets;
 	}
 	
-	unlockFacet(list, gift, renown)
+	unlockFacet(list, gift, renown, freePick)
 	{
-		this.gifts.unlockFacet(list, gift, renown);
+		
+		this.gifts.unlockFacet(list, gift, renown, freePick);
 	}
 	
-	removeGiftFacet(list, gift, renown)
+	lockGiftFacet(list, gift, renown)
 	{
-		this.gifts.lockFacet(list, gift, renown);
+		return this.gifts.lockFacet(list, gift, renown);
 	}
 	
 	get unlockedShadowGiftFacets()
 	{
 		return this.gifts.unlockedShadowGiftFacets;
+	}
+	
+	getRemainingRenownPicks(renown)
+	{
+		return this.renown.getRemainingRenownPicks(renown);
 	}
 }
 

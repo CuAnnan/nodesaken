@@ -128,7 +128,11 @@ class RenownList extends UseGroup
 		}
 		return unlocked;
 	}
-
+	
+	getRemainingRenownPicks(renown)
+	{
+		return this.items[renown].remainingFreeFacets;
+	}
 }
 
 module.exports = RenownList;

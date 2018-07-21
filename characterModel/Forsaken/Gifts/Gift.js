@@ -74,11 +74,12 @@ class Gift
 		return facets;
 	}
 	
-	unlockFacet(renown)
+	unlockFacet(renown, freePick)
 	{
-		this.unlockedFacetCount++;
 		this.unlock();
-		this.facets[renown].unlock();
+		this.facets[renown].unlock(this.unlockedFacetCount == 0 || freePick);
+		this.unlockedFacetCount++;
+		return this.facets[renown];
 	}
 	
 	lockFacet(renown)
@@ -89,6 +90,13 @@ class Gift
 		{
 			this.lock();
 		}
+		return this.facets[renown];
+	}
+	
+	unlockRenownFacet(renown)
+	{
+		this.unlock();
+		this.facets[renown].unlock();
 	}
 	
 	toJSON()
@@ -111,7 +119,7 @@ class Gift
 	{
 		for(let facet of json.facets)
 		{
-			this.unlockFacet(facet.renown);
+			this.unlockFacet(facet.renown, facet.freeFacet);
 		}
 	}
 }

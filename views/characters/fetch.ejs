@@ -94,9 +94,6 @@
             <div class="modal-body" id="giftsModalBody">
                 <form>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="giftsModalGift">
-                            Gift
-                        </label>
                         <div class="col-sm">
                             <select id="giftsModalGift">
                                 <option value="">--Choose one--</option>
@@ -104,6 +101,10 @@
                                 <optgroup id="giftsModalNonAffinityGifts" label="Non Affinity Gifts"></optgroup>
                             </select>
                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <label>Renown free pick?</label>
+                        <input type="checkbox" disabled="disabled" id="giftsModalRenownFreePick" />
                     </div>
                 </form>
             </div>

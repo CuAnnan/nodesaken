@@ -1,0 +1,80 @@
+{
+  "affinities": {
+    "auspices": {"Cahalith": {"moon": ["Gibbous Moon"]}}
+  },
+  "shadow":[
+    {
+      "name": "Gift of Cities",
+      "shorthand": "Cities",
+      "facets": {
+        "Cunning": {
+          "name": "City Eyes",
+          "activationCost": "1",
+          "action": "Instant",
+          "duration": "1 scene"
+        },
+        "Glory": {
+          "name": "Riot",
+          "activationCost": "5",
+          "action": "Instant",
+          "duration": "Glory Hours"
+        },
+        "Honor": {
+          "name": "Faceless Crowd",
+          "activationCost": "1",
+          "action": "Instant",
+          "pool": {
+            "attribute": "Manipulation",
+            "skill": "Subterfuge",
+            "renown": "Honor"
+          }
+        },
+        "Purity": {
+          "name": "Urban Predator",
+          "duration": "Permanent"
+        },
+        "Wisdom": {
+          "name": "Carve the City's Flesh",
+          "activationCost": "2",
+          "action": "Instant",
+          "duration": "Until the next sunrise"
+        }
+      }
+    }
+  ],
+  "wolf":[
+    {
+      "name":"Gift of Essence",
+      "shorthand":"Essence",
+      "facets": {
+        "Cunning": {
+          "name":"Marrow Eater",
+          "duration":"Permanent"
+        },
+        "Glory":{
+          "name":"Essence Surge",
+          "cost":"1",
+          "action":"Reflexive"
+        },
+        "Honor":{
+          "name":"River of Essence",
+          "action":"Instant"
+        },
+        "Purity":{
+          "name":"Primeval Echo",
+          "duration":"Permanent"
+        },
+        "Wisdom":{
+          "name":"Essence Sight",
+          "cost":"1",
+          "action":"reflexive",
+          "pool":{
+            "attribute":"Wits",
+            "skill":"Occult",
+            "renown":"Wisdom"
+          }
+        }
+      }
+    }
+  ]
+}

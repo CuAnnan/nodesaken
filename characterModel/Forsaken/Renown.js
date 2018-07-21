@@ -8,6 +8,27 @@ class Renown extends XPPurchasable
 		this.xpCost = 3;
 		this.auspicious = false;
 		this.tribal = false;
+		this.freeFacets = [];
+	}
+	
+	addFreeRenownFacet(facet)
+	{
+		this.freeFacets.push(facet);
+	}
+	
+	removeRenownFacet(facet)
+	{
+		this.freeFacets.slice(this.freeFacets.indexOf(facet), 1);
+	}
+	
+	get freeFacetCount()
+	{
+		return this.score - this.cpLevels - this.getFreeLevels();
+	}
+	
+	get remainingFreeFacets()
+	{
+		return this.freeFacetCount - this.freeFacets.length;
 	}
 	
 	get score()

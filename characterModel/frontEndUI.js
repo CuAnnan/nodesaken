@@ -581,7 +581,7 @@ function updateGiftFacets()
 		}
 	);
 	
-	let $template = $('#giftFacetCardTemplate');
+	let $template = $('#giftFacetCardTemplate'),
 		$shadowGiftCardsContainer = $('#giftFacetCardsShadowGifts').empty();
 	
 	for(let facet of toon.unlockedShadowGiftFacets)

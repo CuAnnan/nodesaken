@@ -1,0 +1,32 @@
+<% function xpReportRows(title, items)
+{%>
+<tr class="heading">
+    <th colspan="5"><%= title %></th>
+</tr>
+<tr>
+    <th>Name</th><th>CP</th><th>XP</th><th>Free Levels</th><th>Favoured</th>
+</tr>
+<tbody id="xpLog_tbody_<%= title.toLowerCase() %>">
+<%
+for(let item of Object.values(items))
+{%>
+    <tr>
+        <td><%= item.name %></td>
+        <td><%= item.cost.cp %></td>
+        <td><%= item.cost.xp %></td>
+        <td><%= item.freeLevels %></td>
+        <td><%= item.favoured %></td>
+    </tr><%}
+%></tbody><%
+}%>
+<div class="page tab-pane" id="xpLog" role="tabpanel" aria-labelledby="gift-XP-Log-tab">
+    <div class="container-fluid">
+        <h2>Experience Report</h2>
+        <table class="table">
+            <% xpReportRows ('Attributes', character.attributes.items); %>
+            <% xpReportRows ('Skills', character.skills.items); %>
+            <% xpReportRows ('Merits', character.merits.items); %>
+            <% xpReportRows ('Renown', character.renown.items); %>
+        </table>
+    </div>
+</div>

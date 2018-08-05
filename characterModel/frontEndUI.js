@@ -554,15 +554,14 @@ function removeGiftFacet(e)
 
 function updateGiftFacets()
 {
-	$('.giftFacet').html('&nbsp;');
-	let shadowFacets = toon.firstTenShadowFacets;
+	let firstTenShadowGifts = toon.firstTenShadowFacets;
 	$('#firstTenShadowGiftFacets .giftFacet').each(
 		function(index, element)
 		{
-			if(shadowFacets[index])
+			let $element = $(element)
+			if(firstTenShadowGifts[index])
 			{
-				let facet = shadowFacets[index],
-					$element = $(element);
+				let facet = firstTenShadowGifts[index];
 				$element
 					.empty()
 					.data({
@@ -575,8 +574,29 @@ function updateGiftFacets()
 					.append($('<div class="col-1">[<a href="#" class="giftFacetDelete" title="Remove Facet">x</a>]</div>'));
 				$('.giftFacetDelete', $element).click(removeGiftFacet);
 			}
+			else
+			{
+				$element.html('&nbsp;');
+			}
 		}
 	);
+	
+	let $template = $('#giftFacetCardTemplate');
+		$shadowGiftCardsContainer = $('#giftFacetCardsShadowGifts').empty();
+	
+	for(let facet of toon.unlockedShadowGiftFacets)
+	{
+		let $clone = $template.clone(true).data({'giftList':'shadow', 'gift':facet.giftList, 'renown':facet.renown});
+		$('.giftFacetCardList', $clone).text(facet.giftList);
+		$('.giftFacetCardRenown', $clone).text(facet.renown);
+		$('.giftFacetCardName', $clone).text(facet.name);
+		$('.giftFacetCardActivationCost', $clone).text(facet.activationCost?facet.activationCost:'-');
+		$('.giftFacetCardPool', $clone).text(facet.pool);
+		$('.giftFacetCardDicePool', $clone).text(toon.calculateGiftFacetPool(facet));
+		$('.giftFacetCardAction', $clone).text(toon.action);
+		$('.giftFacetCardDuration', $clone).text(toon.duration);
+		$clone.appendTo($shadowGiftCardsContainer).css('display', 'block');
+	}
 }
 
 function showSpecialtyModal()

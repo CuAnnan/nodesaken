@@ -210,7 +210,7 @@
           "action": "Reflexive and Contested",
           "pool": {
             "attribute": "Presence",
-            "skill": "Intimidate",
+            "skill": "Intimidation",
             "renown": "Honor"
           }
         },
@@ -751,7 +751,7 @@
           "duration": "1 scene",
           "pool": {
             "attribute": "Presence",
-            "skill": "Intimidate",
+            "skill": "Intimidation",
             "renown": "Purity"
           }
         },

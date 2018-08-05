@@ -193,14 +193,21 @@ class Character extends Listenable
 		
 		for(let i in arguments)
 		{
-			if(arguments[i]/1 == arguments[i])
+			try
 			{
-				result += arguments[i];
+				if (arguments[i] / 1 == arguments[i])
+				{
+					result += arguments[i];
+				}
+				else
+				{
+					let item = this.lookups[arguments[i]];
+					result += item.score > 0 ? item.score : (0 - item.penalty);
+				}
 			}
-			else
+			catch(e)
 			{
-				let item = this.lookups[arguments[i]];
-				result += item.score > 0 ? item.score : (0 - item.penalty);
+				throw (arguments[i]+' not found in lookup');
 			}
 		}
 		

@@ -31,52 +31,14 @@
             <div class="row">
                 <div class="col-4 giftFacetTitle">Duration:</div><div class="col giftFacetCardDuration"></div>
             </div>
+            <div class="row">
+                <div class="col-4 giftFacetTitle" title="From Renown or from unlocking the Gift">Free Pick?</div><div class="col"><input type="checkbox" class="freeFacetPick"/></div>
+            </div>
         </div>
 
 
         <div class="row text-center"><h4>Gift Cards</h4></div>
         <div class="row text-center"><h5 style="width:100%">Shadow Gifts</h5></div>
-        <div class="giftFacetCards shadowGifts giftRow row" id="giftFacetCardsShadowGifts">
-        <%
-            for(let facet of character.unlockedShadowGiftFacets)
-            {
-
-            	%>
-                <div class="col-4 giftFacet giftFacetCard" data-gift-list="shadow" data-gift="<%= facet.giftList %>" data-renown="<%= facet.renown%>">
-                    <div class="row">
-                        <div class="col-4 giftFacetTitle">Gift list:</div>
-                        <div class="col">
-                            <div class="row giftFacetList">
-                                <div class="col-sm-11 giftFacetCardList"><%= facet.giftList %></div>
-                                <div class="col deleteFacetLink doNotPrint">[<a href="#" id="deleteFacetFromCard">x</a>]</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 giftFacetTitle">Renown:</div><div class="col giftFacetCardRenown"><%= facet.renown %></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 giftFacetTitle">Facet:</div><div class="col giftFacetCardName"><%= facet.name %></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 giftFacetTitle">Cost:</div><div class="col giftFacetCardActivationCost"><%= facet.activationCost?facet.activationCost:'-'%></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 giftFacetTitle">Pool parts:</div><div class="col giftFacetCardPool"><%= facet.pool%></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 giftFacetTitle">Dicepool:</div><div class="col giftFacetCardDicePool"><% try{ %><%= character.calculateGiftFacetPool(facet) %> <% }catch(e){console.log(e); %>-<%}%></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 giftFacetTitle">Action:</div><div class="col giftFacetCardAction"><%= facet.action %></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4 giftFacetTitle">Duration:</div><div class="col giftFacetCardDuration"><%= facet.duration %></div>
-                    </div>
-                </div>
-                <%
-            }
-        %>
-        </div>
+        <div class="giftFacetCards shadowGifts giftRow row" id="giftFacetCardsShadowGifts"></div>
     </div>
 </div>

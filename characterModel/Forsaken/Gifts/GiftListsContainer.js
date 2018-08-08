@@ -24,6 +24,8 @@ class GiftListsContainer
 		this.auspice = null;
 		this.tribe = null;
 		this.affinityGifts = [];
+		this.startingShadowGifts = [];
+		this.startingWolfGiftFacet = 0;
 	}
 	
 	setAuspice(auspice)
@@ -145,14 +147,36 @@ class GiftListsContainer
 	 * @param gift The gift the gift facet belongs to
 	 * @param facet The facet to unlock
 	 */
-	unlockFacet(list, gift, renown, freePick)
+	unlockFacet(list, giftShorthand, renown, freePick)
 	{
-		return this[list][gift].unlockFacet(renown, freePick);
+		let gift = this[list][giftShorthand];
+		gift.unlockFacet(renown, freePick);
+		if(list == 'shadow')
+		{
+			// you can only choose affinity gifts as starting gifts
+			// and at that only if there are fewer than 2 picked
+			// and at that only if you haven't already picked this gift list
+			if (this.startingShadowGifts.length < 2 && this.affinityGifts.indexOf(giftShorthand) >= 0 && this.startingShadowGifts.indexOf(giftShorthand) == -1)
+			{
+				this.startingShadowGifts.push(giftShorthand);
+				gift.startingGift = true;
+			}
+		}
 	}
 	
-	lockFacet(list, gift, renown)
+	lockFacet(list, giftShorthand, renown)
 	{
-		return this[list][gift].lockFacet(renown);
+		let gift = this[list][giftShorthand];
+		if(list == 'shadow')
+		{
+			let giftIndex = this.startingShadowGifts.indexOf(giftShorthand);
+			if(giftIndex >= 0)
+			{
+				this.startingShadowGifts.splice(giftIndex, 1);
+				giftShorthand.startingGift = false;
+			}
+		}
+		return gift.lockFacet(renown);
 	}
 	
 	toJSON()

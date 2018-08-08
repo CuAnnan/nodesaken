@@ -89,7 +89,10 @@ function setValue()
 		 * UI Event handlers
 		 */
 		let $modal = $('#loadingModal').modal(),
-			$meritModal = $('#meritsModal');
+			$meritModal = $('#meritsModal'),
+			linkParts = window.location.href.split('#'),
+			currentLink = linkParts.length == 2?linkParts[1]:'page1';
+		
 		$('[data-toggle="tooltip"]').tooltip();
 		$('#harmony span').click(setHarmony);
 		$('.meritName').click(loadMeritDialog);
@@ -103,7 +106,10 @@ function setValue()
 		$('#addShadowGiftsButton').click(showShadowGiftSelector);
 		$('#giftsModalChooseBtn').click(chooseGift);
 		$('#myTab a').on('click', function (e) {
-			$(this).tab('show');
+			let $link = $(this), loc = window.location,
+				href = loc.origin+loc.pathname+$link.attr('href');
+			window.history.pushState({}, $link.text(), href);
+			$link.tab('show');
 		});
 		$('.giftFacetDelete').click(removeGiftFacet);
 		$('.auspiceSkill').click(setFavouredAuspiceSkill);
@@ -154,6 +160,9 @@ function setValue()
 				toon.loadJSON(json.json);
 				$modal.modal('hide');
 				updateDerivedUIFields();
+				let $linkedPage = $('#'+currentLink+'Tab');
+				$linkedPage.tab('show');
+				updateGiftFacets();
 			}
 		);
 	});
@@ -554,7 +563,10 @@ function removeGiftFacet(e)
 
 function updateGiftFacets()
 {
-	let firstTenShadowGifts = toon.firstTenShadowFacets;
+	let firstTenShadowGifts = toon.firstTenShadowFacets,
+		$template = $('#giftFacetCardTemplate'),
+		$shadowGiftCardsContainer = $('#giftFacetCardsShadowGifts').empty();
+	
 	$('#firstTenShadowGiftFacets .giftFacet').each(
 		function(index, element)
 		{
@@ -581,22 +593,33 @@ function updateGiftFacets()
 		}
 	);
 	
-	let $template = $('#giftFacetCardTemplate'),
-		$shadowGiftCardsContainer = $('#giftFacetCardsShadowGifts').empty();
-	
 	for(let facet of toon.unlockedShadowGiftFacets)
 	{
-		let $clone = $template.clone(true).data({'giftList':'shadow', 'gift':facet.giftList, 'renown':facet.renown});
+		console.log(facet);
+		let $clone = $template.clone(true).data({'giftList':'shadow', 'gift':facet.giftList, 'renown':facet.renown}),
+			remainingPicks = toon.getRemainingRenownPicks(facet.renown),
+			shouldBeLocked = !(facet.freeFacet || remainingPicks);
 		$('.giftFacetCardList', $clone).text(facet.giftList);
 		$('.giftFacetCardRenown', $clone).text(facet.renown);
 		$('.giftFacetCardName', $clone).text(facet.name);
 		$('.giftFacetCardActivationCost', $clone).text(facet.activationCost?facet.activationCost:'-');
 		$('.giftFacetCardPool', $clone).text(facet.pool);
 		$('.giftFacetCardDicePool', $clone).text(toon.calculateGiftFacetPool(facet));
-		$('.giftFacetCardAction', $clone).text(toon.action);
-		$('.giftFacetCardDuration', $clone).text(toon.duration);
+		$('.giftFacetCardAction', $clone).text(facet.action);
+		$('.giftFacetCardDuration', $clone).text(facet.duration);
+		let $checkbox = $('.freeFacetPick', $clone).prop('checked', facet.freeFacet).change(setFreeFacet);
+		if(shouldBeLocked)
+		{
+			$checkbox.attr('disabled', 'disabled');
+		}
+		
 		$clone.appendTo($shadowGiftCardsContainer).css('display', 'block');
 	}
+}
+
+function setFreeFacet()
+{
+
 }
 
 function showSpecialtyModal()

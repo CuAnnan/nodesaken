@@ -12,7 +12,7 @@ class Gift
 			let facet = data.facets[i];
 			facet.renown = i;
 			facet.giftList = this.shorthand;
-			this.facets[i] = new GiftFacet(facet);
+			this.facets[i] = new GiftFacet(facet, this);
 		}
 		this.unlockedFacetCount = 0;
 		this.unlocked = false;
@@ -119,7 +119,7 @@ class Gift
 	{
 		for(let facet of json.facets)
 		{
-			this.unlockFacet(facet.renown, facet.freeFacet);
+			this.unlockFacet(facet.renown, facet.freeFacet!=='false');
 		}
 	}
 }

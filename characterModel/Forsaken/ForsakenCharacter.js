@@ -163,11 +163,6 @@ class ForsakenCharacter extends SupernaturalTemplate
 		return this.gifts.fetchAvailableShadowGiftFacets(this.renown.unlockedRenown);
 	}
 	
-	buyShadowGiftFacet(giftShorthand, renown)
-	{
-		this.gifts.unlockShadowGiftFacet(giftShorthand, renown);
-	}
-	
 	calculateGiftFacetPool(giftFacet)
 	{
 		
@@ -213,7 +208,6 @@ class ForsakenCharacter extends SupernaturalTemplate
 	
 	unlockFacet(list, gift, renown, freePick)
 	{
-		
 		this.gifts.unlockFacet(list, gift, renown, freePick);
 	}
 	

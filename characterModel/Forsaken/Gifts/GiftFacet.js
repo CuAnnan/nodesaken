@@ -1,7 +1,8 @@
 class GiftFacet
 {
-	constructor(data)
+	constructor(data, gift)
 	{
+		this.gift = gift;
 		this.name = data.name;
 		this.unlocked = false;
 		this.poolParts = data.pool;

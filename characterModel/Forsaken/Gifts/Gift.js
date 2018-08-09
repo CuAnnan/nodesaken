@@ -77,7 +77,7 @@ class Gift
 	unlockFacet(renown, freePick)
 	{
 		this.unlock();
-		this.facets[renown].unlock(this.unlockedFacetCount == 0 || freePick);
+		this.facets[renown].unlock(freePick);
 		this.unlockedFacetCount++;
 		return this.facets[renown];
 	}
@@ -91,6 +91,11 @@ class Gift
 			this.lock();
 		}
 		return this.facets[renown];
+	}
+	
+	setGiftFacetFreePick(renown, freePick)
+	{
+		this.facets[renown].freeFacet = freePick;
 	}
 	
 	unlockRenownFacet(renown)
@@ -119,7 +124,7 @@ class Gift
 	{
 		for(let facet of json.facets)
 		{
-			this.unlockFacet(facet.renown, facet.freeFacet!=='false');
+			this.unlockFacet(facet.renown, facet.freeFacet==='true' || facet.freeFacet === true);
 		}
 	}
 }

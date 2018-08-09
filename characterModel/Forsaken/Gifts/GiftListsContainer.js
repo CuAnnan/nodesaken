@@ -179,6 +179,11 @@ class GiftListsContainer
 		return gift.lockFacet(renown);
 	}
 	
+	setGiftFacetFreePick(list, giftShorthand, renown, freePick)
+	{
+		this[list][giftShorthand].setGiftFacetFreePick(renown, freePick);
+	}
+	
 	toJSON()
 	{
 		let giftsJSON= {'shadow':[]};

@@ -595,8 +595,7 @@ function updateGiftFacets()
 	
 	for(let facet of toon.unlockedShadowGiftFacets)
 	{
-		console.log(facet);
-		let $clone = $template.clone(true).data({'giftList':'shadow', 'gift':facet.giftList, 'renown':facet.renown}),
+		let $clone = $template.clone(true).data({'list':'shadow', 'gift':facet.giftList, 'renown':facet.renown}),
 			remainingPicks = toon.getRemainingRenownPicks(facet.renown),
 			shouldBeLocked = !(facet.freeFacet || remainingPicks);
 		$('.giftFacetCardList', $clone).text(facet.giftList);
@@ -617,9 +616,27 @@ function updateGiftFacets()
 	}
 }
 
+/**
+ * A function to check the extra gifts page to see if the checkboxes to set a gift as a free gift or not is available
+ */
+function checkAvailableFreeFacets()
+{
+	$('.freeFacetPick').each(function(i, element)
+		{
+			let $checkbox = $(this),
+				$giftCard = $checkbox.closest('.giftFacetCard'),
+				data = $giftCard.data();
+		});
+}
+
 function setFreeFacet()
 {
-
+	let $checkbox = $(this),
+		$giftCard = $checkbox.closest('.giftFacetCard'),
+		data = $giftCard.data(),
+		checked = $checkbox.prop('checked');
+	toon.setGiftFacetFreePick(data.giftList, data.gift, data.renown, checked);
+	saveCharacter();
 }
 
 function showSpecialtyModal()

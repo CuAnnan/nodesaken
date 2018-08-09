@@ -133,6 +133,11 @@ class RenownList extends UseGroup
 	{
 		return this.items[renown].remainingFreeFacets;
 	}
+	
+	setGiftFacetFreePick(giftList, gift, renown, freePick)
+	{
+		this.items[renown].setGiftFacetFreePick(giftList, gift, freePick);
+	}
 }
 
 module.exports = RenownList;

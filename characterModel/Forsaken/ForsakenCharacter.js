@@ -208,7 +208,17 @@ class ForsakenCharacter extends SupernaturalTemplate
 	
 	unlockFacet(list, gift, renown, freePick)
 	{
+		if(freePick && this.getRemainingRenownPicks(renown) > 0)
+		{
+			this.setGiftFacetFreePick(list, gift, renown, freePick);
+		}
 		this.gifts.unlockFacet(list, gift, renown, freePick);
+	}
+	
+	setGiftFacetFreePick(giftList, gift, renown, freePick)
+	{
+		this.renown.setGiftFacetFreePick(giftList, gift, renown, freePick);
+		this.gifts.setGiftFacetFreePick(giftList, gift, renown, freePick);
 	}
 	
 	lockGiftFacet(list, gift, renown)

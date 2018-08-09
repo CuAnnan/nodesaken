@@ -36,6 +36,22 @@ class Renown extends XPPurchasable
 		return this.xpLevels + this.cpLevels + this.getFreeLevels();
 	}
 	
+	setGiftFacetFreePick(giftList, gift, freePick)
+	{
+		if(freePick && this.remainingFreeFacets > 0)
+		{
+			this.addFreeRenownFacet(gift);
+		}
+		else if (freePick)
+		{
+			throw new Error("Not enough free facets remaining");
+		}
+		else
+		{
+			this.removeRenownFacet(gift);
+		}
+	}
+	
 	getFreeLevels()
 	{
 		return 0 + (this.auspicious?1:0) + (this.tribal?1:0);
@@ -49,6 +65,7 @@ class Renown extends XPPurchasable
 	toJSON()
 	{
 		let json = super.toJSON();
+		json.freeFacets = this.freeFacets;
 		return json;
 	}
 	

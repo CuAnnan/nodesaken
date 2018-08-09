@@ -635,7 +635,7 @@ function setFreeFacet()
 		$giftCard = $checkbox.closest('.giftFacetCard'),
 		data = $giftCard.data(),
 		checked = $checkbox.prop('checked');
-	toon.setGiftFacetFreePick(data.giftList, data.gift, data.renown, checked);
+	toon.setGiftFacetFreePick(data.list, data.gift, data.renown, checked);
 	saveCharacter();
 }
 

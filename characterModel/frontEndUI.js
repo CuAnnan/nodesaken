@@ -621,11 +621,23 @@ function updateGiftFacets()
  */
 function checkAvailableFreeFacets()
 {
-	$('.freeFacetPick').each(function(i, element)
+	$('#giftFacetCardsShadowGifts .freeFacetPick').each(function(i, element)
 		{
 			let $checkbox = $(this),
 				$giftCard = $checkbox.closest('.giftFacetCard'),
-				data = $giftCard.data();
+				data= $giftCard.data(),
+				renown = data.renown;
+			if(toon.getRemainingRenownPicks(renown))
+			{
+				$checkbox.removeAttr('disabled');
+			}
+			else
+			{
+				if(!$checkbox.prop('checked'))
+				{
+					$checkbox.attr('disabled', 'disabled');
+				}
+			}
 		});
 }
 
@@ -636,6 +648,7 @@ function setFreeFacet()
 		data = $giftCard.data(),
 		checked = $checkbox.prop('checked');
 	toon.setGiftFacetFreePick(data.list, data.gift, data.renown, checked);
+	checkAvailableFreeFacets();
 	saveCharacter();
 }
 

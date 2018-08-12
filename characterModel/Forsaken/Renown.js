@@ -11,14 +11,19 @@ class Renown extends XPPurchasable
 		this.freeFacets = [];
 	}
 	
-	addFreeRenownFacet(facet)
+	addFreeRenownFacet(gift)
 	{
-		this.freeFacets.push(facet);
+		console.log('Adding free gift choice');
+		console.trace();
+		this.freeFacets.push(gift);
 	}
 	
 	removeRenownFacet(facet)
 	{
-		this.freeFacets.slice(this.freeFacets.indexOf(facet), 1);
+		if(this.freeFacets.indexOf(facet) > -1)
+		{
+			this.freeFacets.slice(this.freeFacets.indexOf(facet), 1);
+		}
 	}
 	
 	get freeFacetCount()
@@ -28,6 +33,7 @@ class Renown extends XPPurchasable
 	
 	get remainingFreeFacets()
 	{
+		console.log(this.name, this.freeFacetCount, this.freeFacets);
 		return this.freeFacetCount - this.freeFacets.length;
 	}
 	
@@ -36,8 +42,9 @@ class Renown extends XPPurchasable
 		return this.xpLevels + this.cpLevels + this.getFreeLevels();
 	}
 	
-	setGiftFacetFreePick(giftList, gift, freePick)
+	setGiftFacetFreePick(gift, freePick)
 	{
+		console.log('Renown hand off');
 		if(freePick && this.remainingFreeFacets > 0)
 		{
 			this.addFreeRenownFacet(gift);
@@ -50,6 +57,11 @@ class Renown extends XPPurchasable
 		{
 			this.removeRenownFacet(gift);
 		}
+	}
+	
+	removeGiftFacetFreePick(gift)
+	{
+		this.removeRenownFacet(gift);
 	}
 	
 	getFreeLevels()
@@ -72,6 +84,7 @@ class Renown extends XPPurchasable
 	loadJSON(json)
 	{
 		super.loadJSON(json);
+		this.freeFacets = json.freeFacets ? json.freeFacets: [];
 	}
 }
 

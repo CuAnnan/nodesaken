@@ -146,6 +146,8 @@ class GiftListsContainer
 	 * @param list The list the gift facet belongs to
 	 * @param gift The gift the gift facet belongs to
 	 * @param facet The facet to unlock
+	 * @return  Returns true if this is the first unlocked facet. This is needed for knowing whether or not to apply the
+	 *          freePick from Renown checkbox
 	 */
 	unlockFacet(list, giftShorthand, renown, freePick)
 	{
@@ -160,8 +162,10 @@ class GiftListsContainer
 			{
 				this.startingShadowGifts.push(giftShorthand);
 				gift.startingGift = true;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	lockFacet(list, giftShorthand, renown)
@@ -173,7 +177,7 @@ class GiftListsContainer
 			if(giftIndex >= 0)
 			{
 				this.startingShadowGifts.splice(giftIndex, 1);
-				giftShorthand.startingGift = false;
+				gift.startingGift = false;
 			}
 		}
 		return gift.lockFacet(renown);
@@ -194,17 +198,28 @@ class GiftListsContainer
 				giftsJSON.shadow.push(gift.toJSON());
 			}
 		}
+		giftsJSON.startingShadowGifts = this.startingShadowGifts;
 		return giftsJSON;
 	}
 	
 	loadJSON(giftsData)
 	{
-		for(let type in giftsData)
+		if(!giftsData)
 		{
-			for(let giftData of giftsData[type])
-			{
-				this[type][giftData.shorthand].loadJSON(giftData);
-			}
+			return;
+		}
+		if(giftsData.shadow)
+		{
+			this.loadGiftsData('shadow', giftsData.shadow);
+		}
+		this.startingShadowGifts = giftsData.startingShadowGifts?giftsData.startingShadowGifts:[];
+	}
+	
+	loadGiftsData(giftList, data)
+	{
+		for (let giftData of data)
+		{
+			this[giftList][giftData.shorthand].loadJSON(giftData);
 		}
 	}
 }

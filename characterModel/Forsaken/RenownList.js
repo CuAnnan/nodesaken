@@ -80,7 +80,6 @@ class RenownList extends UseGroup
 		let renowns = Object.values(this.items);
 		for(let renown of renowns)
 		{
-			//console.log(renown, renown.name, tribalRenowns[tribe]);
 			renown.tribal = renown.name == tribalRenowns[tribe];
 		}
 		return this;
@@ -134,9 +133,15 @@ class RenownList extends UseGroup
 		return this.items[renown].remainingFreeFacets;
 	}
 	
-	setGiftFacetFreePick(giftList, gift, renown, freePick)
+	setGiftFacetFreePick(gift, renown, freePick)
 	{
-		this.items[renown].setGiftFacetFreePick(giftList, gift, freePick);
+		console.log('Renown list hand off');
+		this.items[renown].setGiftFacetFreePick(gift, freePick);
+	}
+
+	removeGiftFacetFreePick(gift, renown)
+	{
+		this.items[renown].removeGiftFacetFreePick(gift);
 	}
 }
 

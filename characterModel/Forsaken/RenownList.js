@@ -135,7 +135,6 @@ class RenownList extends UseGroup
 	
 	setGiftFacetFreePick(gift, renown, freePick)
 	{
-		console.log('Renown list hand off');
 		this.items[renown].setGiftFacetFreePick(gift, freePick);
 	}
 

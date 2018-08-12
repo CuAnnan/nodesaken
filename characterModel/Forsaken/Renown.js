@@ -13,8 +13,6 @@ class Renown extends XPPurchasable
 	
 	addFreeRenownFacet(gift)
 	{
-		console.log('Adding free gift choice');
-		console.trace();
 		this.freeFacets.push(gift);
 	}
 	
@@ -22,7 +20,7 @@ class Renown extends XPPurchasable
 	{
 		if(this.freeFacets.indexOf(facet) > -1)
 		{
-			this.freeFacets.slice(this.freeFacets.indexOf(facet), 1);
+			this.freeFacets.splice(this.freeFacets.indexOf(facet), 1);
 		}
 	}
 	
@@ -33,7 +31,6 @@ class Renown extends XPPurchasable
 	
 	get remainingFreeFacets()
 	{
-		console.log(this.name, this.freeFacetCount, this.freeFacets);
 		return this.freeFacetCount - this.freeFacets.length;
 	}
 	
@@ -44,7 +41,6 @@ class Renown extends XPPurchasable
 	
 	setGiftFacetFreePick(gift, freePick)
 	{
-		console.log('Renown hand off');
 		if(freePick && this.remainingFreeFacets > 0)
 		{
 			this.addFreeRenownFacet(gift);

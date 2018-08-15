@@ -756,7 +756,7 @@ function displayProfessionalTrainings()
 						let $select = $(this),
 							index = $select.data('index');
 						toon.setProfessionalTrainingAssetSkill(pt, index, $select.val());
-						populatePTFreeSkillChoice($freeSkillLevel, pt.assetSkills);
+						populatePTSkillSelect($freeSkillLevel, pt.assetSkills);
 						saveCharacter();
 					}
 				);
@@ -773,19 +773,24 @@ function displayProfessionalTrainings()
 		);
 		let $freeSkillLevel = $('.freeSkillLevel', $clone);
 		
-		populatePTFreeSkillChoice($freeSkillLevel, pt.assetSkills);
+		populatePTSkillSelect($freeSkillLevel, pt.assetSkills);
+		populatePTSkillSelect($('.professionalTrainingSpecialityAssetSkill', $clone), pt.assetSkills);
 		
 		$profTrainings.append($clone);
 	}
 }
 
-function populatePTFreeSkillChoice($select, skills)
+function populatePTSkillSelect($select, skills, value)
 {
 	$select.empty().append(
-		$('<option value="">Asset Skill</option>')
+		$('<option value="">Skill</option>')
 	);
 	for(let skill of skills)
 	{
-		$(`<option value="${skill}">${skill}</option>`).appendTo($select);
+		let $option = $(`<option value="${skill}">${skill}</option>`).appendTo($select);
+		if(skill == value)
+		{
+			$option.prop('selected', 'selected');
+		}
 	}
 }

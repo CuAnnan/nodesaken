@@ -1,7 +1,6 @@
 let Skill = require('./Skill'), Attribute = require('./Attribute'), UseGroupContainer = require('./UseGroupContainer'),
 	MeritList = require('./MeritList'), Listenable = require('./Listenable'), Morality = require('./Morality'),
-	Merit = require('./Merit'),
-	MeritDatabase = require('./MeritsDatabase'),
+	Merit = require('./Merit'), MeritDatabase = require('./MeritsDatabase'), ProfessionalTraining = require('./ProfessionalTraining'),
 	skillUseGroupMap = {
 		'Academics':'Mental', 'Computer':'Mental', 'Crafts':'Mental', 'Investigation':'Mental',
 		'Medicine':'Mental','Occult':'Mental','Politics':'Mental','Science':'Mental',
@@ -50,7 +49,7 @@ class Character extends Listenable
 		this.populateUseGroups();
 		this.morality = new Morality('Integrity');
 		this.lookups['Morality'] = this.lookups['morality'] = this.morality;
-		this.assetSkills = [];
+		this.professionalTrainings = {};
 	}
 	
 	setName(name)
@@ -95,10 +94,19 @@ class Character extends Listenable
 		return ugc;
 	}
 	
-	addMerit(index, merit)
+	addMerit(index, merit, populate = true)
 	{
 		this.merits.add(index, merit);
+		if(merit.name == 'Professional Training')
+		{
+			this.professionalTrainings[merit.specification] = merit;
+		}
 		this.calculateDerived();
+	}
+	
+	defineProfessionalTraining(index, data)
+	{
+		this.professionalTrainings[index].loadJSON(data);
 	}
 	
 	removeMerit(index)
@@ -221,6 +229,7 @@ class Character extends Listenable
 	loadJSON(data)
 	{
 		let universalLookups = ['skills', 'attributes'];
+		
 		for(let i of universalLookups)
 		{
 			for(let j in data[i])
@@ -229,7 +238,6 @@ class Character extends Listenable
 				this.lookups[json.name].loadJSON(json)
 			}
 		}
-		
 		for(let i in data.merits)
 		{
 			let index = i.replace('merit_', ''),
@@ -238,7 +246,6 @@ class Character extends Listenable
 			merit.loadJSON(json);
 			this.addMerit(index, merit);
 		}
-		this.assetSkills = data.assetSkills;
 		
 		this.calculateDerived();
 		this.triggerEvent('changed');
@@ -249,8 +256,7 @@ class Character extends Listenable
 		let json =  {
 			skills: this.skills.toJSON(),
 			attributes: this.attributes.toJSON(),
-			merits:this.merits.toJSON(),
-			assetSkills:this.assetSkills
+			merits:this.merits.toJSON()
 		};
 		
 		return json;
@@ -271,18 +277,9 @@ class Character extends Listenable
 		this.lookups[skill].replaceSpecialty(oldSpecialty, newSpecialty);
 	}
 	
-	addAssetSkill(skill)
+	setProfessionalTrainingAssetSkill(professionalTraining, index, skill)
 	{
-		this.assetSkills.push(skill);
-	}
-	
-	removeAssetSkill(skill)
-	{
-		let index = this.assetSkills.indexOf(skill);
-		if(index >= 0)
-		{
-			this.assetSkills.splice(index, 1);
-		}
+		let oldSkill = professionalTraining.setAssetSkill(index, skill);
 	}
 }
 

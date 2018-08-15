@@ -1,21 +1,87 @@
+<%
+    let numbers = ['One', 'Two', 'Three']
+    function listSkills(index)
+    {
+    	let     number= numbers[index],
+                id = 'assetSkill'+number,
+                displayName = 'Asset Skill '+number;
+    	%>
+        <label class="col-sm-2 col-form-label" for="<%=id%>"><%=displayName%></label>
+        <div class="col">
+            <select data-index='<%=index%>' id="<%=id%>" class="assetSkill form-control">
+                <option value="">-Choose one-</option>
+            <%
+            for(let skill of character.skills.items)
+            {
+                %><option value="<%= skill.name %>"><%= skill.name %></option><%
+            }
+            %>
+            </select>
+        </div>
+        <%
+    }
+%>
 <div class="page tab-pane" id="page5" role="tabpanel" aria-labelledby="page5-tab">
-    <div class="container-fluid">
-        <div class="container disabled" id="professionalTrainingContainer">
-            <div class="row text-center"><h4>Professional Training</h4></div>
-            <div class="text-center container disabled" data-level="1"><h5>Level One (Networking)</h5></div>
-            <div class="form-group row disabled" data-level="1">
-                <label class="col-sm-2 col-form-label" for="contacts1">Contact 1</label>
-                <div class="col"><input type="text" class="form-control" id="contacts1" disabled="disabled"/></div>
-                <label class="col-sm-2 col-form-label" for="contacts2">Contact 2</label>
-                <div class="col"><input type="text" class="form-control" id="contacts2" disabled="disabled"/></div>
-            </div>
-            <div class="text-center container" data-level="3"><h5>Level Three (Breadth of Knowledge)</h5></div>
-            <div class="form-group row disabled" data-level="3">
 
+    <div class="container-fluid">
+        <div class="container" id="professionalTrainingMaster">
+            <div class="row text-center"><h4>Professional Training (<span class="trainingName"></span>)</h4></div>
+            <div data-level="1">
+                <div class="text-center container"><h5>Asset Skills</h5></div>
+                <div class="form-group row">
+                    <% listSkills(0); %>
+                    <% listSkills(1); %>
+                </div>
+            </div>
+            <div data-level="1">
+                <div class="text-center container"><h5>Networking</h5></div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="contacts1">Contact 1</label>
+                    <div class="col"><input type="text" class="form-control" id="contacts1"/></div>
+                    <label class="col-sm-2 col-form-label" for="contacts2">Contact 2</label>
+                    <div class="col"><input type="text" class="form-control" id="contacts2"/></div>
+                </div>
+            </div>
+            <div data-level="3">
+                <div class="text-center container"><h5>Breadth of knowledge</h5></div>
+                <div class="form-group row">
+                    <% listSkills(2) %>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <div class="row">
+                            <label class="col-4 col-form-label">Specialty</label>
+                            <div class="col-4">
+                                <select class="form-control professionalTrainingAssetSkill"></select>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" class="form-control professionalTrainingSpeciality"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <label class="col-4 col-form-label">Specialty</label>
+                            <div class="col-4">
+                                <select class="form-control professionalTrainingAssetSkill"></select>
+                            </div>
+                            <div class="col-4">
+                                <input type="text" class="form-control professionalTrainingSpeciality"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-level="4">
+                <div class="row text-center container"><h5>On the Job Training</h5></div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-2">Asset Skill Level</label>
+                    <div class="col">
+                        <select class="form-control freeSkillLevel"></select>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="container disabled">
-            <div class="row text-center"><h4>Favoured Form</h4></div>
-        </div>
+        <div id="professionalTrainings"></div>
     </div>
 </div>

@@ -79,6 +79,7 @@ class MeritList extends UseGroup
 			this.removeIndividualStyleMerit(merit);
 		}
 		delete this.items['merit_'+index];
+		return merit;
 	}
 	
 	addFightingStyle(merit)

@@ -2,6 +2,7 @@ let Merit = require('./Merit'),
 	StyleIndividualMerit = require('./StyleIndividualMerit'),
 	FightingStyle = require('./FightingStyle'),
 	MeritChecker = require('./MeritChecker'),
+	ProfessionalTraining = require('./ProfessionalTraining'),
 	meritDBFiles = [
 		'ChroniclesOfDarkness.json',
 		'13Precinct.json',
@@ -110,7 +111,19 @@ let MeritsDatabase = {
 	fetch:function(name)
 	{
 		let data = this.searchable[name];
-		if(!data.styleTags)
+		if(data.name == 'Professional Training')
+		{
+			try
+			{
+				return new ProfessionalTraining(name, data);
+			}
+			catch(e)
+			{
+				console.log(e);
+				throw e;
+			}
+		}
+		else if(!data.styleTags)
 		{
 			return new Merit(name, data);
 		}

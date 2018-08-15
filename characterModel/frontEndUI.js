@@ -140,7 +140,12 @@ function setValue()
 				.loadRemote()
 				.then(()=>{
 					MeritsDatabase.update();
-				}),
+				}).catch(
+					(error)=>
+					{
+						console.log(error);
+					}
+				),
 				giftURLs = [
 					'/js/GiftsDB/Forsaken.json',
 					'/js/GiftsDB/GiverOfGifts.json'
@@ -148,7 +153,16 @@ function setValue()
 				giftPromises = [];
 		for(let url of giftURLs)
 		{
-			giftPromises.push($.get(url).then(loadGiftsJSON));
+			giftPromises.push(
+				$.get(url)
+					.then(loadGiftsJSON)
+					.catch(
+						(error)=>
+						{
+							console.log(error);
+						}
+				)
+			);
 		}
 		
 		Promise.all([meritsPromise, ...giftPromises]).then(
@@ -156,10 +170,10 @@ function setValue()
 			{
 				let jsonString = $('#toonJSON').html(),
 					json = JSON.parse(jsonString);
-				
 				toon.loadJSON(json.json);
 				$modal.modal('hide');
 				updateDerivedUIFields();
+				displayProfessionalTrainings();
 				let $linkedPage = $('#'+currentLink+'Tab');
 				$linkedPage.tab('show');
 				updateGiftFacets();
@@ -175,29 +189,33 @@ function loadGiftsJSON(jsonText)
 }
 
 
-function setFavouredAuspiceSkill()
+function setFavouredAuspiceSkill(evt)
 {
+	evt.stopPropagation();
 	let $node = $(this),
-		$row = $node.closest('.row'),
-		skillName = $row.data('name'),
-		$skillsContainer = $('.skillsCol');
+		$row = $node.closest('.xpPurchasable'),
+		skillName = $row.data('name');
 	
 	$('.auspiceSkill.fas').removeClass('fas').addClass('far');
-	
 	toon.favouredAuspiceSkill = skillName;
 	$node.removeClass('far').addClass('fas');
 	for(let skill of toon.auspiceSkills)
 	{
-		let $skillRow = $skillsContainer.find(`[data-name="${skill}"]`),
-			$scoreContainer = $('.xpPurchasableValue', $skillRow),
-			score = toon.lookups[skill].score;
-		$('i', $scoreContainer).removeClass('fas far').each(
-			(i, node)=>{
-				$(node).addClass(i < score ? 'fas' : 'far');
-			}
-		);
+		updateSkillRow(skill);
 	}
 	saveCharacter();
+}
+
+function updateSkillRow(skill)
+{
+	let $skillRow = $('.skillsCol').find(`[data-name="${skill}"]`),
+		$scoreContainer = $('.xpPurchasableValue', $skillRow),
+		score = toon.lookups[skill].score;
+	$('i', $scoreContainer).removeClass('fas far').each(
+		(i, node)=>{
+			$(node).addClass(i < score ? 'fas' : 'far');
+		}
+	);
 }
 
 function setMeritLevel()
@@ -717,4 +735,57 @@ function editSpecialty()
 		}
 	);
 	saveCharacter();
+}
+
+function displayProfessionalTrainings()
+{
+	let $template = $('#professionalTrainingMaster'),
+		$profTrainings = $('#professionalTrainings');
+	for(let pt of Object.values(toon.professionalTrainings))
+	{
+		let $clone = $template.clone(true).removeAttr('id');
+		$clone.children().each(
+			function (index, element)
+			{
+				let $this = $(element),
+					level = $this.data('level');
+				$('.trainingName', $this).text(pt.name);
+				$('.assetSkill', $this).change(
+					function()
+					{
+						let $select = $(this),
+							index = $select.data('index');
+						toon.setProfessionalTrainingAssetSkill(pt, index, $select.val());
+						populatePTFreeSkillChoice($freeSkillLevel, pt.assetSkills);
+						saveCharacter();
+					}
+				);
+				$this.css('display', (level <= pt.score || !level) ? 'block':'none');
+			}
+		);
+		
+		$('.assetSkill', $clone).each(
+			function(index, node)
+			{
+				let $select = $(node);
+				$select.val(pt.assetSkills[index]?pt.assetSkills[index]:'');
+			}
+		);
+		let $freeSkillLevel = $('.freeSkillLevel', $clone);
+		
+		populatePTFreeSkillChoice($freeSkillLevel, pt.assetSkills);
+		
+		$profTrainings.append($clone);
+	}
+}
+
+function populatePTFreeSkillChoice($select, skills)
+{
+	$select.empty().append(
+		$('<option value="">Asset Skill</option>')
+	);
+	for(let skill of skills)
+	{
+		$(`<option value="${skill}">${skill}</option>`).appendTo($select);
+	}
 }

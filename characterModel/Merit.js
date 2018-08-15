@@ -15,6 +15,7 @@ class Merit extends XPPurchasable
 		this.modifiers = data.modifiers;
 		this.exclusiveTo = data.exclusiveTo;
 		this.venue = data.venue;
+		this.specification = null;
 		this.loadJSON(data);
 	}
 	
@@ -43,6 +44,7 @@ class Merit extends XPPurchasable
 	{
 		let json = super.toJSON();
 		json.specification = this.specification;
+		json.specificMechanics = this.specificMechanics;
 		return json;
 	}
 }

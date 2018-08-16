@@ -293,6 +293,17 @@ class Character extends Listenable
 	{
 		let oldSpecialty = professionalTraining.setSpeciality(index, data);
 	}
+	
+	setProfessionalTrainingFreeSkill(professionalTraining, skill)
+	{
+		let oldSkill = professionalTraining.setFreeSkill(skill);
+		if(oldSkill)
+		{
+			this.lookups[oldSkill].freeLevels --;
+		}
+		this.lookups[skill].freeLevels ++;
+		return oldSkill;
+	}
 }
 
 module.exports = Character;

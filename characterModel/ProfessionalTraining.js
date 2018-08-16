@@ -13,7 +13,7 @@ class ProfessionalTraining extends Merit
 		this.assetSkills = data.assetSkills?data.assetSkills:[];
 		this.contacts = data.contacts?data.contacts:[];
 		this.specialties = data.specialties?data.specialties:[];
-		this.freeLevel = data.freeLevel?data.freeLevel:null;
+		this.freeSkillLevel = data.freeSkillLevel?data.freeSkillLevel:null;
 	}
 	
 	loadJSON(data)
@@ -22,7 +22,7 @@ class ProfessionalTraining extends Merit
 		this.assetSkills = data.assetSkills?data.assetSkills:[];
 		this.contacts = data.contacts?data.contacts:[];
 		this.specialties = data.specialties?data.specialties:[];
-		this.freeLevel = data.freeLevel?data.freeLevel:null;
+		this.freeSkillLevel = data.freeSkillLevel?data.freeSkillLevel:null;
 	}
 	
 	toJSON()
@@ -31,7 +31,7 @@ class ProfessionalTraining extends Merit
 		json.assetSkills = this.assetSkills;
 		json.contacts = this.contacts;
 		json.specialties = this.specialties;
-		json.freeLevel = this.freeLevel;
+		json.freeSkillLevel = this.freeSkillLevel;
 		return json;
 	}
 	
@@ -52,6 +52,13 @@ class ProfessionalTraining extends Merit
 	setContact(index, contact)
 	{
 		this.contacts[index] = contact;
+	}
+	
+	setFreeSkill(skill)
+	{
+		let oldSkill = this.freeSkillLevel?this.freeSkillLevel:null;
+		this.freeSkillLevel = skill;
+		return oldSkill;
 	}
 }
 

@@ -839,6 +839,27 @@ function displayProfessionalTrainings()
 				$(node).val((pt.specialties[index] && pt.specialties[index].specialty)?pt.specialties[index].specialty:'');
 			}
 		);
+		
+		/*
+		 * Free skill level should pull out the old free skill level and remove the earlier free level and then
+		 * add a free level to the new skill choice
+		 */
+		$('.freeSkillLevel', $clone).change(
+			function()
+			{
+				let $select = $(this),
+					newSkill = $select.val(),
+					oldSkill = toon.setProfessionalTrainingFreeSkill(pt, newSkill);
+				if(oldSkill)
+				{
+					updateSkillRow(oldSkill);
+				}
+				updateSkillRow(newSkill);
+				saveCharacter();
+			}
+		).val(
+			pt.freeSkillLevel?pt.freeSkillLevel:''
+		);
 	}
 }
 
@@ -849,10 +870,6 @@ function populatePTSkillSelect($select, skills, value)
 	);
 	for(let skill of skills)
 	{
-		let $option = $(`<option value="${skill}">${skill}</option>`).appendTo($select);
-		if(skill == value)
-		{
-			$option.prop('selected', 'selected');
-		}
+		$(`<option value="${skill}">${skill}</option>`).appendTo($select);
 	}
 }

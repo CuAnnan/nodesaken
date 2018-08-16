@@ -38,12 +38,12 @@ class Character extends Listenable
 		super();
 		this.name = data.name;
 		this.player = data.player;
-		this.concept = data.concept?data.concept:'';
+		this.concept = data.concept ? data.concept : '';
 		this.skills = null;
 		this.attributes = null;
 		this.lookups = {};
 		this.attributeCategories = {}
-		this.derivedAttributes = {size:5};
+		this.derivedAttributes = {size: 5};
 		this.size = 5;
 		this.merits = null;
 		this.populateUseGroups();
@@ -68,10 +68,10 @@ class Character extends Listenable
 		this.skills = this.populateUseGroup('skills', skillUseGroups, Skill, [11, 7, 4]);
 		this.attributes = this.populateUseGroup('attributes', attributeUseGroups, Attribute, [5, 4, 3]);
 		this.merits = new MeritList();
-		for(let i in attributeCategoryMap)
+		for (let i in attributeCategoryMap)
 		{
 			this.attributeCategories[i] = {};
-			for(let a of attributeCategoryMap[i])
+			for (let a of attributeCategoryMap[i])
 			{
 				this.attributeCategories[i][a] = this.lookups[a];
 			}
@@ -81,9 +81,9 @@ class Character extends Listenable
 	populateUseGroup(type, map, classReference, cpAmounts)
 	{
 		let ugc = new UseGroupContainer(type, cpAmounts);
-		for(let i in map)
+		for (let i in map)
 		{
-			for(let thing of map[i])
+			for (let thing of map[i])
 			{
 				let thingObject = new classReference(thing);
 				ugc.addToUseGroup(i, thingObject);
@@ -97,7 +97,7 @@ class Character extends Listenable
 	addMerit(index, merit, populate = true)
 	{
 		this.merits.add(index, merit);
-		if(merit.name == 'Professional Training')
+		if (merit.name == 'Professional Training')
 		{
 			this.professionalTrainings[merit.specification] = merit;
 		}
@@ -140,17 +140,17 @@ class Character extends Listenable
 	
 	calculateDerived()
 	{
-		this.size = this.hasMerit('Giant') ? 6 : (this.hasMerit('Small-framed')?4:5);
+		this.size = this.hasMerit('Giant') ? 6 : (this.hasMerit('Small-framed') ? 4 : 5);
 		
 		this.derivedAttributes = {
-			willpower:this.addScores('Resolve', 'Composure'),
-			health:this.addScores('Stamina', this.size),
-			initiative:this.addScores('Dexterity', 'Composure'),
-			speed:this.addScores('Dexterity', 'Strength', 5),
-			defense:this.getDefense(),
-			perception:this.addScores('Wits', 'Composure'),
+			willpower: this.addScores('Resolve', 'Composure'),
+			health: this.addScores('Stamina', this.size),
+			initiative: this.addScores('Dexterity', 'Composure'),
+			speed: this.addScores('Dexterity', 'Strength', 5),
+			defense: this.getDefense(),
+			perception: this.addScores('Wits', 'Composure'),
 		};
-		for(let i in this.derivedAttributes)
+		for (let i in this.derivedAttributes)
 		{
 			this.derivedAttributes[i] += this.merits.getModifiersFor(i);
 			this.lookups[i] = {score: this.derivedAttributes[i]};
@@ -166,19 +166,21 @@ class Character extends Listenable
 	{
 		let potentialSkills = [this.lookups.Athletics];
 		
-		if(this.hasMerit("Defensive Combat - Brawl") && this.hasMerit("Defensive Combat - Weaponry"))
+		if (this.hasMerit("Defensive Combat - Brawl") && this.hasMerit("Defensive Combat - Weaponry"))
 		{
 			potentialSkills.push(this.lookups.Brawl, this.lookups.Weaponry);
 		}
-		else if(this.hasMerit("Defensive Combat - Brawl") && (this.lookups.Brawl.score > this.lookups.Athletics.score))
+		else if (this.hasMerit("Defensive Combat - Brawl") && (this.lookups.Brawl.score > this.lookups.Athletics.score))
 		{
 			potentialSkills.push(this.lookups.Brawl);
 		}
-		else if(this.hasMerit("Defensive Combat - Weaponry") && (this.lookups.Weaponry.score > this.lookups.Athletics.score))
+		else if (this.hasMerit("Defensive Combat - Weaponry") && (this.lookups.Weaponry.score > this.lookups.Athletics.score))
 		{
 			potentialSkills.push(this.lookups.Weaponry);
 		}
-		potentialSkills.sort((a, b)=>{return b.score - a.score});
+		potentialSkills.sort((a, b) => {
+			return b.score - a.score
+		});
 		return potentialSkills[0].name;
 	}
 	
@@ -199,7 +201,7 @@ class Character extends Listenable
 	{
 		let result = 0;
 		
-		for(let i in arguments)
+		for (let i in arguments)
 		{
 			try
 			{
@@ -213,9 +215,9 @@ class Character extends Listenable
 					result += item.score > 0 ? item.score : (0 - item.penalty);
 				}
 			}
-			catch(e)
+			catch (e)
 			{
-				throw (arguments[i]+' not found in lookup');
+				throw (arguments[i] + ' not found in lookup');
 			}
 		}
 		
@@ -230,15 +232,15 @@ class Character extends Listenable
 	{
 		let universalLookups = ['skills', 'attributes'];
 		
-		for(let i of universalLookups)
+		for (let i of universalLookups)
 		{
-			for(let j in data[i])
+			for (let j in data[i])
 			{
 				let json = data[i][j];
 				this.lookups[json.name].loadJSON(json)
 			}
 		}
-		for(let i in data.merits)
+		for (let i in data.merits)
 		{
 			let index = i.replace('merit_', ''),
 				json = data.merits[i],
@@ -253,10 +255,10 @@ class Character extends Listenable
 	
 	toJSON()
 	{
-		let json =  {
+		let json = {
 			skills: this.skills.toJSON(),
 			attributes: this.attributes.toJSON(),
-			merits:this.merits.toJSON()
+			merits: this.merits.toJSON()
 		};
 		
 		return json;
@@ -280,6 +282,16 @@ class Character extends Listenable
 	setProfessionalTrainingAssetSkill(professionalTraining, index, skill)
 	{
 		let oldSkill = professionalTraining.setAssetSkill(index, skill);
+	}
+	
+	setProfessionalTrainingContact(professionalTraining, index, contact)
+	{
+		let oldContact = professionalTraining.setContact(index, contact);
+	}
+	
+	setProfessionalTrainingSpecialty(professionalTraining, index, data)
+	{
+		let oldSpecialty = professionalTraining.setSpeciality(index, data);
 	}
 }
 

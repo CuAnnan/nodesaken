@@ -1,5 +1,10 @@
 let Merit = require('./Merit');
 
+function defaultValue(a, b, def)
+{
+	return a?a:(b?b:def);
+}
+
 class ProfessionalTraining extends Merit
 {
 	constructor(name, data)
@@ -7,7 +12,7 @@ class ProfessionalTraining extends Merit
 		super(name, data);
 		this.assetSkills = data.assetSkills?data.assetSkills:[];
 		this.contacts = data.contacts?data.contacts:[];
-		this.specialities = data.specialities?data.specialities:[];
+		this.specialties = data.specialties?data.specialties:[];
 		this.freeLevel = data.freeLevel?data.freeLevel:null;
 	}
 	
@@ -16,7 +21,7 @@ class ProfessionalTraining extends Merit
 		super.loadJSON(data);
 		this.assetSkills = data.assetSkills?data.assetSkills:[];
 		this.contacts = data.contacts?data.contacts:[];
-		this.specialities = data.specialities?data.specialities:[];
+		this.specialties = data.specialties?data.specialties:[];
 		this.freeLevel = data.freeLevel?data.freeLevel:null;
 	}
 	
@@ -25,7 +30,7 @@ class ProfessionalTraining extends Merit
 		let json = super.toJSON();
 		json.assetSkills = this.assetSkills;
 		json.contacts = this.contacts;
-		json.specialities = this.specialities;
+		json.specialties = this.specialties;
 		json.freeLevel = this.freeLevel;
 		return json;
 	}
@@ -37,11 +42,11 @@ class ProfessionalTraining extends Merit
 		return oldSkill;
 	}
 	
-	setSpeciality(index, skill, speciality)
+	setSpeciality(index, data)
 	{
-		this.specialities[index] = this.specialities[index]?this.specialities[index]:{};
-		this.specialities[index].skill = skill;
-		this.specialities[index].skill = speciality;
+		this.specialties[index] = this.specialties[index]?this.specialties[index]:{};
+		this.specialties[index].skill = defaultValue(data.skill, this.specialties[index].skill, '');
+		this.specialties[index].specialty = defaultValue(data.specialty, this.specialties[index].specialty, '');
 	}
 	
 	setContact(index, contact)

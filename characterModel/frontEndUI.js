@@ -741,42 +741,104 @@ function displayProfessionalTrainings()
 {
 	let $template = $('#professionalTrainingMaster'),
 		$profTrainings = $('#professionalTrainings');
+	/*
+	 * loop through all of the professional trainings and clone the UI for them
+	 */
 	for(let pt of Object.values(toon.professionalTrainings))
 	{
 		let $clone = $template.clone(true).removeAttr('id');
+		
+		populatePTSkillSelect($('.freeSkillLevel', $clone), pt.assetSkills);
+		populatePTSkillSelect($('.professionalTrainingSpecialityAssetSkill', $clone), pt.assetSkills);
+		
+		$profTrainings.append($clone);
+		// set the name of the professional training
+		
+		
+		
+		$('.trainingName', $clone).text(pt.specification);
+		
+		/*
+		 * Only show the UI elements for the levels that are unlocked.
+		 */
 		$clone.children().each(
 			function (index, element)
 			{
 				let $this = $(element),
 					level = $this.data('level');
-				$('.trainingName', $this).text(pt.name);
-				$('.assetSkill', $this).change(
-					function()
-					{
-						let $select = $(this),
-							index = $select.data('index');
-						toon.setProfessionalTrainingAssetSkill(pt, index, $select.val());
-						populatePTSkillSelect($freeSkillLevel, pt.assetSkills);
-						saveCharacter();
-					}
-				);
 				$this.css('display', (level <= pt.score || !level) ? 'block':'none');
 			}
 		);
 		
-		$('.assetSkill', $clone).each(
+		
+		/*
+		 * Attach event listeners to the asset skill selects also set the current values
+		 */
+		$('.assetSkill', $clone).change(
+			function()
+			{
+				let $select = $(this),
+					index = $select.data('index');
+				toon.setProfessionalTrainingAssetSkill(pt, index, $select.val());
+				saveCharacter();
+			}
+		).each(
 			function(index, node)
 			{
 				let $select = $(node);
 				$select.val(pt.assetSkills[index]?pt.assetSkills[index]:'');
 			}
 		);
-		let $freeSkillLevel = $('.freeSkillLevel', $clone);
 		
-		populatePTSkillSelect($freeSkillLevel, pt.assetSkills);
-		populatePTSkillSelect($('.professionalTrainingSpecialityAssetSkill', $clone), pt.assetSkills);
+		/*
+		 * Attach event listeners to the contact inputs, also set the current values
+		 */
+		$('.professionalTrainingContact', $clone).change(
+			function()
+			{
+				let $input = $(this),
+					index = $input.data('index');
+				toon.setProfessionalTrainingContact(pt, index, $input.val());
+				saveCharacter();
+			}
+		).each(
+			function(index, node)
+			{
+				$(node).val(pt.contacts[index]?pt.contacts[index]:'');
+			}
+		);
 		
-		$profTrainings.append($clone);
+		/**
+		 * Do the same for the specialties which are done in two stages
+		 */
+		$('.professionalTrainingSpecialityAssetSkill', $clone).change(
+			function()
+			{
+				let $select = $(this),
+					index = $select.data('index');
+				toon.setProfessionalTrainingSpecialty(pt, index, {skill:$select.val()});
+				saveCharacter();
+			}
+		).each(
+			function(index, node)
+			{
+				$(node).val((pt.specialties[index] && pt.specialties[index].skill)?pt.specialties[index].skill:'');
+			}
+		);
+		$('.professionalTrainingSpeciality', $clone).change(
+			function()
+			{
+				let $input = $(this),
+					index = $input.data('index');
+				toon.setProfessionalTrainingSpecialty(pt, index, {specialty:$input.val()});
+				saveCharacter();
+			}
+		).each(
+			function(index, node)
+			{
+				$(node).val((pt.specialties[index] && pt.specialties[index].specialty)?pt.specialties[index].specialty:'');
+			}
+		);
 	}
 }
 

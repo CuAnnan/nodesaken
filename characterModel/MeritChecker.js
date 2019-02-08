@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
 	compare:function(toonValue, prerequisite)
 	{

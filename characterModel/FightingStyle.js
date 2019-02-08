@@ -1,3 +1,4 @@
+'use strict';
 let StyleIndividualMerit = require('./StyleIndividualMerit');
 
 class FightingStyle extends StyleIndividualMerit

@@ -14,7 +14,7 @@
         "shadow": ["Insight","Warding"]
       },
       "Ithaeur": {
-        "moon": ["Cresent Moon"],
+        "moon": ["Crescent Moon"],
         "shadow": ["Elemental","Shaping"]
       },
       "Irraka": {
@@ -121,8 +121,8 @@
           "activationCost":"5",
           "action":"",
           "duration":"",
-          "pool":{},
-          "resistedBy":{}
+          "pool":{"attribute":"Presence", "skill":"Occult", "renown":"Honor"},
+          "resistedBy":"Power + Finesse + Resitance"
         },
         "Purity":{
           "name":"Maw of Madness",

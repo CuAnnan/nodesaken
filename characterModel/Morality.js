@@ -1,4 +1,5 @@
-XPPurchasable = require('./XPPurchasable');
+'use strict';
+let XPPurchasable = require('./XPPurchasable');
 
 class Morality extends XPPurchasable
 {

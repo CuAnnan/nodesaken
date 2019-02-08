@@ -1,4 +1,5 @@
 let ShadowGift = require('./ShadowGift'),
+	WolfGift = require('./WolfGift'),
 	tribalGifts = {
 		'Blood Talons':['Inspiration', 'Rage', 'Strength'],
 		'Bone Shadows':['Death', 'Elemental', 'Insight'],
@@ -78,11 +79,32 @@ class GiftListsContainer
 		return gifts;
 	}
 	
+	fetchAvailableWolfGiftFacets(unlockedRenowns)
+	{
+		let gifts = [];
+		for(let gift of Object.values(this.wolf))
+		{
+			gift.availableRenown = unlockedRenowns;
+			gift.affinity = true;
+			gifts.push(gift);
+		}
+		gifts.sort((a, b)=>{return a.name > b.name});
+		return gifts;
+	}
+	
 	loadShadowGiftsFromJSON(json)
 	{
 		for(let giftJSON of Object.values(json))
 		{
 			this.shadow[giftJSON.shorthand] = new ShadowGift(giftJSON);
+		}
+	}
+	
+	loadWolfGiftsFromJSON(json)
+	{
+		for(let giftJSON of Object.values(json))
+		{
+			this.wolf[giftJSON.shorthand] = new WolfGift(giftJSON);
 		}
 	}
 	
@@ -110,6 +132,7 @@ class GiftListsContainer
 			}
 			giftIndex++;
 		}
+		console.log(giftFacets);
 		return giftFacets;
 	}
 	
@@ -152,6 +175,7 @@ class GiftListsContainer
 	unlockFacet(list, giftShorthand, renown, freePick)
 	{
 		let gift = this[list][giftShorthand];
+		console.log(gift);
 		gift.unlockFacet(renown, freePick);
 		if(list == 'shadow')
 		{
@@ -190,12 +214,19 @@ class GiftListsContainer
 	
 	toJSON()
 	{
-		let giftsJSON= {'shadow':[]};
+		let giftsJSON= {'shadow':[], wolf:[]};
 		for(let gift of Object.values(this.shadow))
 		{
 			if(gift.unlocked)
 			{
 				giftsJSON.shadow.push(gift.toJSON());
+			}
+		}
+		for(let gift of Object.values(this.wolf))
+		{
+			if (gift.unlockedFacetCount)
+			{
+				giftsJSON.wolf.push(gift.toJSON());
 			}
 		}
 		giftsJSON.startingShadowGifts = this.startingShadowGifts;
@@ -212,14 +243,22 @@ class GiftListsContainer
 		{
 			this.loadGiftsData('shadow', giftsData.shadow);
 		}
+		if(giftsData.wolf)
+		{
+			this.loadGiftsData('wolf', giftsData.wolf);
+		}
 		this.startingShadowGifts = giftsData.startingShadowGifts?giftsData.startingShadowGifts:[];
 	}
 	
 	loadGiftsData(giftList, data)
 	{
+		
 		for (let giftData of data)
 		{
-			this[giftList][giftData.shorthand].loadJSON(giftData);
+			if(this[giftList][giftData.shorthand])
+			{
+				this[giftList][giftData.shorthand].loadJSON(giftData);
+			}
 		}
 	}
 }

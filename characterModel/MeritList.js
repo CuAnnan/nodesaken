@@ -1,3 +1,4 @@
+'use strict';
 let UseGroup = require('./UseGroup'),
 	Merit = require('./Merit'),
 	FightingStyle = require('./FightingStyle'),

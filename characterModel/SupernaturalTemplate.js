@@ -1,3 +1,4 @@
+'use strict';
 let Character = require('./Character'),
 	SupernaturalMeritList = require('./SupernaturalMeritList');
 

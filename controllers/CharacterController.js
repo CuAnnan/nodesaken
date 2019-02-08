@@ -1,3 +1,4 @@
+"use strict";
 let Controller = require('./Controller'),
 	ForsakenCharacter = require('../characterModel/Forsaken/ForsakenCharacter'),
 	User = require('../schemas/UserSchema'),

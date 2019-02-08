@@ -1,3 +1,5 @@
+'use strict';
+
 let Merit = require('./Merit');
 
 function defaultValue(a, b, def)

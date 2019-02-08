@@ -1,7 +1,8 @@
+'use strict';
 let Controller = require('./Controller'),
 	validator = require('email-validator'),
 	User = require('../schemas/UserSchema'),
-	bcrypt = require('bcrypt'),
+	bcrypt = require('bcryptjs'),
 	fs = require('fs'),
 	sendmail = require('sendmail')(),
 	ejs = require('ejs'),

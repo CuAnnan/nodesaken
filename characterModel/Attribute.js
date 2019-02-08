@@ -1,3 +1,4 @@
+'use strict';
 let XPPurchasable = require('./XPPurchasable');
 
 class Attribute extends XPPurchasable

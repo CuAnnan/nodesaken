@@ -1,3 +1,4 @@
+'use strict';
 let ForsakenCharacter = require('./Forsaken/ForsakenCharacter'),
 	Merit = require('./Merit'),
 	toon, characterReference,
@@ -104,6 +105,7 @@ function setValue()
 		});
 		$('#primalUrge i').click(setPrimalUrge);
 		$('#addShadowGiftsButton').click(showShadowGiftSelector);
+		$('#addWolfGiftsButton').click(showWolfGiftSelector);
 		$('#giftsModalChooseBtn').click(chooseGift);
 		$('#myTab a').on('click', function (e) {
 			let $link = $(this), loc = window.location,
@@ -186,6 +188,7 @@ function loadGiftsJSON(jsonText)
 {
 	let json = JSON.parse(jsonText);
 	toon.loadShadowGiftsJSON(json.shadow);
+	toon.loadWolfGiftsJSON(json.wolf);
 }
 
 
@@ -518,6 +521,12 @@ function showShadowGiftSelector()
 	populateAndShowGiftsUI('shadow', gifts);
 }
 
+function showWolfGiftSelector()
+{
+	let gifts = toon.wolfGifts;
+	populateAndShowGiftsUI('wolf', gifts);
+}
+
 function populateAndShowGiftsUI(listName, gifts)
 {
 	let $affinityGifts = $('#giftsModalAffinityGifts').empty(),
@@ -560,6 +569,7 @@ function chooseGift()
 {
 	let $chosenGift = $('#giftsModalGift option:selected'),
 		giftData = $chosenGift.data();
+	console.log(giftData);
 	
 	toon.unlockFacet(giftData.list, giftData.gift, giftData.renown, $('#giftsModalRenownFreePick').is(':checked'));
 	

@@ -1,3 +1,4 @@
+'use strict';
 let MeritList = require('./MeritList');
 
 class SupernaturalMeritList extends MeritList

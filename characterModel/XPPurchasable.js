@@ -1,3 +1,4 @@
+'use strict';
 function getNumber(value)
 {
 	let number = parseInt(value);

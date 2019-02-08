@@ -1,0 +1,76 @@
+<%
+ function penaltyLevel(level)
+ {
+%>
+    <div class="col">
+        <div class="row">
+            <label class="col-2 col-form-label" for="level<%=level%>FormPenalty">Form</label>
+            <div class="col-4">
+                <select id="level<%=level%>FormPenalty" class="form-control favouredFormFormPenalty" disabled="disabled"></select>
+            </div>
+            <label class="col-2 col-form-label" for="level<%=level%>AttributePenalty">Attribute</label>
+            <div class="col-4">
+                <select id="level<%=level%>AttributePenalty" class="form-control favouredFormPenalty" disabled="disabled"></select>
+            </div>
+        </div>
+    </div>
+<%
+ }
+ %>
+<div class="page tab-pane" id="forsakenFavouredForm" role="tabpanel" aria-labelledby="forsakenFavouredForm-tab">
+    <div class="container-fluid">
+        <div id="favouredFormUI">
+            <div class="row text-center" data-level="1"><h4>Favoured Form</h4></div>
+            <div class="row" data-level="1">
+                <label class="col-2 col-form-label" for="contacts1">Chosen form</label>
+                <div class="col-4">
+                    <select id="favouredFormChosenForm" class="form-control">
+                        <option value="">Choose one</option>
+                        <option value="Hishu">Hishu</option>
+                        <option value="Dalu">Dalu</option>
+                        <option value="Gauru">Gauru</option>
+                        <option value="Urshul">Urshul</option>
+                        <option value="Urhan">Urhan</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" data-level="1">
+                <div class="col">
+                    <div class="row">
+                        <label class="col-4 col-form-label" for="favouredFormLevel1Skill">Physical Skills</label>
+                        <div class="col">
+                            <select id="favouredFormLevel1Skill" class="form-control" disabled="disabled">
+                                <option value="">Choose Skill</option>
+                                <%for (let skill of character.skills.useGroups.Physical.items){%>
+                                    <option value="<%= skill.name%>"><%= skill.name%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <% penaltyLevel(1) %>
+            </div>
+            <div class="row" data-level="2">
+                <div class="col">
+                    <div class="row">
+                        <label class="col-4 col-form-label" for="faveouredFormLevel2Attribute">Attribute</label>
+                        <div class="col">
+                            <select id="faveouredFormLevel2Attribute" class="form-control" disabled="disabled">
+                                <option value="">Choose Attribute</option>
+                                <%for (let attribute of character.attributes.items){%>
+                                	<option value="<%=attribute.name%>"><%=attribute.name%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Dear Future Wing,
+                    I know you hate leaving things half done, but Favoured Form needs all the Gifts to be done, not just the Shadow Gifts.
+                    Yours,
+                        Past Wing
+                    -->
+                <% penaltyLevel(2) %>
+            </div>
+        </div>
+    </div>
+</div>

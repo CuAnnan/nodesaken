@@ -1,34 +1,35 @@
+'use strict';
+
 /*
  * Project dependencies
  */
-let createError = require('http-errors'),
-	express = require('express'),
-	path = require('path'),
-	cookieParser = require('cookie-parser'),
-	logger = require('morgan'),
-	debug = require('debug')('nodesaken:server'),
-	session = require('express-session'),
-	MongoDBStore = require('connect-mongodb-session')(session),
-	mongoose = require('mongoose'),
-	conf = require('./conf');
-
+const	createError = require('http-errors'),
+		express = require('express'),
+		path = require('path'),
+		cookieParser = require('cookie-parser'),
+		logger = require('morgan'),
+		debug = require('debug')('nodesaken:server'),
+		session = require('express-session'),
+		MongoDBStore = require('connect-mongodb-session')(session),
+		mongoose = require('mongoose'),
+		conf = require('./conf'),
 /*
  * Routers
  */
-let indexRouter = require('./routes/index'),
-	characterRouter = require('./routes/characters'),
-	userRouter = require('./routes/users');
-
-let app = express();
-
+		indexRouter = require('./routes/index'),
+		characterRouter = require('./routes/characters'),
+		userRouter = require('./routes/users'),
+		app = express();
 /*
  * Set up the sesssions
  */
-let store = new MongoDBStore({
-	uri: conf.sessionStore.getURI(),
-	databaseName: 'connect_mongodb_sessions',
-	collection:'nodesaken_sessions'
-});
+console.log("Establishing Mongo Session Store");
+	let store = new MongoDBStore({
+		uri: conf.sessionStore.getURI(),
+		databaseName: 'connect_mongodb_sessions',
+		collection:'nodesaken_sessions'
+	});
+console.log("Mongo Session Store Established");
 
 store.on('error', (error)=>{
 	console.log(error);
@@ -49,15 +50,14 @@ app.use(function(req, res, next) {
 });
 
 /*
- * connect to mongoose
- */
-
-/*
  * Setting mongoose up
  */
 
+console.log("Setting Mongoose up");
+
 mongoose.Promise = global.Promise;
-mongoose.connect(conf.mongoose.getURI())
+
+mongoose.connect(conf.mongoose.getURI(), {useNewUrlParser:true})
 	.then(
 		()=>{
 			debug('Mongoose raised');
@@ -67,8 +67,15 @@ mongoose.connect(conf.mongoose.getURI())
 		debug(err);
 	}
 );
+console.log("Mongoose set up");
 
 global.appRoot = path.resolve(__dirname);
+
+/**
+ * CoDie stuff
+ */
+require('./DiscordBot/hoist.js');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,3 +1,4 @@
+'use strict';
 let Merit = require('./Merit'),
 	StyleIndividualMerit = require('./StyleIndividualMerit'),
 	FightingStyle = require('./FightingStyle'),

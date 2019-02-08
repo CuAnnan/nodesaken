@@ -1,3 +1,4 @@
+'use strict';
 let Merit = require('./Merit');
 
 class StyleIndividualMerit extends Merit

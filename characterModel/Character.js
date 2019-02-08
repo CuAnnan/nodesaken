@@ -1,3 +1,4 @@
+'use strict';
 let Skill = require('./Skill'), Attribute = require('./Attribute'), UseGroupContainer = require('./UseGroupContainer'),
 	MeritList = require('./MeritList'), Listenable = require('./Listenable'), Morality = require('./Morality'),
 	Merit = require('./Merit'), MeritDatabase = require('./MeritsDatabase'), ProfessionalTraining = require('./ProfessionalTraining'),

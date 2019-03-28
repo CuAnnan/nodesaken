@@ -21,6 +21,7 @@
                 <div class="col characterDetail"><%= c.tribe %></div>
                 <div class="col">
                     <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary loadCharacter"><i class="fas fa-file-alt"></i>Load</button>
+                    <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary showApiKeys"><i class="fas fa-key"></i>API Keys</button>
                     <button data-character-reference="<%= c.reference %>" class="btn-sm btn-danger deleteCharacter"><i class="fas fa-trash-alt"></i>Delete</button>
                 </div>
             </div>
@@ -30,6 +31,22 @@
         You have no characters saved. Why not start now?
     </div>
     <% } %>
+</div>
+
+<div class="modal" id="characterAPIKeys">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-title">
+                <strong class="modal-title">Character API Keys</strong>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul id="apiKeyList"></ul>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal" id="newWerewolfModal">
@@ -96,6 +113,7 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/js/moment.js"></script>
 <script type="text/javascript" src="/js/characterIndex.js"></script>
 
 <%- include('../includes/footer') -%>

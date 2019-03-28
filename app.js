@@ -86,6 +86,11 @@ app.set('view engine', 'ejs');
  */
 app.use('/js', express.static(__dirname+'/node_modules/popper.js/dist/umd'));
 
+/*
+ * Expose moment.js to front end
+ */
+app.use('/js', express.static(__dirname+'/node_modules/moment'));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

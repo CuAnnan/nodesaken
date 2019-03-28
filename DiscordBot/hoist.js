@@ -2,15 +2,19 @@
 const   Discord = require('discord.js'),
         client = new Discord.Client(),
         clientToken = 'NTI4MDA0MTc2MTIzNTI3MTc5.Dwb91g.8Sj1ydMTdihaZ46lGnMXK8iFXw0',
-        CoDie = require('./CoDDieBot.js');
+        DieBot = require('./NSCoDDieBot');
+let     dieBot = null;
 
 client.login(clientToken);
-client.once('ready',()=>{CoDie.hoist(client);});
+client.once('ready',()=>{
+    dieBot = new DieBot();
+    dieBot.hoist(client);
+});
 
 process.on(
     'SIGINT',
     ()=>{
-        CoDie.shutdown();
+        dieBot.shutdown();
         client.destroy();
         process.exit();
     }

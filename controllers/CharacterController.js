@@ -3,6 +3,7 @@ let Controller = require('./Controller'),
 	ForsakenCharacter = require('../characterModel/Forsaken/ForsakenCharacter'),
 	User = require('../schemas/UserSchema'),
 	Character= require('../schemas/CharacterSchema'),
+	CharacterAPIKey = require('../schemas/CharacterAPIKeySchema'),
 	MeritsDatabase = require('../characterModel/MeritsDatabase');
 
 class CharacterController extends Controller
@@ -74,6 +75,40 @@ class CharacterController extends Controller
 			res.json({
 				success:false
 			});
+		}
+	}
+
+	static async generateAPIKey(req, res, next)
+	{
+		try
+		{
+			let user = await Controller.getLoggedInUser(req),
+				entity = await CharacterController.fetchCharacterEntityByReference(user, req.body.json.reference);
+
+		}
+		catch(e)
+		{
+			console.log(e);
+			res.json({
+				success:false
+			})
+		}
+	}
+
+	static async getAPIKeys(req, res, next)
+	{
+		try
+		{
+			let user = await Controller.getLoggedInUser(req),
+				entity = await CharacterController.fetchCharacterEntityByReference(user, req.params.reference);
+
+			res.json({apiKeys:entity.apiKeys});
+		}
+		catch(e)
+		{
+			res.json({
+				error:e
+			})
 		}
 	}
 }

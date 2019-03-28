@@ -27,6 +27,20 @@ function loadCharacter(characterReference)
 	window.location.replace(url);
 }
 
+function showApiKeyModal(characterReference)
+{
+	$.get(`/characters/getAPIKeys/${characterReference}`).then((response)=>{
+		response = JSON.parse(response);
+		let $list = $('#apiKeyList').empty();
+		for(let key of response.apiKeys)
+		{
+			$('<li/>').text
+		}
+		$('#characterAPIKeys').modal('show');
+	});
+
+}
+
 (function($){
 	$(function(){
 		$newWerewolfModal = $('#newWerewolfModal');
@@ -47,5 +61,12 @@ function loadCharacter(characterReference)
 		$('.deleteCharacter').click(function(){
 		
 		});
+		$('.showApiKeys').click(function(){
+			showApiKeyModal($(this).data('characterReference'));
+		});
+
+		let d = Date.now();
+		let m = moment(d);
+		console.log(m.format('dddd'));
 	});
 })(window.jQuery);

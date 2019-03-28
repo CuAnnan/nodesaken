@@ -7,7 +7,10 @@ let CharacterSchema = new mongoose.Schema({
 	name: {type: String},
 	auspice:{type: String},
 	tribe: {type: String},
-	reference:{type:String, default:shortid.generate}
+	reference:{type:String, default:shortid.generate},
+	apiKeys:[{ type: mongoose.Schema.Types.ObjectId, ref: 'CharacterAPIKey' }],
 });
+
+
 
 module.exports = mongoose.model('Character', CharacterSchema);

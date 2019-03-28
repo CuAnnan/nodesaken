@@ -25,6 +25,7 @@ class DiscordBot
 		{
 			this[setting] = settings[setting]?settings[setting]:{}
 		}
+		this.listen();
 		
 		return settings;
 	}
@@ -61,9 +62,9 @@ class DiscordBot
 		return json;
 	}
 	
-	shutdown()
+	async shutdown()
 	{
-		this.saveSettings();
+		return this.saveSettings();
 	}
 	
 	elevateCommand(message)
@@ -144,7 +145,7 @@ class DiscordBot
 	async setCommandPrefixForGuild(commandParts, message, comment)
 	{
 		this.elevateCommand(message);
-		
+
 		if (!commandParts.length)
 		{
 			return;
@@ -163,7 +164,7 @@ class DiscordBot
 		{
 			this.commandPrefixOverrides[message.guild.id] = guildSpecificPrefix;
 		}
-		this.saveSettings();
+		return this.saveSettings();
 	}
 	
 	async showAuthorised(commandParts, message)
@@ -293,15 +294,20 @@ class DiscordBot
 	
 	saveSettings()
 	{
-		let settings = this.getSettingsToSave();
-		
-		fs.writeFileSync('./settings.json', JSON.stringify(settings),(err)=>{
-			if(err)
-			{
-				return console.warn(err);
-			}
+		let settings = this.getSettingsToSave(),
+			data = JSON.stringify(settings);
+		return new Promise((resolve, reject) => {
+			fs.writeFile(__dirname+'/settings.json', data, (err)=>{
+				if(err)
+				{
+					reject(err);
+				}
+				else
+				{
+					resolve(data);
+				}
+			})
 		});
-		
 	}
 	
 	addCommandAlias(command, commandAlias)
@@ -326,32 +332,26 @@ class DiscordBot
 		{
 			return;
 		}
-		let prefix = this.getCommandPrefixForGuild(message.guild.id),
-			atMention = `<@${this.user.id}>`,
-			renamedAtMention = `<@!${this.user.id}>`;
-		
-		let isMention = message.content.startsWith(atMention);
-		let isRenamedMention = message.content.startsWith(renamedAtMention);
-		
-		if (!(message.content.startsWith(prefix) || isMention || isRenamedMention))
-		{
-			return;
-		}
-		
 		if (message.channel.type == 'dm')
 		{
 			message.channel.send("You cannot use this bot via DM yet for technical reasons");
 			return;
 		}
-		
+
+		let prefix = this.getCommandPrefixForGuild(message.guild.id),
+			mentionRegExp = new RegExp(`^<@!?${this.user.id}>`),
+			isMention = message.content.match(mentionRegExp);
+
+		if (!(message.content.startsWith(prefix) || isMention))
+		{
+			return;
+		}
+
 		let args;
 		if(isMention)
 		{
+			let atMention = isMention[0];
 			args = message.content.replace(atMention, '').trim().split('--');
-		}
-		else if(isRenamedMention)
-		{
-			args = message.content.replace(renamedAtMention, '').trim().split('--');
 		}
 		else
 		{
@@ -370,9 +370,7 @@ class DiscordBot
 			this.commands[command](commandParts, message, comment).then(()=>{
 				if(this.getDeleteMessageForGuild(message.guild.id))
 				{
-					message.delete().catch(() => {
-						console.log('Bot is not permitted to delete on this guild');
-					});
+					message.delete().catch(() => {});
 				}
 			}).catch((error)=>{
 				console.warn(error);

@@ -76,7 +76,6 @@ class CoDDieBot extends DiscordBot
             critAndExplode = this.processCritExplode(message);
 
         let data = Object.assign({}, tricks, critAndExplode);
-        console.log(data);
         return data;
     }
 
@@ -109,6 +108,7 @@ class CoDDieBot extends DiscordBot
         {
             this.stRoleOverrides[message.guild.id] = stRole;
         }
+        return this.saveSettings();
     }
 
     /**
@@ -126,7 +126,7 @@ class CoDDieBot extends DiscordBot
             return;
         }
         delete this.serverWideOverridePreventDM[message.guild.id];
-        return;
+        return this.saveSettings();
     }
 
     /**
@@ -143,6 +143,7 @@ class CoDDieBot extends DiscordBot
             return;
         }
         this.serverWideOverridesInChannelResponses[message.guild.id] = true;
+        return this.saveSettings();
     }
 
     getSettingsToSave()
@@ -177,7 +178,7 @@ class CoDDieBot extends DiscordBot
         let user = message.author,
             stList = this.getSTList(message);
 
-        user.createDM().then(
+        return user.createDM().then(
             (x)=>
             {
                 x.send(userMessage);
@@ -201,7 +202,7 @@ class CoDDieBot extends DiscordBot
 
     respondInChannel(userMessage, message)
     {
-        message.reply([message.username,userMessage]);
+        return message.reply([message.username,userMessage]);
     }
 
     sendMessageArray(messageArray, message, comment)
@@ -217,42 +218,41 @@ class CoDDieBot extends DiscordBot
 
             if(!this.serverWideOverridePreventDM[message.guild.id])
             {
-                this.sendDMResults(messageFragment, stMessageFragment, message);
+                return this.sendDMResults(messageFragment, stMessageFragment, message);
             }
             if (this.serverWideOverridesInChannelResponses[message.guild.id] || this.channelOverrides[message.channel.id])
             {
-                this.respondInChannel(messageFragment.join('\n'), message);
+                return this.respondInChannel(messageFragment.join('\n'), message);
             }
         }
     }
 
-    sendOneLineMessage(results, message, comment)
+    async sendOneLineMessage(results, message, comment)
     {
         if (!this.serverWideOverridePreventDM[message.guild.id])
         {
-            this.sendDMResults(results, [(message.author.username + " " + comment + " Roll:"), results], message);
+            return this.sendDMResults(results, [(message.author.username + " " + comment + " Roll:"), results], message);
         }
         if (this.serverWideOverridesInChannelResponses[message.guild.id])
         {
-            this.respondInChannel(results, message);
+            return this.respondInChannel(results, message);
         }
         else if(this.channelOverrides[message.channel.id])
         {
-            this.respondInChannel(results, message);
+            return this.respondInChannel(results, message);
         }
     }
 
-    displayResults(action, message, comment)
+    async displayResults(action, message, comment)
     {
         let results = action.getResults();
 
         if(results.constructor === Array)
         {
-            this.sendMessageArray(results, message, comment);
-            return;
+            return this.sendMessageArray(results, message, comment);
         }
 
-        this.sendOneLineMessage(results, message, comment);
+        return this.sendOneLineMessage(results, message, comment);
     }
 
     simpleRoll(commandParts, message, comment)
@@ -274,7 +274,8 @@ class CoDDieBot extends DiscordBot
         {
             roll = new SimpleAction(data);
         }
-        this.displayResults(roll, message, comment);
+
+        return this.displayResults(roll, message, comment);
     }
 
     extendedRoll(commandParts, message, comment)
@@ -294,7 +295,7 @@ class CoDDieBot extends DiscordBot
         }
 
         let action = new ExtendedAction(data);
-        this.displayResults(action, message);
+        return this.displayResults(action, message);
     }
 
     flagChannelForRolling(commandParts, message, comment)
@@ -321,8 +322,8 @@ class CoDDieBot extends DiscordBot
 
     displayHelpText(commandParts, message)
     {
-        let prefix = this.commandPrefix;
-        message.author.createDM().then(
+        let prefix = this.getCommandPrefixForGuild(message.guild.id);
+        return message.author.createDM().then(
             function(dm)
             {
                 return dm.send([

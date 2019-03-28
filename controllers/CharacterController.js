@@ -78,6 +78,28 @@ class CharacterController extends Controller
 		}
 	}
 
+	static async deleteAction(req, res, next)
+	{
+		try
+		{
+			let user = await Controller.getLoggedInUser(req);
+
+			await Character.deleteOne({owner:user,reference: req.params.reference});
+
+			res.json({
+				success:true
+			});
+		}
+		catch(e)
+		{
+			console.log(e);
+			res.json({
+				success:false,
+				exception: e
+			});
+		}
+	}
+
 	static async generateAPIKey(req, res, next)
 	{
 		try

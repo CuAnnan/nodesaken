@@ -14,9 +14,12 @@ client.once('ready',()=>{
 process.on(
     'SIGINT',
     ()=>{
-        dieBot.shutdown();
-        client.destroy();
-        process.exit();
+        dieBot.shutdown().then(
+            ()=>{
+                client.destroy();
+                process.exit();
+            }
+        );
     }
 );
 

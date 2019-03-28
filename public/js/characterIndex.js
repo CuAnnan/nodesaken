@@ -38,7 +38,26 @@ function showApiKeyModal(characterReference)
 		}
 		$('#characterAPIKeys').modal('show');
 	});
+}
 
+function deleteCharacter(data, $characterRow)
+{
+	$('#characterDeleteName').text(data.characterName);
+	let $modal = $('#deleteCharacterModal').modal('show');
+	$('#characterConfirmDeleteButton').click(()=>{
+		$.ajax({
+				url:`/characters/delete/${data.characterReference}`,
+				type:'DELETE'
+			})
+			.then((data)=>{
+				console.log(data);
+				$modal.modal('hide');
+				if(data.success)
+				{
+					$characterRow.remove();
+				}
+			});
+	})
 }
 
 (function($){
@@ -59,7 +78,8 @@ function showApiKeyModal(characterReference)
 			loadCharacter($(this).data('characterReference'));
 		});
 		$('.deleteCharacter').click(function(){
-		
+			let $button = $(this);
+			deleteCharacter($button.data(), $button.closest('.row'));
 		});
 		$('.showApiKeys').click(function(){
 			showApiKeyModal($(this).data('characterReference'));

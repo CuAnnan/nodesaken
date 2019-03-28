@@ -16,13 +16,13 @@
 
         <% for(let c of characters) { %>
             <div class="row characterRow">
-                <div class="col characterDetail"><%= c.name %></div>
-                <div class="col characterDetail"><%= c.auspice %></div>
-                <div class="col characterDetail"><%= c.tribe %></div>
+                <div class="col characterDetail characterName"><%= c.name %></div>
+                <div class="col characterDetail characterAuspice"><%= c.auspice %></div>
+                <div class="col characterDetail characterTribe"><%= c.tribe %></div>
                 <div class="col">
                     <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary loadCharacter"><i class="fas fa-file-alt"></i>Load</button>
                     <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary showApiKeys"><i class="fas fa-key"></i>API Keys</button>
-                    <button data-character-reference="<%= c.reference %>" class="btn-sm btn-danger deleteCharacter"><i class="fas fa-trash-alt"></i>Delete</button>
+                    <button data-character-auspice="<%= c.auspice%>" data-character-tribe="<%= c.tribe%>" data-character-name="<%= c.name%>%>" data-character-reference="<%= c.reference %>" class="btn-sm btn-danger deleteCharacter"><i class="fas fa-trash-alt"></i>Delete</button>
                 </div>
             </div>
         <% } %>
@@ -31,6 +31,26 @@
         You have no characters saved. Why not start now?
     </div>
     <% } %>
+</div>
+
+<div class="modal" id="deleteCharacterModal">
+    <div class="modal-dialog modal-dialog-centered">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title">Delete Character <span id="characterDeleteName"></span></h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+            <div class="modal-body">
+                Deleting this character is permanent. Are you sure you want to do this.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="characterConfirmDeleteButton" type="button" ><i class="far fa-trash-alt"></i>Delete</button>
+                <button class="btn btn-warning" type="button" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+            </div>
+         </div>
+    </div>
 </div>
 
 <div class="modal" id="characterAPIKeys">

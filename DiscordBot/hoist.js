@@ -5,11 +5,18 @@ const   Discord = require('discord.js'),
         DieBot = require('./NSCoDDieBot');
 let     dieBot = null;
 
+console.log('Trying to hoist the bot');
+
 client.login(clientToken);
 client.once('ready',()=>{
+    console.log('Instantiating the die bot');
     dieBot = new DieBot();
     dieBot.hoist(client);
 });
+client.on('error',(error)=>{
+    console.log(error);
+});
+
 
 process.on(
     'SIGINT',
@@ -24,3 +31,5 @@ process.on(
 );
 
 process.on('unhandledRejection', console.error);
+
+module.exports = dieBot;

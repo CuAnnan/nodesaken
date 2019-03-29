@@ -79,12 +79,6 @@ class UserController extends Controller
 					type: 'password',
 					label: 'Confirm Password',
 					prepend: '<i class="fa fa-check" aria-hidden="true"></i>'
-				},
-				'discordUsername':{
-					name:'discordUsername',
-					type:'text',
-					label:'Discord Username',
-					prepend: '<i class="fab fa-discord" aria-hidden="true"></i>'
 				}
 			},
 			checks: {
@@ -226,8 +220,19 @@ class UserController extends Controller
 		}
 		return;
 	}
+
+	static async updatePassword(user, password)
+	{
+		let hash = await UserController.hashPassword(password);
+		user.resetKey = null;
+		user.resetRequested = null;
+		user.resetNeeded = false;
+		user.passwordHash = hash.hash;
+		user.passwordSalt = hash.salt;
+		return true;
+	}
 	
-	static async updatePassword(req, res, next)
+	static async updatePasswordAction(req, res, next)
 	{
 		if(req.body.newPassword != req.body.newPasswordConf)
 		{
@@ -253,15 +258,9 @@ class UserController extends Controller
 					res.json({success:false, expired:true, error:'Reset request timed out'});
 					return;
 				}
-				
-				let hash = await UserController.hashPassword(req.body.newPassword);
-				
-				user.resetKey = null;
-				user.resetRequested = null;
-				user.resetNeeded = false;
-				user.passwordHash = hash.hash;
-				user.passwordSalt = hash.salt;
-				user.save();
+
+				await Character.updatePassword(user, req.body.newPassword);
+
 				res.json({success:true});
 				return;
 			}
@@ -273,7 +272,7 @@ class UserController extends Controller
 			res.json({success:false, error:e});
 			console.log(e);
 		}
-		return;
+		return true;
 	}
 	
 	static async hashPassword(password)
@@ -334,7 +333,78 @@ class UserController extends Controller
 		});
 		return;
 	}
-	
+
+	static async tryToUpdatePassword(currentPassword, newPassword, confirmNewPassword, user)
+	{
+		let errors = [];
+		/**
+		 * Only try to update the password if we have a new password
+		 */
+		if(newPassword)
+		{
+			/**
+			 * Current password is required to update password
+			 */
+			if(!currentPassword)
+			{
+				errors.push('Current password incorrect');
+			}
+			else
+			{
+				/**
+				 * Make sure the password hash matches the one on file
+				 */
+				let passwordMatch = await bcrypt.compare(currentPassword, user.passwordHash);
+				if(!passwordMatch)
+				{
+					errors.push('Current password incorrect');
+				}
+				if (newPassword !== confirmNewPassword)
+				{
+					/**
+					 * Make sure the new passwords match
+					 */
+					errors.push('Password strings do not match');
+				}
+			}
+			if(errors.length == 0)
+			{
+				/**
+				 * We have no errors, so update the password
+				 */
+				await UserController.updatePassword(user, newPassword);
+			}
+		}
+		return errors;
+	}
+
+	static async tryToUpdatePasswordWithPostValues(req, user)
+	{
+		return tryToUpdatePassword(req.body.currentPassword,req.body.newPassword,req.body.confirmNewPassword,user);
+	}
+
+	static async updateAccountAction(req, res, next)
+	{
+		let errors = [], success = true,
+			user = await Controller.getLoggedInUser(req),
+			passwordErrors = await UserController.tryToUpdatePasswordWithPostValues(req, user);
+
+		if(passwordErrors)
+		{
+			errors = passwordErrors;
+		}
+
+		user.displayName = req.body.displayName;
+
+		await user.save();
+		let bot = req.app.get('bot');
+
+		res.json({
+			success:success,
+			errors:errors
+		});
+	}
+
 	static async logOut(req, res, next)
 	{
 		if (req.session)
@@ -347,6 +417,16 @@ class UserController extends Controller
 			);
 		}
 	}
+
+	static async bindDiscordUser(reference, discordUser)
+	{
+		let user = await User.findOne({reference:reference});
+		console.log('I should be trying to bind discord user '+discordUser.username+' to local user '+user.displayName+'#'+user.reference);
+		user.discordUsername = discordUser.username;
+		user.discordId = discordUser.id;
+		return user.save();
+	}
+
 }
 
 module.exports = UserController;

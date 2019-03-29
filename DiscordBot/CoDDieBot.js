@@ -15,9 +15,9 @@ class CoDDieBot extends DiscordBot
         this.channelOverrides = {};
     }
 
-    async hoist(user)
+    async hoist(client)
     {
-        let settings = await super.hoist(user);
+        let settings = await super.hoist(client);
 
         for(let setting of settingsToHoist)
         {
@@ -229,18 +229,21 @@ class CoDDieBot extends DiscordBot
 
     async sendOneLineMessage(results, message, comment)
     {
+        let promises = [];
+
         if (!this.serverWideOverridePreventDM[message.guild.id])
         {
-            return this.sendDMResults(results, [(message.author.username + " " + comment + " Roll:"), results], message);
+            promises.push(this.sendDMResults(results, [(message.author.username + " " + comment + " Roll:"), results], message));
         }
         if (this.serverWideOverridesInChannelResponses[message.guild.id])
         {
-            return this.respondInChannel(results, message);
+            promises.push(this.respondInChannel(results, message));
         }
         else if(this.channelOverrides[message.channel.id])
         {
-            return this.respondInChannel(results, message);
+            promises.push(this.respondInChannel(results, message));
         }
+        return Promise.all(promises);
     }
 
     async displayResults(action, message, comment)

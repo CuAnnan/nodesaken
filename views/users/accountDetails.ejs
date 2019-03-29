@@ -1,53 +1,81 @@
 <%- include('../includes/header') -%>
 <div class="container">
     <h1>Account details</h1>
-    <form method="post" target="/user/account">
-        <div class="row text-center">
-            <div class="col-sm-8 text-center">
-                <h2>Display name</h2>
-            </div>
+    <div class="row text-center">
+        <div class="col-sm-8 text-center">
+            <h2>Display name</h2>
         </div>
-        <div class="row">
-            <label class="col-sm-2 col-form-label" for="displayName">Display Name</label>
-            <div class="col-sm-6 form-group input-group">
-                <div class="input-group-prepend input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
-                <input class="form-control" type="text" id="displayName" name="displayName" value="<%= user.displayName %>"/>
-            </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="displayName">Display Name</label>
+        <div class="col-sm-6 form-group input-group">
+            <div class="input-group-prepend input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
+            <input class="form-control" type="text" id="displayName" name="displayName" value="<%= user.displayName %>"/>
         </div>
-
-        <div class="row"><div class="col-sm-8"><hr/></div></div>
-
-        <div class="row">
-            <div class="col-sm-8 text-center">
-                <h2>Password</h2><br/>
-                <p>You only need to supply your password if you intend on setting a new one</p>
-            </div>
-        </div>
-        <div class="row">
-            <label class="col-sm-2 col-form-label" for="currentPassword">Current Password</label>
-            <div class="col-sm-6 form-group input-group">
-                <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
-                <input type="password" id="currentPassword" name="currentPassword" class="form-control"/>
-            </div>
-        </div>
-        <div class="row">
-            <label class="col-sm-2 col-form-label" for="newPassword">New Password</label>
-            <div class="col-sm-6 form-group input-group">
-                <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
-                <input type="password" id="newPassword" name="newPassword" class="form-control"/>
-            </div>
-        </div>
-        <div class="row">
-            <label class="col-sm-2 col-form-label" for="confirmNewPassword">Confirm Password</label>
-            <div class="col-sm-6 form-group input-group">
-                <div class="input-group-prepend input-group-text"><i class="fa fa-check" aria-hidden="true"></i></div>
-                <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control"/>
-            </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="userKey">User ID</label>
+        <div class="col-sm-6 form-group input-group">
+            <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
+            <input class="form-control" type="text" id="userKey" name="userKey" value="<%= user.reference%>" readonly="readonly"/>
+            <div class="input-group-append input-group-text" style="cursor:pointer" id="copyUserReferenceButton"><i title="Copy to Clipboard" class="fa fa-copy"></i></div>
+            <small id="emailHelp" class="form-text text-muted">This is used in all API requests for your user account (for example to link your discord and NS accounts)</small>
         </div>
 
-        <div class="row"><div class="col-sm-8"><hr/></div></div>
+    </div>
 
-    </form>
+    <div class="row"><div class="col-sm-8"><hr/></div></div>
+
+    <div class="row">
+        <div class="col-sm-8 text-center">
+            <h2>Password</h2><br/>
+            <p>You only need to supply your password if you intend on setting a new one</p>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="currentPassword">Current Password</label>
+        <div class="col-sm-6 form-group input-group">
+            <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
+            <input type="password" id="currentPassword" name="currentPassword" class="form-control"/>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="newPassword">New Password</label>
+        <div class="col-sm-6 form-group input-group">
+            <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
+            <input type="password" id="newPassword" name="newPassword" class="form-control"/>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="confirmNewPassword">Confirm Password</label>
+        <div class="col-sm-6 form-group input-group">
+            <div class="input-group-prepend input-group-text"><i class="fa fa-check" aria-hidden="true"></i></div>
+            <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="row"><div class="col-sm-8"><hr/></div></div>
+
+    <div class="row">
+        <div class="col-sm-8 text-center">
+            <h2>Discord</h2>
+        </div>
+    </div>
+    <dv class="row">
+        <label class="col-sm-2 col-form-label" for="Discord Username">Discord Username</label>
+        <div class="col-sm-6 form-group input-group">
+            <div class="input-group-prepend input-group-text"><i class="fab fa-discord"></i></div>
+            <input type="text" id="discordUsername" name="discordUsername" class="form-control"/>
+        </div>
+    </dv>
+
+    <div class="row"><div class="col-sm-8"><hr/></div></div>
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col8">
+            <button class="btn btn-primary" id="saveAccountSettingsButton"><i class="fa fa-save"></i>Save profile changes</button>
+        </div>
+    </div>
 </div>
-
+<script type="text/javascript" src="/js/accountDetails.js"></script>
 <%- include('../includes/footer') -%>

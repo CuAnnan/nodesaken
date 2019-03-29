@@ -19,15 +19,15 @@ class UseGroup
 		thing.useGroup = this;
 	}
 	
-	get cost()
+	get costs()
 	{
-		let cost = {cp:0, xp:0};
+		let costs = {cp:0, xp:0};
 		for(let thing of this.items)
 		{
-			cost.cp += thing.cost.cp;
-			cost.xp += thing.cost.xp;
+			costs.cp += thing.cost.cp;
+			costs.xp += thing.cost.xp;
 		}
-		return cost;
+		return costs;
 	}
 	
 	get cpRemaining()

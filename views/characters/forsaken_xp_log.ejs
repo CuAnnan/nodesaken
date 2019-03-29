@@ -1,32 +1,61 @@
-<% function xpReportRows(title, items)
-{%>
-<tr class="heading">
-    <th colspan="5"><%= title %></th>
-</tr>
-<tr>
-    <th>Name</th><th>CP</th><th>XP</th><th>Free Levels</th><th>Favoured</th>
-</tr>
-<tbody id="xpLog_tbody_<%= title.toLowerCase() %>">
 <%
-for(let item of Object.values(items))
-{%>
-    <tr>
-        <td><%= item.name %></td>
-        <td><%= item.cost.cp %></td>
-        <td><%= item.cost.xp %></td>
-        <td><%= item.freeLevels %></td>
-        <td><%= item.favoured %></td>
-    </tr><%}
-%></tbody><%
-}%>
+    function xpReportRow(item)
+    {
+%><tr id="xpReportRow_<%= item.name%>">
+    <td class="itemName"><%= item.name %></td>
+    <td class="itemCostCP"><%= item.cost.cp %></td>
+    <td class="itemCostXP"><%= item.cost.xp %></td>
+    <td class="itemFreeLevels"><%= item.freeLevels %></td>
+    <td class="itemFavoured"><%= item.favoured %></td>
+</tr><%
+    }
+
+    /**
+     *
+     * @param title A friendly title to give the use group container breakdown
+     * @param useGroupContainer
+     */
+    function xpUseGroupContainerReportRows(title, useGroupContainer)
+    {%>
+    <tr class="typeHeading">
+        <th colspan="5"><%= title %></th>
+    </tr>
+
+    <tbody id="xpLog_tbody_<%= title.toLowerCase() %>">
+        <%
+            for(let useGroup of Object.values(useGroupContainer.useGroups))
+            {
+                %>
+                    <tr><th colspan="5"><%= useGroup.name; %></th></tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Creation Points</th>
+                        <th>Experiences</th>
+                        <th>Free levels</th>
+                        <th>Favoured</th>
+                    </tr>
+                    <tr>
+                        <th>Total:</th>
+                        <td><%= useGroup.costs.cp %></td>
+                        <td colspan="3"><%= useGroup.costs.xp %></td>
+                    </tr>
+                <%
+                    for(let item of Object.values(useGroup.items))
+                    {
+                        xpReportRow(item);
+                    }
+            }
+        %>
+    </tbody>
+<%
+    }
+%>
 <div class="page tab-pane" id="xpLog" role="tabpanel" aria-labelledby="gift-XP-Log-tab">
     <div class="container-fluid">
         <h2>Experience Report</h2>
         <table class="table">
-            <% xpReportRows ('Attributes', character.attributes.items); %>
-            <% xpReportRows ('Skills', character.skills.items); %>
-            <% xpReportRows ('Merits', character.merits.items); %>
-            <% xpReportRows ('Renown', character.renown.items); %>
+            <% xpUseGroupContainerReportRows ('Attributes', character.attributes); %>
+            <% xpUseGroupContainerReportRows ('Skills', character.skills); %>
         </table>
     </div>
 </div>

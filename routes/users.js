@@ -15,8 +15,10 @@ router.get('/logout', async(controller.logOut));
 
 router.get('/account', async(controller.accountAction));
 
+router.post('/account', async(controller.updateAccountAction));
+
 router.post('/lostPassword', async(controller.generateLostPasswordEmail));
 router.get('/lostPassword/:resetKey', async(controller.displayLostPasswordForm));
-router.post('/passwordReset', async(controller.updatePassword));
+router.post('/passwordReset', async(controller.updatePasswordAction));
 
 module.exports = router;

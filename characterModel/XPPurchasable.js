@@ -55,16 +55,16 @@ class XPPurchasable
 	
 	setScore(level)
 	{
-		let score = this.min + this.xpLevels + this.cpLevels;
+		let oldScore = this.min + this.xpLevels + this.cpLevels + (this.favoured?1:0);
 		
 		// If you're clicking the score you have, and the score you have is greater than your minimum score
 		// you're probably trying to reduce the current score by one
-		if(level === score && level > this.min)
+		if(level === oldScore && level > this.min)
 		{
 			level = level - 1;
 		}
 		
-		let changeInScore = level - score;
+		let changeInScore = level - oldScore;
 		
 		if(changeInScore == 0)
 		{
@@ -85,7 +85,7 @@ class XPPurchasable
 				else
 				{
 					let cpLevels = Math.floor(maxCPLeft / this.cpCost);
-					this.setScore(score + cpLevels);
+					this.setScore(oldScore + cpLevels);
 					this.setScore(level);
 				}
 			}

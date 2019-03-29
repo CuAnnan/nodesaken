@@ -12,6 +12,7 @@ let UserSchema = new mongoose.Schema({
 	breachGDPR:{type:Boolean, default:false},
 	characters:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Character' }],
 	discordUsername:{type:String},
+	discordId:{type:String},
 	resetKey:{type:String},
 	resetNeeded:{type:Boolean,default:false},
 	resetRequested:{type:Date}

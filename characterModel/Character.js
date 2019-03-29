@@ -133,7 +133,7 @@ class Character extends Listenable
 	setItemLevel(itemName, level)
 	{
 		let item = this.lookups[itemName];
-		let result = item.score = level;
+		item.score = level;
 		this.calculateDerived();
 		this.triggerEvent('changed');
 		return item.score;

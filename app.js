@@ -74,7 +74,8 @@ global.appRoot = path.resolve(__dirname);
 /**
  * CoDie stuff
  */
-require('./DiscordBot/hoist.js');
+let bot = require('./DiscordBot/hoist.js');
+app.set('bot', bot);
 
 
 // view engine setup

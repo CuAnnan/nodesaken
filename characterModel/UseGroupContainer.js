@@ -12,6 +12,16 @@ class UseGroupContainer
 		this.titles = ['Mental', "Physical", "Social"];
 		this.items = [];
 	}
+
+	get costs()
+	{
+		let data = {}
+		for(let useGroup of this.titles)
+		{
+			data[useGroup] = this.useGroups[useGroup].costs;
+		}
+		return data;
+	}
 	
 	toJSON()
 	{

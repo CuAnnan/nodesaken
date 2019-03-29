@@ -14,7 +14,7 @@ class NSCoDDieBot extends CoDDieBot
 
     hoist(client)
     {
-        super.hoist(client);
+        return super.hoist(client);
     }
 
     attachCommands()
@@ -39,14 +39,15 @@ class NSCoDDieBot extends CoDDieBot
         {
             if(message.content.startsWith('identify'))
             {
+
                 let reference = message.content.split(' ')[1],
                     UserController = require('../controllers/UserController');
-                UserController.bindDiscordUser(reference, message.author).then(
+                UserController.addDiscordUserRequest(reference, message.author).then(
                     ()=>{
                         //user.createDM().then((x)=>{x.send(message);});
                         message.author.createDM().then(
                             (x)=>{
-                                x.send('Your account has been registered to this user');
+                                x.send('You will need to sign into your Nodesaken account page to finalise connecting your two accounts.');
                             }
                         );
                     }

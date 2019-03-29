@@ -2,6 +2,7 @@
 let Controller = require('./Controller'),
 	validator = require('email-validator'),
 	User = require('../schemas/UserSchema'),
+	DiscordUser = require('../schemas/DiscordUserSchema'),
 	bcrypt = require('bcryptjs'),
 	fs = require('fs'),
 	sendmail = require('sendmail')(),
@@ -44,7 +45,7 @@ class UserController extends Controller
 	static async accountAction(req, res, next)
 	{
 		let user = await Controller.getLoggedInUser(req);
-		console.log(user);
+		await user.populate('discordUsers', ['id', 'username']).execPopulate();
 		res.render('users/accountDetails', {user:user});
 		return;
 	}
@@ -380,7 +381,7 @@ class UserController extends Controller
 
 	static async tryToUpdatePasswordWithPostValues(req, user)
 	{
-		return tryToUpdatePassword(req.body.currentPassword,req.body.newPassword,req.body.confirmNewPassword,user);
+		return this.tryToUpdatePassword(req.body.currentPassword,req.body.newPassword,req.body.confirmNewPassword,user);
 	}
 
 	static async updateAccountAction(req, res, next)
@@ -418,13 +419,18 @@ class UserController extends Controller
 		}
 	}
 
-	static async bindDiscordUser(reference, discordUser)
+	static async addDiscordUserRequest(reference, discordUser)
 	{
 		let user = await User.findOne({reference:reference});
-		console.log('I should be trying to bind discord user '+discordUser.username+' to local user '+user.displayName+'#'+user.reference);
-		user.discordUsername = discordUser.username;
-		user.discordId = discordUser.id;
-		return user.save();
+		let discordUserEntity = await DiscordUser.create({
+			user:user._id,
+			username:discordUser.username,
+			id:discordUser.id
+		});
+		user.discordUsers.push(discordUserEntity);
+		user.save();
+
+		return true;
 	}
 
 }

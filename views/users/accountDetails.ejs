@@ -58,21 +58,36 @@
 
     <div class="row">
         <div class="col-sm-8 text-center">
-            <h2>Discord</h2>
+            <h2>Discord Accounts</h2>
+            <p>
+                Here you can see any Discord users you have added to this account.
+                To add a discord user, you must DM the nodesaken bot and say to it <strong><em>identify <%= user.reference%></em></strong>.
+                You will then see that account listed here where you can either approve it, to confirm it is your account or, if some unscrupulous person has gotten your reference, reject it.
+                Until you accept the discord user here, it will not have privileges.
+            </p>
         </div>
     </div>
-    <dv class="row">
-        <label class="col-sm-2 col-form-label" for="Discord Username">Discord Username</label>
-        <div class="col-sm-6 form-group input-group">
-            <div class="input-group-prepend input-group-text"><i class="fab fa-discord"></i></div>
-            <input type="text" id="discordUsername" name="discordUsername" class="form-control"/>
+
+    <%
+        for (let discordUser of user.discordUsers)
+        {
+            %>
+        <div class="row">
+            <div class="col-6"><%= discordUser.username %></div>
+            <div class="col=2"><%= discordUser.status %></div>
+            <div class="col-4">
+                <button class="btn btn-primary">Approve</button>
+                <button class="btn btn-warning">Reject</button>
+            </div>
         </div>
-    </dv>
+
+    <%
+        }
+    %>
 
     <div class="row"><div class="col-sm-8"><hr/></div></div>
     <div class="row">
-        <div class="col-sm-2">&nbsp;</div>
-        <div class="col8">
+        <div class="col-12 align-content-center">
             <button class="btn btn-primary" id="saveAccountSettingsButton"><i class="fa fa-save"></i>Save profile changes</button>
         </div>
     </div>

@@ -328,7 +328,6 @@ class DiscordBot
 	
 	processCommand(message)
 	{
-		console.log('Receiving DM');
 		if(!message.guild)
 		{
 			return;

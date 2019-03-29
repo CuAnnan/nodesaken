@@ -27,6 +27,8 @@ class CharacterController extends Controller
 			tribe:toon.tribe,
 			json:toon.toJSON()
 		});
+		user.characters.push(character);
+		user.save();
 		res.json({
 			success:true,
 			reference:character.reference

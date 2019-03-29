@@ -11,11 +11,10 @@ let UserSchema = new mongoose.Schema({
 	termsGDPR:{type:Boolean, default:false},
 	breachGDPR:{type:Boolean, default:false},
 	characters:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Character' }],
-	discordUsername:{type:String},
-	discordId:{type:String},
 	resetKey:{type:String},
 	resetNeeded:{type:Boolean,default:false},
-	resetRequested:{type:Date}
+	resetRequested:{type:Date},
+	discordUsers:[{type:mongoose.Schema.Types.ObjectId, ref:'DiscordUser'}],
 });
 
 module.exports = mongoose.model('User', UserSchema);

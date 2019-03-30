@@ -18,6 +18,11 @@ class UseGroup
 		this.items.push(thing);
 		thing.useGroup = this;
 	}
+
+	get cost()
+	{
+		return this.costs;
+	}
 	
 	get costs()
 	{

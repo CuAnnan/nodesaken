@@ -45,9 +45,14 @@ class UserController extends Controller
 	static async accountAction(req, res, next)
 	{
 		let user = await Controller.getLoggedInUser(req);
-		await user.populate('discordUsers', ['id', 'username']).execPopulate();
+		await user.populate('discordUsers').execPopulate();
 		res.render('users/accountDetails', {user:user});
 		return;
+	}
+
+	static getUserByReference(reference)
+	{
+		return User.findOne({reference:reference});
 	}
 	
 	static getFormFields(post)
@@ -418,21 +423,6 @@ class UserController extends Controller
 			);
 		}
 	}
-
-	static async addDiscordUserRequest(reference, discordUser)
-	{
-		let user = await User.findOne({reference:reference});
-		let discordUserEntity = await DiscordUser.create({
-			user:user._id,
-			username:discordUser.username,
-			id:discordUser.id
-		});
-		user.discordUsers.push(discordUserEntity);
-		user.save();
-
-		return true;
-	}
-
 }
 
 module.exports = UserController;

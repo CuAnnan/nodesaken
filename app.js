@@ -19,6 +19,8 @@ const	createError = require('http-errors'),
 		indexRouter = require('./routes/index'),
 		characterRouter = require('./routes/characters'),
 		userRouter = require('./routes/users'),
+		discordRouter = require('./routes/discordUsers'),
+
 		app = express();
 /*
  * Set up the sesssions
@@ -101,6 +103,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/characters/', characterRouter);
 app.use('/users/', userRouter);
+app.use('/discordUsers/', discordRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

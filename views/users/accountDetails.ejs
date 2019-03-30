@@ -8,14 +8,14 @@
     </div>
     <div class="row">
         <label class="col-sm-2 col-form-label" for="displayName">Display Name</label>
-        <div class="col-sm-6 form-group input-group">
+        <div class="col form-group input-group">
             <div class="input-group-prepend input-group-text"><i class="fa fa-user" aria-hidden="true"></i></div>
             <input class="form-control" type="text" id="displayName" name="displayName" value="<%= user.displayName %>"/>
         </div>
     </div>
     <div class="row">
         <label class="col-sm-2 col-form-label" for="userKey">User ID</label>
-        <div class="col-sm-6 form-group input-group">
+        <div class="col form-group input-group">
             <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
             <input class="form-control" type="text" id="userKey" name="userKey" value="<%= user.reference%>" readonly="readonly"/>
             <div class="input-group-append input-group-text" style="cursor:pointer" id="copyUserReferenceButton"><i title="Copy to Clipboard" class="fa fa-copy"></i></div>
@@ -27,37 +27,37 @@
     <div class="row"><div class="col-sm-8"><hr/></div></div>
 
     <div class="row">
-        <div class="col-sm-8 text-center">
+        <div class="col text-center">
             <h2>Password</h2><br/>
             <p>You only need to supply your password if you intend on setting a new one</p>
         </div>
     </div>
     <div class="row">
         <label class="col-sm-2 col-form-label" for="currentPassword">Current Password</label>
-        <div class="col-sm-6 form-group input-group">
+        <div class="col form-group input-group">
             <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
             <input type="password" id="currentPassword" name="currentPassword" class="form-control"/>
         </div>
     </div>
     <div class="row">
         <label class="col-sm-2 col-form-label" for="newPassword">New Password</label>
-        <div class="col-sm-6 form-group input-group">
+        <div class="col form-group input-group">
             <div class="input-group-prepend input-group-text"><i class="fa fa-key" aria-hidden="true"></i></div>
             <input type="password" id="newPassword" name="newPassword" class="form-control"/>
         </div>
     </div>
     <div class="row">
         <label class="col-sm-2 col-form-label" for="confirmNewPassword">Confirm Password</label>
-        <div class="col-sm-6 form-group input-group">
+        <div class="col form-group input-group">
             <div class="input-group-prepend input-group-text"><i class="fa fa-check" aria-hidden="true"></i></div>
             <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control"/>
         </div>
     </div>
 
-    <div class="row"><div class="col-sm-8"><hr/></div></div>
+    <div class="row"><div class="col"><hr/></div></div>
 
     <div class="row">
-        <div class="col-sm-8 text-center">
+        <div class="col text-center">
             <h2>Discord Accounts</h2>
             <p>
                 Here you can see any Discord users you have added to this account.
@@ -73,11 +73,11 @@
         {
             %>
         <div class="row">
-            <div class="col-6"><%= discordUser.username %></div>
-            <div class="col=2"><%= discordUser.status %></div>
-            <div class="col-4">
-                <button class="btn btn-primary">Approve</button>
-                <button class="btn btn-warning">Reject</button>
+            <div class="col"><%= discordUser.tag %></div>
+            <div class="col discordStatus"><%= discordUser.status %></div>
+            <div class="col" data-discord-user-reference="<%= discordUser.reference %>">
+                <button class="btn btn-primary discordUserApprove">Approve</button>
+                <button class="btn btn-warning discordUserReject">Reject</button>
             </div>
         </div>
 
@@ -85,9 +85,9 @@
         }
     %>
 
-    <div class="row"><div class="col-sm-8"><hr/></div></div>
+    <div class="row"><div class="col"><hr/></div></div>
     <div class="row">
-        <div class="col-12 align-content-center">
+        <div class="col align-content-center">
             <button class="btn btn-primary" id="saveAccountSettingsButton"><i class="fa fa-save"></i>Save profile changes</button>
         </div>
     </div>

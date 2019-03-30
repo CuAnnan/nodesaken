@@ -33,6 +33,38 @@ class NSCoDDieBot extends CoDDieBot
 
     }
 
+    addDiscordUserRequest(message)
+    {
+        let reference = message.content.split(' ')[1],
+            DiscordUserController = require('../controllers/DiscordUserController');
+
+        DiscordUserController.addDiscordUserRequest(reference, message.author).then(
+            ()=>{
+                //user.createDM().then((x)=>{x.send(message);});
+                this.sendDM(message.author, 'You will need to sign into your Nodesaken account page to finalise connecting your two accounts.');
+            }
+        ).catch(
+            (error)=>{
+                switch(error.name)
+                {
+                    case "MongoError":
+                        if(error.code === 11000)
+                        {
+                            this.sendDM(message.author, 'This user has already been added to that account.');
+                        }
+                        else
+                        {
+                            this.sendDM(message.author, 'An unexpected Mongoose error has occured. This has been logged.');
+                        }
+                        break;
+                    default:
+                        this.sendDM(message.author, 'An unexpected Application error has occured. This has been logged.');
+                        break;
+                }
+            }
+        );
+    }
+
     processCommand(message)
     {
         if(message.guild === null)
@@ -40,18 +72,7 @@ class NSCoDDieBot extends CoDDieBot
             if(message.content.startsWith('identify'))
             {
 
-                let reference = message.content.split(' ')[1],
-                    UserController = require('../controllers/UserController');
-                UserController.addDiscordUserRequest(reference, message.author).then(
-                    ()=>{
-                        //user.createDM().then((x)=>{x.send(message);});
-                        message.author.createDM().then(
-                            (x)=>{
-                                x.send('You will need to sign into your Nodesaken account page to finalise connecting your two accounts.');
-                            }
-                        );
-                    }
-                );
+                this.addDiscordUserRequest(message);
             }
         }
         else

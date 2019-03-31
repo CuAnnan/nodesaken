@@ -76,7 +76,7 @@ global.appRoot = path.resolve(__dirname);
 /**
  * CoDie stuff
  */
-let bot = require('./DiscordBot/hoist.js');
+let bot = require('./DiscordBot/hoist.js')(conf);
 app.set('bot', bot);
 
 

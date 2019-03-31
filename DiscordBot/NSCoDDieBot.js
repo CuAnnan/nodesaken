@@ -2,13 +2,13 @@
  * This bot extends CoDDieBot with Nodesaken Specific methods
  */
 
-let CoDDieBot = require('./CoDDieBot');
+let CoDDieBot = require('coddiebot');
 
 class NSCoDDieBot extends CoDDieBot
 {
-    constructor()
+    constructor(conf)
     {
-        super();
+        super(conf);
         this.checkedOutCharacters = {};
     }
 
@@ -24,7 +24,6 @@ class NSCoDDieBot extends CoDDieBot
 
     simpleRoll(commandParts, message, comments)
     {
-        console.log(commandParts);
         return super.simpleRoll(commandParts, message, comments);
     }
 

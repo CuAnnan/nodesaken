@@ -4,7 +4,8 @@ let Controller = require('./Controller'),
 	User = require('../schemas/UserSchema'),
 	Character= require('../schemas/CharacterSchema'),
 	CharacterAPIKey = require('../schemas/CharacterAPIKeySchema'),
-	MeritsDatabase = require('../characterModel/MeritsDatabase');
+	MeritsDatabase = require('../characterModel/MeritsDatabase'),
+	ObjectCache = require('objectcache');
 
 class CharacterController extends Controller
 {
@@ -15,7 +16,7 @@ class CharacterController extends Controller
 		
 		res.render('characters/index', {characters:characters});
 	}
-	
+
 	static async newCharacterAction(req, res, next)
 	{
 		let user = await Controller.getLoggedInUser(req);
@@ -45,21 +46,28 @@ class CharacterController extends Controller
 		
 		return entity;
 	}
+
+	static buildCharacterFromEntity(entity)
+	{
+		let character = new ForsakenCharacter(entity),
+			gifts = require('../public/js/GiftsDB/Forsaken');
+
+		MeritsDatabase.setToon(character);
+		MeritsDatabase.loadFromFiles();
+		character.loadShadowGiftsJSON(gifts.shadow);
+		character.loadJSON(entity.json);
+		return character;
+	}
 	
 	static async fetchAction(req, res, next)
 	{
 		let user = await Controller.getLoggedInUser(req),
 			entity = await CharacterController.fetchCharacterEntityByReference(user, req.params.reference),
-			character = new ForsakenCharacter(entity),
-			gifts = require('../public/js/GiftsDB/Forsaken');
-		MeritsDatabase.setToon(character);
-		MeritsDatabase.loadFromFiles();
-		character.loadShadowGiftsJSON(gifts.shadow);
-		character.loadJSON(entity.json);
+			character = CharacterController.buildCharacterFromEntity(entity);
 		
 		res.render('characters/fetch', {entity:entity, character:character});
 	}
-	
+
 	static async saveCharacterAction(req, res, next)
 	{
 		try

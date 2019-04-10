@@ -9,17 +9,19 @@
     <% if(characters.length){%>
         <div class="row">
             <div class="col"><h3>Name</h3></div>
-            <div class="col"><h3>Auspice</h3></div>
-            <div class="col"><h3>Tribe</h3></div>
-            <div class="col">&nbsp;</div>
+            <div class="col"><h3>Reference</h3></div>
+            <div class="col-2"><h3>Auspice</h3></div>
+            <div class="col-2"><h3>Tribe</h3></div>
+            <div class="col-3">&nbsp;</div>
         </div>
 
         <% for(let c of characters) { %>
             <div class="row characterRow">
                 <div class="col characterDetail characterName"><%= c.name %></div>
-                <div class="col characterDetail characterAuspice"><%= c.auspice %></div>
-                <div class="col characterDetail characterTribe"><%= c.tribe %></div>
-                <div class="col">
+                <div class="col characterDetail characterReference"><%= c.reference %></div>
+                <div class="col-2 characterDetail characterAuspice"><%= c.auspice %></div>
+                <div class="col-2 characterDetail characterTribe"><%= c.tribe %></div>
+                <div class="col-3">
                     <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary loadCharacter"><i class="fas fa-file-alt"></i>Load</button>
                     <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary showApiKeys"><i class="fas fa-key"></i>API Keys</button>
                     <button data-character-auspice="<%= c.auspice%>" data-character-tribe="<%= c.tribe%>" data-character-name="<%= c.name%>%>" data-character-reference="<%= c.reference %>" class="btn-sm btn-danger deleteCharacter"><i class="fas fa-trash-alt"></i>Delete</button>

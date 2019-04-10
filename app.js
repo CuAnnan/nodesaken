@@ -79,6 +79,16 @@ global.appRoot = path.resolve(__dirname);
 let bot = require('./DiscordBot/hoist.js')(conf);
 app.set('bot', bot);
 
+/**
+ * Cache instantiating
+ * This doesn't need to be thrown into session, as the getInstance method returns a static reference
+ */
+let cache = require('objectcache').getInstance();
+
+process.on('exit',()=>{
+	cache.destroy();
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

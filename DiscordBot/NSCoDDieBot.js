@@ -2,14 +2,16 @@
  * This bot extends CoDDieBot with Nodesaken Specific methods
  */
 
-let CoDDieBot = require('coddiebot');
+const   CoDDieBot = require('coddiebot'),
+        DiscordCharacterController = require('../controllers/DiscordCharacterController'),
+        DiscordUserController = require('../controllers/DiscordUserController');
 
 class NSCoDDieBot extends CoDDieBot
 {
     constructor(conf)
     {
         super(conf);
-        this.checkedOutCharacters = {};
+        this.playerCategories = {};
     }
 
     hoist(client)
@@ -19,7 +21,19 @@ class NSCoDDieBot extends CoDDieBot
 
     attachCommands()
     {
-        return super.attachCommands();
+        super.attachCommands();
+        this.attachCommand('checkOut', this.checkCharacterOut);
+        this.attachCommand('stow', this.stowCharacter);
+        this.attachCommand('signup', this.signup);
+        this.attachCommand('setPlayerCategory', this.setPlayerCategory);
+    }
+
+    getSettingsToSave()
+    {
+        let settings = super.getSettingsToSave();
+        settings.playerChannelCategories = this.playerCategories;
+
+        return settings;
     }
 
     simpleRoll(commandParts, message, comments)
@@ -27,15 +41,26 @@ class NSCoDDieBot extends CoDDieBot
         return super.simpleRoll(commandParts, message, comments);
     }
 
-    checkCharacterOut(commandParts, message, comments)
+    async checkCharacterOut(commandParts, message, comments)
     {
+        let authorId = message.author.id,
+            guildId = message.guild.id,
+            channelId = message.channel.id,
+            categoryId = message.channel.parent.id,
+            character = await DiscordCharacterController.getCharacterByReference(commandParts[0], message.author.id);
+        /*
+         * I think the character id to user id match should be "perma" stored in the database. We can TTL the field, so that seems to solve that problem.
+         */
+    }
 
+    stowCharacter(commandParts, message,comments)
+    {
+        console.log(comandParts);
     }
 
     addDiscordUserRequest(message)
     {
-        let reference = message.content.split(' ')[1],
-            DiscordUserController = require('../controllers/DiscordUserController');
+        let reference = message.content.split(' ')[1];
 
         DiscordUserController.addDiscordUserRequest(reference, message.author).then(
             ()=>{
@@ -64,8 +89,46 @@ class NSCoDDieBot extends CoDDieBot
         );
     }
 
+    /**
+     * Sets the player category for this guild
+     * @param commandParts
+     * @param message
+     * @returns {null}
+     */
+    setPlayerCategory(commandParts, message)
+    {
+        this.elevateCommand(message);
+        let categoryName = commandParts.join(' '),
+            category = message.guild.channels.find(channel=>(channel.type === 'category' && channel.name === categoryName));
+        this.playerCategories[message.guild.id] = category.id;
+        return null;
+    }
+
+    /**
+     * Get the player category for this guild
+     */
+    getPlayerCategory(message)
+    {
+        return this.playerCategories[message.guild.id];
+    }
+
+    async signup(commandParts, message)
+    {
+        let tag = message.author.tag,
+            categoryId = this.getPlayerCategory(message);
+        if(!categoryId)
+        {
+            return message.reply('No player category has been set up for this guild, so registrations cannot be concluded');
+        }
+        else
+        {
+            return message.guild.createChannel(`${tag}-rolling-Room`);
+        }
+    }
+
     processCommand(message)
     {
+
         if(message.guild === null)
         {
             if(message.content.startsWith('identify'))

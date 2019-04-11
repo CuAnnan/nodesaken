@@ -20,6 +20,7 @@ const	createError = require('http-errors'),
 		characterRouter = require('./routes/characters'),
 		userRouter = require('./routes/users'),
 		discordRouter = require('./routes/discordUsers'),
+		gameRouter = require('./routes/games'),
 
 		app = express();
 /*
@@ -113,7 +114,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/characters/', characterRouter);
 app.use('/users/', userRouter);
-app.use('/discordUsers/', discordRouter)
+app.use('/discordUsers/', discordRouter);
+app.use('/games/', gameRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,38 +1,45 @@
 <%- include('../includes/header') -%>
 <link type="text/css" rel="stylesheet" href="/css/characterIndex.css"/>
 
-<div class="container">
-    <h1>Characters</h1>
-    <div class="row">
-        <input type="button" class="btn btn-primary" id="newWerewolfButton" value="New Werewolf"/>
-    </div>
-    <% if(characters.length){%>
-        <div class="row">
-            <div class="col"><h3>Name</h3></div>
-            <div class="col"><h3>Reference</h3></div>
-            <div class="col-2"><h3>Auspice</h3></div>
-            <div class="col-2"><h3>Tribe</h3></div>
-            <div class="col-3">&nbsp;</div>
+<h1>Characters</h1>
+<div class="row">
+    <div class="col">
+        <div class="container">
+            Here you can make and edit your characters. The local version and the database version are synced every time you press a button, so you do not need to do anything but update your character sheet levels to update your character.
         </div>
-
-        <% for(let c of characters) { %>
-            <div class="row characterRow">
-                <div class="col characterDetail characterName"><%= c.name %></div>
-                <div class="col characterDetail characterReference"><%= c.reference %></div>
-                <div class="col-2 characterDetail characterAuspice"><%= c.auspice %></div>
-                <div class="col-2 characterDetail characterTribe"><%= c.tribe %></div>
-                <div class="col-3">
-                    <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary loadCharacter"><i class="fas fa-file-alt"></i>Load</button>
-                    <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary showApiKeys"><i class="fas fa-key"></i>API Keys</button>
-                    <button data-character-auspice="<%= c.auspice%>" data-character-tribe="<%= c.tribe%>" data-character-name="<%= c.name%>%>" data-character-reference="<%= c.reference %>" class="btn-sm btn-danger deleteCharacter"><i class="fas fa-trash-alt"></i>Delete</button>
-                </div>
-            </div>
-        <% } %>
-    <% } else { %>
-    <div class="row">
-        You have no characters saved. Why not start now?
     </div>
-    <% } %>
+    <div class="col-9">
+        <div class="row">
+            <input type="button" class="btn btn-primary" id="newWerewolfButton" value="New Werewolf"/>
+        </div>
+        <% if(characters.length){%>
+            <div class="row">
+                <div class="col"><h3>Name</h3></div>
+                <div class="col"><h3>Reference</h3></div>
+                <div class="col-2"><h3>Auspice</h3></div>
+                <div class="col-2"><h3>Tribe</h3></div>
+                <div class="col-3">&nbsp;</div>
+            </div>
+
+            <% for(let c of characters) { %>
+                <div class="row characterRow">
+                    <div class="col characterDetail characterName"><%= c.name %></div>
+                    <div class="col characterDetail characterReference"><%= c.reference %></div>
+                    <div class="col-2 characterDetail characterAuspice"><%= c.auspice %></div>
+                    <div class="col-2 characterDetail characterTribe"><%= c.tribe %></div>
+                    <div class="col-3">
+                        <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary loadCharacter"><i class="fas fa-file-alt"></i>Load</button>
+                        <button data-character-reference="<%= c.reference %>" class="btn-sm btn-primary showApiKeys"><i class="fas fa-key"></i>API Keys</button>
+                        <button data-character-auspice="<%= c.auspice%>" data-character-tribe="<%= c.tribe%>" data-character-name="<%= c.name%>%>" data-character-reference="<%= c.reference %>" class="btn-sm btn-danger deleteCharacter"><i class="fas fa-trash-alt"></i>Delete</button>
+                    </div>
+                </div>
+            <% } %>
+        <% } else { %>
+        <div class="row">
+            You have no characters saved. Why not start now?
+        </div>
+        <% } %>
+    </div>
 </div>
 
 <div class="modal" id="deleteCharacterModal">
@@ -66,6 +73,9 @@
             </div>
             <div class="modal-body">
                 <ul id="apiKeyList"></ul>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">New API</button>
             </div>
         </div>
     </div>

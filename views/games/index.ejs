@@ -1,0 +1,72 @@
+<%- include('../includes/header') -%>
+<div class="container">
+    <h1>Games</h1>
+    <div class="container" id="gamesOwnedContainer">
+        <div class="container" id="gamesOwnedByMe">
+            <% if(gamesOwned.length){%>
+            <% } else { %>
+                You have not created any games.
+            <% }%>
+        </div>
+        <div class="container" id="newGamesUI">
+            <button class="btn btn-primary" id="newGameButton">Create a game</button>
+        </div>
+    </div>
+
+    <div class="modal" id="newWerewolfModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-title">
+                    Create a new Game
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        In order for the application to run on a specific discord server, you (or the server's owner) need to invite the bot to run on your server. The invite <a href="https://discordapp.com/api/oauth2/authorize?client_id=528004176123527179&permissions=268954704&scope=bot" target="_blank">link for the bot is found here</a> The bot requires a lot of permissions to run properly. You will also need to fill in the following details.
+                        Once these steps are taken, a bot command will be generated to allow you to connect the game server to the game here.
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="gameName">Game Name</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="gameName" name="gameName"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="gameDescription">Game Description</label>
+                        <div class="col">
+                            <textarea type="text" class="form-control" id="gameDescription" name="gameDescription"></textarea>
+                        </div>
+                    </div>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-4 pt-0">Game is public</legend>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="gamePublicYes" name="gamePublic" value="Yes" checked>
+                                    <label class="form-check-label" for="gamePublicYes">Yes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="gamePublicNo" name="gamePublic" value="No">
+                                    <label class="form-check-label" for="gamePublicNo">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="createGameButton">
+                        Confirm
+                    </button>
+                    <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/gamesIndex.js"></script>
+<%- include('../includes/footer') -%>

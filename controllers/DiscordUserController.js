@@ -1,8 +1,9 @@
 'use strict';
-const   DiscordController = require('./DiscordController'),
-        UserController = require('./UserController'),
-        DiscordUser = require('../schemas/DiscordUserSchema'),
-        STATUSES = {'APPROVED':'Approved', 'PENDING':'Pending','REJECTED':'Rejected'};
+const   DiscordController   = require('./DiscordController'),
+        UserController      = require('./UserController'),
+        DiscordUser         = require('../schemas/DiscordUserSchema'),
+        User                = require('../schemas/UserSchema'),
+        STATUSES            = {'APPROVED':'Approved', 'PENDING':'Pending','REJECTED':'Rejected'};
 
 class DiscordUserController extends DiscordController
 {

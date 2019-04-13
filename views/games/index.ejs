@@ -1,9 +1,37 @@
 <%- include('../includes/header') -%>
-<div class="container">
-    <h1>Games</h1>
-    <div class="container" id="gamesOwnedContainer">
-        <div class="container" id="gamesOwnedByMe">
-            <% if(gamesOwned.length){%>
+<div class="container-fluid">
+    <h1 class="text-center">Games</h1>
+    <div class="container-fluid" id="gamesOwnedContainer">
+        <div class="container-fluid" id="gamesOwnedByMe">
+            <div class="row" id="gamesOwnedTitleRow">
+                <div class="col"><strong>Game Name</strong></div>
+                <div class="col"><strong>Public</strong></div>
+                <div class="col"><strong>Game reference</strong></div>
+                <div class="col-5"><strong>Invite link</strong></div>
+                <div class="col-2"><strong>Discord Server</strong></div>
+                <div class="col"></div>
+            </div>
+            <% if(gamesOwned.length){
+                for(let game of gamesOwned)
+                {
+                    let inviteURL = `${host}/games/invite/${game.reference}`;
+                    %>
+                    <div class="row" data-reference="<%= game.reference %>">
+                        <div class="col"><%= game.name %></div>
+                        <div class="col"><%= game.public?"Public":"Private" %></div>
+                        <div class="col"><%= game.reference %></div>
+                        <div class="col-5">
+                            <a href="<%= inviteURL %>" target="_blank"><%= inviteURL %></a>
+                        </div>
+                        <div class="col-2"><%= game.serverName?game.serverName:'No server linked'%></div>
+                        <div class="col">
+                            <button class="btn btn-warning gameCommands">Commands</button>
+                            <button class="btn gameRooms"<%= (game.serverId)?"":" disabled"%>>Rooms</button>
+                        </div>
+                    </div>
+                    <%
+                }
+            %>
             <% } else { %>
                 You have not created any games.
             <% }%>
@@ -13,14 +41,35 @@
         </div>
     </div>
 
-    <div class="modal" id="newWerewolfModal">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal" id="gameDetailsModal">
+        <div class="modal-dialog modal-dialog-centered  modal-lg">
+            <div class="modal-content">
+                <div class="modal-title">
+                    Game Instructions <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4"><strong>Command</strong></div><div class="col"><strong>Command purpose</strong></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            linkServer <span class="gameCommandReference"></span>
+                        </div>
+                        <div class="col">
+                            This links the game in the toolkit's system with the server. The bot can then listen for commands related to this game.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="newGameModal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-title">
                     Create a new Game
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -44,11 +93,11 @@
                             <legend class="col-form-label col-sm-4 pt-0">Game is public</legend>
                             <div class="col">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="gamePublicYes" name="gamePublic" value="Yes" checked>
+                                    <input class="form-check-input" type="radio" id="gamePublicYes" name="gamePublic" value="true" checked>
                                     <label class="form-check-label" for="gamePublicYes">Yes</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="gamePublicNo" name="gamePublic" value="No">
+                                    <input class="form-check-input" type="radio" id="gamePublicNo" name="gamePublic" value="false">
                                     <label class="form-check-label" for="gamePublicNo">No</label>
                                 </div>
                             </div>

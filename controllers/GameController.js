@@ -21,7 +21,7 @@ class GameController extends Controller
             gamesOwned  = await Game.find({owner:user}),
             gamesPlayed = await Game.find({characters:characters});
 
-        res.render('games/index', {gamesOwned:gamesOwned, gamesPlayed:gamesPlayed});
+        res.render('games/index', {gamesOwned:gamesOwned, gamesPlayed:gamesPlayed, host:Controller.getHost(req)});
     }
 
     static async newGameAction(req, res, next)
@@ -30,19 +30,24 @@ class GameController extends Controller
         {
             let user = await Controller.getLoggedInUser(req),
                 data = {
-                    user: user, name: req.body.name, description: req.body.description
+                    owner: user, name: req.body.name, description: req.body.description, public:req.body.public
                 },
                 game = await Game.create(data);
+
             res.json({
                 success:true,
                 status:'New Game Created',
                 reference: game.reference,
-                name:game.name
+                name:game.name,
+                public:game.public
             });
         }
         catch(e)
         {
-            console.warn(e);
+            res.json({
+                succcess:false,
+                error:e
+            });
         }
     }
 }

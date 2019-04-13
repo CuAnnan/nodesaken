@@ -4,7 +4,8 @@
 
 const   CoDDieBot = require('coddiebot'),
         DiscordCharacterController = require('../controllers/DiscordCharacterController'),
-        DiscordUserController = require('../controllers/DiscordUserController');
+        DiscordUserController = require('../controllers/DiscordUserController'),
+        DiscordGameController = require('../controllers/DiscordGameController');
 
 class NSCoDDieBot extends CoDDieBot
 {
@@ -26,6 +27,7 @@ class NSCoDDieBot extends CoDDieBot
         this.attachCommand('stow', this.stowCharacter);
         this.attachCommand('signup', this.signup);
         this.attachCommand('setPlayerCategory', this.setPlayerCategory);
+        this.attachCommand('linkServer', this.linkGameToServer);
     }
 
     getSettingsToSave()
@@ -39,6 +41,11 @@ class NSCoDDieBot extends CoDDieBot
     simpleRoll(commandParts, message, comments)
     {
         return super.simpleRoll(commandParts, message, comments);
+    }
+
+    async linkGameToServer(commandParts, message, comments)
+    {
+        await DiscordGameController.linkGameServer(commandParts[0], message);
     }
 
     async checkCharacterOut(commandParts, message, comments)

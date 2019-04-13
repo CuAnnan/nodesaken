@@ -5,6 +5,7 @@ let GameSchema = new mongoose.Schema({
     reference:{type:String, default:shortid.generate},
     name:{type:String},
     description:{type:String},
+    public:{type:Boolean, default:false},
     serverName:{type: String},
     serverId:{type:Number},
     characters:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Character' }],

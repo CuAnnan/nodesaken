@@ -9,6 +9,8 @@ class DiscordGameController extends DiscordController
             user = await this.getUserByDiscordMessage(message),
             game = await Game.findOne({reference:gameReference}).populate('owner'),
             approved = false;
+
+        console.log(discordGuild.id);
         if(game.owner._id.equals(user._id))
         {
             approved = true;
@@ -28,9 +30,12 @@ class DiscordGameController extends DiscordController
         {
             throw new Error('User attempting to update game they do not have privilege on');
         }
+        console.log('Setting game serverId to '+discordGuild.id);
         game.serverId = discordGuild.id;
         game.serverName = discordGuild.name;
-        await game.save();
+        await game.save().then((result)=>{
+            console.log('Game settings updated');
+        }).catch((error)=>{console.warn(error);});
         return true;
     }
 }

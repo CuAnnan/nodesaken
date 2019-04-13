@@ -7,12 +7,29 @@ const   CoDDieBot = require('coddiebot'),
         DiscordUserController = require('../controllers/DiscordUserController'),
         DiscordGameController = require('../controllers/DiscordGameController');
 
+let instancedBot = null;
+
 class NSCoDDieBot extends CoDDieBot
 {
     constructor(conf)
     {
         super(conf);
         this.playerCategories = {};
+    }
+
+    static instantiateStaticBot(conf)
+    {
+        instancedBot = new NSCoDDieBot(conf);
+        return instancedBot;
+    }
+
+    static getStaticInstance()
+    {
+        if(!instancedBot)
+        {
+            throw new Error('Bot has not been instanced');
+        }
+        return instancedBot;
     }
 
     hoist(client)
@@ -58,6 +75,17 @@ class NSCoDDieBot extends CoDDieBot
         /*
          * I think the character id to user id match should be "perma" stored in the database. We can TTL the field, so that seems to solve that problem.
          */
+    }
+
+    async getServerChannelsByServerId(serverId)
+    {
+        if(!serverId)
+        {
+            return null;
+        }
+        let guild = await this.client.guilds.get(serverId),
+            channels = guild.channels;
+        console.log(channels);
     }
 
     stowCharacter(commandParts, message,comments)

@@ -13,7 +13,7 @@ module.exports = function(conf)
     client.login(discordBotConf.clientToken);
     client.once('ready',()=>{
         console.log('Instantiating the die bot');
-        dieBot = new DieBot(discordBotConf);
+        dieBot = DieBot.instantiateStaticBot(discordBotConf);
         dieBot.hoist(client);
     });
     client.on('error',(error)=>{

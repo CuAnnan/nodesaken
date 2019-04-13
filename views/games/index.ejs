@@ -26,7 +26,7 @@
                         <div class="col-2"><%= game.serverName?game.serverName:'No server linked'%></div>
                         <div class="col">
                             <button class="btn btn-warning gameCommands">Commands</button>
-                            <button class="btn gameRooms"<%= (game.serverId)?"":" disabled"%>>Rooms</button>
+                            <a class="btn btn-info" role="button" href="/games/edit/<%= game.reference%>">Game Settings</a>
                         </div>
                     </div>
                     <%

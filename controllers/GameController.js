@@ -1,7 +1,8 @@
 "use strict";
 let Controller = require('./Controller'),
     Character = require('../schemas/CharacterSchema'),
-    Game = require('../schemas/GameSchema');
+    Game = require('../schemas/GameSchema'),
+    Bot = require('../DiscordBot/NSCoDDieBot');
 
 class GameController extends Controller
 {
@@ -49,6 +50,17 @@ class GameController extends Controller
                 error:e
             });
         }
+    }
+
+    static async editGameAction(req, res, next)
+    {
+        let user        = await Controller.getLoggedInUser(req),
+            game        = await Game.findOne({reference:req.params.gameReference, owner:user}),
+            bot         = Bot.getStaticInstance(),
+            channels    = await bot.getServerChannelsByServerId(game.serverId);
+
+        console.log(channels);
+        res.render('games/edit', {game:game, channels:channels});
     }
 }
 

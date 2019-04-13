@@ -7,7 +7,7 @@ let GameSchema = new mongoose.Schema({
     description:{type:String},
     public:{type:Boolean, default:false},
     serverName:{type: String},
-    serverId:{type:Number},
+    serverId:{type:String},
     characters:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Character' }],
     owner:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
     support:[{type:mongoose.Schema.Types.ObjectId, ref:'User'}]

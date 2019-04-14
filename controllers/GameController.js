@@ -57,10 +57,26 @@ class GameController extends Controller
         let user        = await Controller.getLoggedInUser(req),
             game        = await Game.findOne({reference:req.params.gameReference, owner:user}),
             bot         = Bot.getStaticInstance(),
-            channels    = await bot.getServerChannelsByServerId(game.serverId);
+            channels    = await bot.getSortedChannelNamesByServerId(game.serverId);
 
-        console.log(channels);
         res.render('games/edit', {game:game, channels:channels});
+    }
+
+    static async joinGameAction(req, res, next)
+    {
+        let user = await Controller.getLoggedInUser(req);
+        if(user._id === null)
+        {
+            return Controller.showLoginPage();
+        }
+        user.populate('characters');
+        if(user.characters.length === 0)
+        {
+            let CharacterController = require('./CharacterController');
+            return CharacterController.indexAction(req, res, next);
+        }
+        let game = await Game.findOne({reference:req.params.gameReference});
+        res.render('games/join', {game:game});
     }
 }
 

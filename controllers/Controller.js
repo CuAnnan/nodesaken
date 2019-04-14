@@ -41,7 +41,7 @@ class Controller
 		
 		return Controller.getSessionUser(req.session.user, returnProperties, populate);
 	}
-	
+
 	static getHost(req)
 	{
 		return `${req.protocol}://${req.get('Host')}`;

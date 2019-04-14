@@ -77,15 +77,36 @@ class NSCoDDieBot extends CoDDieBot
          */
     }
 
-    async getServerChannelsByServerId(serverId)
+    async getSortedChannelNamesByServerId(serverId)
     {
         if(!serverId)
         {
             return null;
         }
         let guild = await this.client.guilds.get(serverId),
-            channels = guild.channels;
-        console.log(channels);
+            categories = guild.channels.filter(channel=>channel.type === 'category').array(),
+            textChannels = guild.channels.filter(channel=>channel.type === 'text').array(),
+            sortedChannels = {
+                'top':{channels:{}, name:'Uncategorised'}
+            };
+        for(let category of categories)
+        {
+            sortedChannels[category.id] = {channels:{},name:category.name};
+        }
+        for(let channel of textChannels)
+        {
+            if(channel.parentID)
+            {
+                sortedChannels[channel.parentID].channels[channel.id] = {name: channel.name, id:channel.id};
+            }
+            else
+            {
+                sortedChannels.top.channels[channel.id] =  {name: channel.name, id:channel.id};
+            }
+        }
+
+        return sortedChannels;
+
     }
 
     stowCharacter(commandParts, message,comments)

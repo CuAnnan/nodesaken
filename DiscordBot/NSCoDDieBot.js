@@ -3,6 +3,7 @@
  */
 
 const   CoDDieBot = require('coddiebot'),
+        Character = require('../characterModel/Character'),
         DiscordCharacterController = require('../controllers/DiscordCharacterController'),
         DiscordUserController = require('../controllers/DiscordUserController'),
         DiscordGameController = require('../controllers/DiscordGameController'),
@@ -64,9 +65,13 @@ class NSCoDDieBot extends CoDDieBot
 
         for(let commandPart of commandParts)
         {
+
             if(character && character.getPurchasable(commandPart))
             {
-                data.pool += character.getPurchasable(commandPart).score;
+                let purchasable = character.getPurchasable(commandPart);
+                console.log(purchasable);
+
+                data.pool += purchasable.score;
             }
             else if(!isNaN(commandPart))
             {
@@ -88,9 +93,9 @@ class NSCoDDieBot extends CoDDieBot
     {
         let tricks = this.processRoteAdvanced(message),
             critAndExplode = this.processCritExplode(message),
-            pool = this.parseCharacterPool(commandParts),
+            pool = this.parseCharacterPool(commandParts, message),
             data = Object.assign({}, tricks, critAndExplode, pool);
-
+        return data;
     }
 
     simpleRoll(commandParts, message, comments)
@@ -98,7 +103,17 @@ class NSCoDDieBot extends CoDDieBot
         let character;
         if(character = ObjectCache.get(message.author.id))
         {
-            this.characterPreProcess(commandParts, message);
+            let data = this.characterPreProcess(commandParts, message), roll;
+
+            if(data.advanced)
+            {
+                roll = new AdvancedAction(data);
+            }
+            else
+            {
+                roll = new SimpleAction(data);
+            }
+            this.displayResults(roll, message, comments);
         }
         else
         {
@@ -113,7 +128,8 @@ class NSCoDDieBot extends CoDDieBot
 
     async checkCharacterOut(commandParts, message, comments)
     {
-        let character = await DiscordCharacterController.getCharacterByReference(commandParts[0], message.author.id);
+        let characterData = await DiscordCharacterController.getCharacterByReference(commandParts[0], message.author.id),
+            character = Character.fromJSON(characterData);
         ObjectCache.put(message.author.id, character);
     }
 

@@ -253,6 +253,14 @@ class Character extends Listenable
 		this.calculateDerived();
 		this.triggerEvent('changed');
 	}
+
+	static fromJSON(data)
+	{
+		let toon = new Character(data);
+		toon.loadJSON(data.json);
+		return toon;
+	}
+
 	
 	toJSON()
 	{

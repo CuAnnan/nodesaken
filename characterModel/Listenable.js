@@ -39,9 +39,12 @@ class Listenable
 	
 	triggerEvent(type)
 	{
-		for(let listenerCallback of this.listeners[type])
+		if(this.listeners[type])
 		{
-			listenerCallback(type, this);
+			for (let listenerCallback of this.listeners[type])
+			{
+				listenerCallback(type, this);
+			}
 		}
 	}
 	

@@ -5,7 +5,8 @@
 const   CoDDieBot = require('coddiebot'),
         DiscordCharacterController = require('../controllers/DiscordCharacterController'),
         DiscordUserController = require('../controllers/DiscordUserController'),
-        DiscordGameController = require('../controllers/DiscordGameController');
+        DiscordGameController = require('../controllers/DiscordGameController'),
+        ObjectCache = require('objectcache').getInstance();
 
 let instancedBot = null;
 
@@ -55,9 +56,54 @@ class NSCoDDieBot extends CoDDieBot
         return settings;
     }
 
+    parseCharacterPool(commandParts, message)
+    {
+        let data = {pool:0, sitMods:0},
+            poolSearch = true,
+            character = ObjectCache.get(message.author.id);
+
+        for(let commandPart of commandParts)
+        {
+            if(character && character.getPurchasable(commandPart))
+            {
+                data.pool += character.getPurchasable(commandPart).score;
+            }
+            else if(!isNaN(commandPart))
+            {
+                if(poolSearch)
+                {
+                    poolSearch = false;
+                    data.pool = parseInt(commandPart);
+                }
+                else
+                {
+                    data.sitMods += parseInt(commandPart);
+                }
+            }
+        }
+        return data;
+    }
+
+    characterPreProcess(commandParts, message)
+    {
+        let tricks = this.processRoteAdvanced(message),
+            critAndExplode = this.processCritExplode(message),
+            pool = this.parseCharacterPool(commandParts),
+            data = Object.assign({}, tricks, critAndExplode, pool);
+
+    }
+
     simpleRoll(commandParts, message, comments)
     {
-        return super.simpleRoll(commandParts, message, comments);
+        let character;
+        if(character = ObjectCache.get(message.author.id))
+        {
+            this.characterPreProcess(commandParts, message);
+        }
+        else
+        {
+            return super.simpleRoll(commandParts, message, comments);
+        }
     }
 
     async linkGameToServer(commandParts, message, comments)
@@ -67,14 +113,8 @@ class NSCoDDieBot extends CoDDieBot
 
     async checkCharacterOut(commandParts, message, comments)
     {
-        let authorId = message.author.id,
-            guildId = message.guild.id,
-            channelId = message.channel.id,
-            categoryId = message.channel.parent.id,
-            character = await DiscordCharacterController.getCharacterByReference(commandParts[0], message.author.id);
-        /*
-         * I think the character id to user id match should be "perma" stored in the database. We can TTL the field, so that seems to solve that problem.
-         */
+        let character = await DiscordCharacterController.getCharacterByReference(commandParts[0], message.author.id);
+        ObjectCache.put(message.author.id, character);
     }
 
     async getSortedChannelNamesByServerId(serverId)

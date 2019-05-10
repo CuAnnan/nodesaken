@@ -8,11 +8,12 @@ class DiscordCharacterController extends DiscordController
     {
         let user = await this.getUserByDiscordUserId(discordUserId);
         let character = await this.getCachedCharacter(reference);
-        if(character.owner === user)
+        console.log(`"${character.owner}", "${user._id}"`);
+        if(character.owner.equals(user._id))
         {
             return character;
         }
-
+        return null;
     }
 
     /**

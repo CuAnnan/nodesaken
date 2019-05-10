@@ -57,11 +57,10 @@ class NSCoDDieBot extends CoDDieBot
         return settings;
     }
 
-    parseCharacterPool(commandParts, message)
+    parseCharacterPool(commandParts, message, character)
     {
         let data = {pool:0, sitMods:0},
-            poolSearch = true,
-            character = ObjectCache.get(message.author.id);
+            poolSearch = true;
 
         for(let commandPart of commandParts)
         {
@@ -69,8 +68,6 @@ class NSCoDDieBot extends CoDDieBot
             if(character && character.getPurchasable(commandPart))
             {
                 let purchasable = character.getPurchasable(commandPart);
-                console.log(purchasable);
-
                 data.pool += purchasable.score;
             }
             else if(!isNaN(commandPart))
@@ -89,11 +86,11 @@ class NSCoDDieBot extends CoDDieBot
         return data;
     }
 
-    characterPreProcess(commandParts, message)
+    characterPreProcess(commandParts, message, character)
     {
         let tricks = this.processRoteAdvanced(message),
             critAndExplode = this.processCritExplode(message),
-            pool = this.parseCharacterPool(commandParts, message),
+            pool = this.parseCharacterPool(commandParts, message, character),
             data = Object.assign({}, tricks, critAndExplode, pool);
         return data;
     }
@@ -103,15 +100,15 @@ class NSCoDDieBot extends CoDDieBot
         let character;
         if(character = ObjectCache.get(message.author.id))
         {
-            let data = this.characterPreProcess(commandParts, message), roll;
+            let data = this.characterPreProcess(commandParts, message, character), roll;
 
             if(data.advanced)
             {
-                roll = new AdvancedAction(data);
+                roll = this.getAdvancedAction(data);
             }
             else
             {
-                roll = new SimpleAction(data);
+                roll = this.getSimpleAction(data);
             }
             this.displayResults(roll, message, comments);
         }

@@ -38,7 +38,7 @@ class Character extends Listenable
 	{
 		super();
 		this.name = data.name;
-		this.player = data.player;
+		this.owner = data.owner;
 		this.concept = data.concept ? data.concept : '';
 		this.skills = null;
 		this.attributes = null;
@@ -123,6 +123,11 @@ class Character extends Listenable
 	getPurchasable(searchField)
 	{
 		return this.lookups[searchField.toLowerCase()];
+	}
+
+	getPurchasableScore(searchField)
+	{
+		return this.lookups[searchField.toLowerCase()].score;
 	}
 	
 	sortUseGroups()
@@ -256,7 +261,7 @@ class Character extends Listenable
 
 	static fromJSON(data)
 	{
-		let toon = new Character(data);
+		let toon = new this(data);
 		toon.loadJSON(data.json);
 		return toon;
 	}

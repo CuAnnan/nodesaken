@@ -7,7 +7,22 @@ const   CoDDieBot = require('coddiebot'),
         DiscordCharacterController = require('../controllers/DiscordCharacterController'),
         DiscordUserController = require('../controllers/DiscordUserController'),
         DiscordGameController = require('../controllers/DiscordGameController'),
-        ObjectCache = require('objectcache').getInstance();
+        ObjectCache = require('objectcache').getInstance(),
+        shortcuts = {
+            'hishu':['h', 'hi', 'his', 'hish', 'hishu'],
+            'dalu':['d', 'da', 'dal', 'dalu'],
+            'gauru':['g', 'ga', 'gau', 'gaur', 'gauru'],
+            'urshul':['us', 'urs', 'ursh', 'urshu', 'urshul'],
+            'urhan':['uh', 'urh', 'urha', 'urhan']
+        };
+let forms = [];
+for(let form in shortcuts)
+{
+    for(let shortcut of shortcuts[form])
+    {
+        forms[shortcut] = form;
+    }
+}
 
 let instancedBot = null;
 
@@ -47,6 +62,12 @@ class NSCoDDieBot extends CoDDieBot
         this.attachCommand('signup', this.signup);
         this.attachCommand('setPlayerCategory', this.setPlayerCategory);
         this.attachCommand('linkServer', this.linkGameToServer);
+        this.attachCommand('shift', this.shapeShift);
+        this.attachCommand('getForm', this.getForm);
+        this.addCommandAliases(
+            {'shift': ['setform', 'shapeshift']},
+            {'getForm':['form']}
+        );
     }
 
     getSettingsToSave()
@@ -59,7 +80,7 @@ class NSCoDDieBot extends CoDDieBot
 
     parseCharacterPool(commandParts, message, character)
     {
-        let data = {pool:0, sitMods:0},
+        let data = {pool:0, sitMods:0, poolParts:[]},
             poolSearch = true;
 
         for(let commandPart of commandParts)
@@ -67,8 +88,10 @@ class NSCoDDieBot extends CoDDieBot
 
             if(character && character.getPurchasable(commandPart))
             {
-                let purchasable = character.getPurchasable(commandPart);
+                let purchasable = character.getPurchasableScore(commandPart);
                 data.pool += purchasable.score;
+                data.poolParts.push(commandPart);
+                poolSearch = true;
             }
             else if(!isNaN(commandPart))
             {
@@ -95,10 +118,10 @@ class NSCoDDieBot extends CoDDieBot
         return data;
     }
 
-    simpleRoll(commandParts, message, comments)
+    async simpleRoll(commandParts, message, comments)
     {
         let character;
-        if(character = ObjectCache.get(message.author.id))
+        if(character = await DiscordCharacterController.getDefaultCharacter(message.author.id, message.guild.id))
         {
             let data = this.characterPreProcess(commandParts, message, character), roll;
 
@@ -110,12 +133,61 @@ class NSCoDDieBot extends CoDDieBot
             {
                 roll = this.getSimpleAction(data);
             }
-            this.displayResults(roll, message, comments);
+            this.displayResults(roll, message, comments, `Rolling ${data.poolParts.join(' + ')} for ${character.name}`);
         }
         else
         {
             return super.simpleRoll(commandParts, message, comments);
         }
+    }
+
+    displayResults(action, message, comment, descriptor)
+    {
+        let results = descriptor+"\n"+action.getResults();
+
+        if(results.constructor === Array)
+        {
+            this.sendMessageArray(results, message, comment);
+            return;
+        }
+
+        this.sendOneLineMessage(results, message, comment);
+    }
+
+    async shapeShift(commandParts, message, comments)
+    {
+        let character;
+        if(character = await this.getCheckedOutCharacter(message))
+        {
+            let form = commandParts[0];
+            if (!forms[form])
+            {
+                message.reply(`${(Math.random() > 0.5) ? 'Father' : 'Mother'} Luna has not granted you the form of ${commandParts[0]}`);
+            }
+
+            character.shapeshift(forms[form]);
+        }
+        return null;
+    }
+
+    async getForm(commandParts, message, comments)
+    {
+        let character;
+        if(character = await this.getCheckedOutCharacter(message))
+        {
+            message.reply(`${character.name} is currently in ${character.currentForm}`);
+        }
+        return null;
+    }
+
+    async getCheckedOutCharacter(message)
+    {
+        let character;
+        if(character = await DiscordCharacterController.getDefaultCharacter(message.author.id, message.guild.id))
+        {
+            return character;
+        }
+        message.reply('This command requires a checked out character');
     }
 
     async linkGameToServer(commandParts, message, comments)
@@ -125,9 +197,7 @@ class NSCoDDieBot extends CoDDieBot
 
     async checkCharacterOut(commandParts, message, comments)
     {
-        let characterData = await DiscordCharacterController.getCharacterByReference(commandParts[0], message.author.id),
-            character = Character.fromJSON(characterData);
-        ObjectCache.put(message.author.id, character);
+        await DiscordCharacterController.cacheCharacterByReference(commandParts[0], message.author.id, message.guild.id);
     }
 
     async getSortedChannelNamesByServerId(serverId)

@@ -1,28 +1,28 @@
-let SupernaturalTemplate = require('../SupernaturalTemplate'),
-    PrimalUrge = require('./PrimalUrge'),
-    RenownList = require('./RenownList'),
-    GiftListsContainer = require('./Gifts/GiftListsContainer');
-
-let primalUrgeTable = {
-    "1":{"essence":10,"essencePerTurn":1,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"None","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
-    "2":{"essence":11,"essencePerTurn":2,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"Meat","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
-    "3":{"essence":12,"essencePerTurn":3,"regenerationPerTurn":1,"basuImTime":15,"feedingRestriction":"Meat","huntTime":"1 month","lunacyPenalty":0,"trackingBonus":0},
-    "4":{"essence":13,"essencePerTurn":4,"regenerationPerTurn":2,"basuImTime":20,"feedingRestriction":"Raw meat","huntTime":"1 month","lunacyPenalty":-2,"trackingBonus":1},
-    "5":{"essence":14,"essencePerTurn":5,"regenerationPerTurn":2,"basuImTime":30,"feedingRestriction":"Raw meat","huntTime":"3 weeks","lunacyPenalty":-2,"trackingBonus":1},
-    "6":{"essence":15,"essencePerTurn":6,"regenerationPerTurn":3,"basuImTime":60,"feedingRestriction":"Carnivore","huntTime":"3 weeks","lunacyPenalty":-2,"trackingBonus":2},
-    "7":{"essence":20,"essencePerTurn":7,"regenerationPerTurn":3,"basuImTime":120,"feedingRestriction":"Carnivore","huntTime":"1 week","lunacyPenalty":-2,"trackingBonus":2},
-    "8":{"essence":30,"essencePerTurn":8,"regenerationPerTurn":4,"basuImTime":180,"feedingRestriction":"Essence","huntTime":"1 week","lunacyPenalty":-3,"trackingBonus":3},
-    "9":{"essence":50,"essencePerTurn":10,"regenerationPerTurn":5,"basuImTime":360,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-4,"trackingBonus":3},
-    "10":{"essence":75,"essencePerTurn":15,"regenerationPerTurn":6,"basuImTime":720,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-5,"trackingBonus":4}
-};
-
-let auspiceSkills = {
-    'Cahalith':['Crafts', 'Expression', 'Persuasion'],
-    'Elodoth':['Empathy', 'Investigation', 'Politics'],
-    'Irraka':['Larceny', 'Stealth', 'Subterfuge'],
-    'Ithaeur':['Animal Ken', 'Medicine', 'Occult'],
-    'Rahu':['Brawl', 'Intimidation', 'Survival']
-};
+const   SupernaturalTemplate = require('../SupernaturalTemplate'),
+        PrimalUrge = require('./PrimalUrge'),
+        RenownList = require('./RenownList'),
+        GiftListsContainer = require('./Gifts/GiftListsContainer'),
+        primalUrgeTable = {
+            "1":{"essence":10,"essencePerTurn":1,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"None","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
+            "2":{"essence":11,"essencePerTurn":2,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"Meat","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
+            "3":{"essence":12,"essencePerTurn":3,"regenerationPerTurn":1,"basuImTime":15,"feedingRestriction":"Meat","huntTime":"1 month","lunacyPenalty":0,"trackingBonus":0},
+            "4":{"essence":13,"essencePerTurn":4,"regenerationPerTurn":2,"basuImTime":20,"feedingRestriction":"Raw meat","huntTime":"1 month","lunacyPenalty":-2,"trackingBonus":1},
+            "5":{"essence":14,"essencePerTurn":5,"regenerationPerTurn":2,"basuImTime":30,"feedingRestriction":"Raw meat","huntTime":"3 weeks","lunacyPenalty":-2,"trackingBonus":1},
+            "6":{"essence":15,"essencePerTurn":6,"regenerationPerTurn":3,"basuImTime":60,"feedingRestriction":"Carnivore","huntTime":"3 weeks","lunacyPenalty":-2,"trackingBonus":2},
+            "7":{"essence":20,"essencePerTurn":7,"regenerationPerTurn":3,"basuImTime":120,"feedingRestriction":"Carnivore","huntTime":"1 week","lunacyPenalty":-2,"trackingBonus":2},
+            "8":{"essence":30,"essencePerTurn":8,"regenerationPerTurn":4,"basuImTime":180,"feedingRestriction":"Essence","huntTime":"1 week","lunacyPenalty":-3,"trackingBonus":3},
+            "9":{"essence":50,"essencePerTurn":10,"regenerationPerTurn":5,"basuImTime":360,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-4,"trackingBonus":3},
+            "10":{"essence":75,"essencePerTurn":15,"regenerationPerTurn":6,"basuImTime":720,"feedingRestriction":"Essence","huntTime":"3 days","lunacyPenalty":-5,"trackingBonus":4}
+        },
+        auspiceSkills = {
+            'Cahalith':['Crafts', 'Expression', 'Persuasion'],
+            'Elodoth':['Empathy', 'Investigation', 'Politics'],
+            'Irraka':['Larceny', 'Stealth', 'Subterfuge'],
+            'Ithaeur':['Animal Ken', 'Medicine', 'Occult'],
+            'Rahu':['Brawl', 'Intimidation', 'Survival']
+        },
+        formNames = {'hishu':'Hishu', 'dalu':'Dalu','gauru':'Gauru', 'urshul':'Urshul', 'urhan':'Urhan'},
+        forms = ['hishu', 'dalu', 'gauru', 'urshul', 'urhan'];
 
 class ForsakenCharacter extends SupernaturalTemplate
 {
@@ -60,6 +60,8 @@ class ForsakenCharacter extends SupernaturalTemplate
             urshul: {mechanical:{strength: 2, dexterity: 2, stamina: 2, manipulation: -1, speed: 7, size: 1, perception: 3}, informative:{initiative:2}},
             urhan: {mechanical:{dexterity: 2, stamina: 1, manipulation: -1, size: -1, speed: 5, perception: 4}, informative:{initiative:2}},
         };
+
+        this.form = 'hishu';
     }
 
     getResistance ()
@@ -245,6 +247,39 @@ class ForsakenCharacter extends SupernaturalTemplate
     getRemainingRenownPicks(renown)
     {
         return this.renown.getRemainingRenownPicks(renown);
+    }
+
+    getPurchasableScore(searchField)
+    {
+        let field = searchField.toLowerCase();
+        let mod = this.formMods[this.form].mechanical[field];
+        mod = mod?mod:0;
+        return this.lookups[field].score + mod;
+    }
+
+    shapeshift(form, reflexive)
+    {
+        this.setForm(form);
+    }
+
+    setForm(form)
+    {
+        form = form.toLowerCase();
+        if(forms.indexOf(form) === -1)
+        {
+            throw new Error('I have no idea what form "'+form+'" means');
+        }
+        this.form = form;
+    }
+
+    get currentForm()
+    {
+        return formNames[this.form];
+    }
+
+    getForm()
+    {
+        return this.forms[this.form];
     }
 }
 

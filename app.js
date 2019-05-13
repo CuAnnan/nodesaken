@@ -56,11 +56,10 @@ app.use(function(req, res, next) {
  * Setting mongoose up
  */
 
-console.log("Setting Mongoose up");
+console.log("Hoisting Mongoose");
 
 mongoose.Promise = global.Promise;
-
-mongoose.connect(conf.mongoose.getURI(), {useNewUrlParser:true})
+mongoose.connect(conf.mongoose.getURI(), {useNewUrlParser:true, useFindAndModify: false})
 	.then(
 		()=>{
 			debug('Mongoose raised');
@@ -70,7 +69,7 @@ mongoose.connect(conf.mongoose.getURI(), {useNewUrlParser:true})
 		debug(err);
 	}
 );
-console.log("Mongoose set up");
+console.log("Mongoose hoisted");
 
 global.appRoot = path.resolve(__dirname);
 

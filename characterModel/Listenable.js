@@ -5,6 +5,16 @@ class Listenable
 	{
 		this.listeners = {};
 	}
+
+	on(type, handler)
+	{
+		return this.addEventListener(type, handler);
+	}
+
+	addListener(type, handler)
+	{
+		return this.addEventListener(type, handler);
+	}
 	
 	addEventListener(type, handler)
 	{
@@ -13,17 +23,18 @@ class Listenable
 			this.listeners[type] = [];
 		}
 		this.listeners[type].push(handler);
+		return this;
 	}
 	
 	removeEventListener(type, handler)
 	{
 		if(typeof this.listeners == 'undefined')
 		{
-			return;
+			return this;
 		}
 		if(!this.listeners[type])
 		{
-			return;
+			return this;
 		}
 		let found = false;
 		for(let i = 0; i < this.listeners[type].length && !found; i++)
@@ -34,7 +45,7 @@ class Listenable
 				found = true;
 			}
 		}
-		return;
+		return this;
 	}
 	
 	triggerEvent(type)

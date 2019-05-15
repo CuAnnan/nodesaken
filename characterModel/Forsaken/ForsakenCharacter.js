@@ -2,6 +2,7 @@ const   SupernaturalTemplate = require('../SupernaturalTemplate'),
         PrimalUrge = require('./PrimalUrge'),
         RenownList = require('./RenownList'),
         GiftListsContainer = require('./Gifts/GiftListsContainer'),
+        DerivedAttribute = require('../DerivedAttribute'),
         primalUrgeTable = {
             "1":{"essence":10,"essencePerTurn":1,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"None","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
             "2":{"essence":11,"essencePerTurn":2,"regenerationPerTurn":1,"basuImTime":10,"feedingRestriction":"Meat","huntTime":"3 months","lunacyPenalty":0,"trackingBonus":0},
@@ -61,7 +62,6 @@ class ForsakenCharacter extends SupernaturalTemplate
             urhan: {mechanical:{dexterity: 2, stamina: 1, manipulation: -1, size: -1, speed: 5, perception: 4}, informative:{initiative:2}},
         };
 
-        this.form = 'hishu';
     }
 
     getResistance ()
@@ -153,6 +153,7 @@ class ForsakenCharacter extends SupernaturalTemplate
         this.gifts.loadJSON(data.gifts);
         this.calculateDerived();
         this.triggerEvent('changed');
+        this.setForm('hishu');
     }
 
     loadShadowGiftsJSON(json)
@@ -188,15 +189,49 @@ class ForsakenCharacter extends SupernaturalTemplate
 
     getDefense(form = 'hishu')
     {
-        let dexFormMod = this.formMods[form].mechanical.dexterity?this.formMods[form].mechanical.dexterity:0,
-            func = (this.hasMerit('Instinctive Defense') && (form == 'Urshul' || form =='Urhan')) ? Math.min:Math.max;
-
-        let defense = func(
-            this.addScores('Wits', this.defenseSkill),
-            this.addScores('Dexterity', this.defenseSkill, dexFormMod)
-        );
+        form = form?form:this.form;
+        let defense = new DerivedAttribute(
+                'Defense',
+                this.defenseSkill,
+                this.hasMerit('Instinctive Defense') && (form == 'Urshul' || form =='Urhan')
+            );
 
         return defense;
+    }
+
+    addScores()
+    {
+        let result = 0;
+
+
+        for (let i in arguments)
+        {
+            try
+            {
+                if (!isNaN(arguments[i]))
+                {
+                    result += arguments[i];
+                }
+                else
+                {
+                    let field = arguments[i];
+                    let item = this.lookups[arguments[i]];
+                    if(item)
+                    {
+                        result += item.score > 0 ? item.score : (0 - item.penalty);
+                        let formMod = this.form?this.formMods[this.form].mechanical[field]:0;
+                        formMod = formMod?formMod:0;
+                        result += formMod;
+                    }
+                }
+            }
+            catch (e)
+            {
+                throw (arguments[i] + ' not found in lookup');
+            }
+        }
+
+        return result;
     }
 
     calculateDerived()
@@ -265,11 +300,35 @@ class ForsakenCharacter extends SupernaturalTemplate
     setForm(form)
     {
         form = form.toLowerCase();
+        if(this.form === form)
+        {
+            return;
+        }
+
+        // remove all of the form bonuses from the current form
+        if(this.form)
+        {
+            let attsToAlter = this.formMods[this.form].mechanical;
+            for (let attToAlter in attsToAlter)
+            {
+                this.lookups[attToAlter].freeLevels -= attsToAlter[attToAlter];
+            }
+        }
+
         if(forms.indexOf(form) === -1)
         {
             throw new Error('I have no idea what form "'+form+'" means');
         }
+
+        // adding the form bonuses to each of the parts that get them
+        let attsToAlter = this.formMods[form].mechanical;
+        for (let attToAlter in attsToAlter)
+        {
+            this.lookups[attToAlter].freeLevels += attsToAlter[attToAlter];
+        }
+
         this.form = form;
+
     }
 
     get currentForm()

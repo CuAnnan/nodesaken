@@ -307,7 +307,7 @@ function updateDerivedUIFields()
 					let $node = $(node).removeClass('fas far'),
 						higher = j == 'Current'?'far':'fas',
 						lower = j == 'Current'?'fas':'far',
-						className = toon.derivedAttributes[i] > index ? higher : lower;
+						className = toon.derivedAttributes[i].score > index ? higher : lower;
 					$node.addClass(className);
 				}
 			);
@@ -344,10 +344,10 @@ function updateDerivedUIFields()
 						modifier = $attributeNode.data('modifier');
 					if(attribute != 'defense')
 					{
-						if (toon.getDerivedAttribute(attribute))
+						if (toon.getDerivedAttributeScore(attribute))
 						{
 							modifier = modifier ? parseInt(modifier) : 0;
-							$attributeNode.text(toon.getDerivedAttribute(attribute) + modifier);
+							$attributeNode.text(toon.getDerivedAttributeScore(attribute) + modifier);
 						}
 					}
 					else

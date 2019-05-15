@@ -190,6 +190,21 @@ class MeritList extends UseGroup
 		}
 		return found;
 	}
+
+	getMeritsEffecting(derivedAttribute)
+	{
+		let keys = Object.keys(this.items),
+			merits = [];
+		for(key of keys)
+		{
+			let merit = this.items[key];
+			if(merit.effects == derivedAttribute)
+			{
+				merits.push(merit);
+			}
+		}
+		return merits;
+	}
 	
 	getModifiersFor(derivedAttribute)
 	{

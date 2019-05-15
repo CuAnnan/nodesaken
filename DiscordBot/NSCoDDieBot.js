@@ -64,6 +64,8 @@ class NSCoDDieBot extends CoDDieBot
         this.attachCommand('linkServer', this.linkGameToServer);
         this.attachCommand('shift', this.shapeShift);
         this.attachCommand('getForm', this.getForm);
+        this.attachCommand('getHealth', this.getHealth);
+
         this.addCommandAliases(
             {'shift': ['setform', 'shapeshift']},
             {'getForm':['form']}
@@ -85,12 +87,12 @@ class NSCoDDieBot extends CoDDieBot
 
         for(let commandPart of commandParts)
         {
-
-            if(character && character.getPurchasable(commandPart))
+            let part;
+            if(character && (part = character.getPurchasableScore(commandPart)))
             {
                 let purchasable = character.getPurchasableScore(commandPart);
                 data.pool += purchasable.score;
-                data.poolParts.push(commandPart);
+                data.poolParts.push(`${commandPart}()`);
                 poolSearch = true;
             }
             else if(!isNaN(commandPart))
@@ -159,7 +161,7 @@ class NSCoDDieBot extends CoDDieBot
         let character;
         if(character = await this.getCheckedOutCharacter(message))
         {
-            let form = commandParts[0];
+            let form = commandParts[0].toLowerCase();
             if (!forms[form])
             {
                 message.reply(`${(Math.random() > 0.5) ? 'Father' : 'Mother'} Luna has not granted you the form of ${commandParts[0]}`);
@@ -198,6 +200,23 @@ class NSCoDDieBot extends CoDDieBot
     async checkCharacterOut(commandParts, message, comments)
     {
         await DiscordCharacterController.cacheCharacterByReference(commandParts[0], message.author.id, message.guild.id);
+    }
+
+    async getHealth(commandParts, message, comments)
+    {
+        let character;
+        if(character = await this.getCheckedOutCharacter(message))
+        {
+            let health = character.derivedAttributes.health.score;
+            console.log(character.derivedAttributes.health);
+            let response = '';
+            for (let i = 0; i < health; i++)
+            {
+                response += '[ ]';
+            }
+
+            return message.reply([response, 'Total: '+health]);
+        }
     }
 
     async getSortedChannelNamesByServerId(serverId)

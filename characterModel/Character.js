@@ -2,6 +2,7 @@
 let Skill = require('./Skill'), Attribute = require('./Attribute'), UseGroupContainer = require('./UseGroupContainer'),
 	MeritList = require('./MeritList'), Listenable = require('./Listenable'), Morality = require('./Morality'),
 	Merit = require('./Merit'), MeritDatabase = require('./MeritsDatabase'), ProfessionalTraining = require('./ProfessionalTraining'),
+	DerivedAttribute=require('./DerivedAttribute'),
 	skillUseGroupMap = {
 		'Academics':'Mental', 'Computer':'Mental', 'Crafts':'Mental', 'Investigation':'Mental',
 		'Medicine':'Mental','Occult':'Mental','Politics':'Mental','Science':'Mental',
@@ -51,6 +52,8 @@ class Character extends Listenable
 		this.morality = new Morality('Integrity');
 		this.lookups['Morality'] = this.lookups['morality'] = this.morality;
 		this.professionalTrainings = {};
+		this.loaded = false;
+		this.on('loaded', ()=>{this.applyMerits();});
 	}
 	
 	setName(name)
@@ -102,9 +105,17 @@ class Character extends Listenable
 		{
 			this.professionalTrainings[merit.specification] = merit;
 		}
-		this.calculateDerived();
 	}
-	
+
+	applyMerits()
+	{
+		for(let derivedAttributeName in this.derivedAttributes)
+		{
+			let merits = this.merits.getMeritsEffecting(derivedAttributeName);
+			this.derivedAttributes[derivedAttributeName].addParts(...merits);
+		}
+	}
+
 	defineProfessionalTraining(index, data)
 	{
 		this.professionalTrainings[index].loadJSON(data);
@@ -139,33 +150,32 @@ class Character extends Listenable
 	{
 		let item = this.lookups[itemName];
 		item.score = level;
-		this.calculateDerived();
 		this.triggerEvent('changed');
 		return item.score;
 	}
 	
 	calculateDerived()
 	{
-		this.size = this.hasMerit('Giant') ? 6 : (this.hasMerit('Small-framed') ? 4 : 5);
-		
+		this.lookups.size = this.size = new DerivedAttribute('Size', this.hasMerit('Giant') ? 6 : (this.hasMerit('Small-framed') ? 4 : 5));
+
 		this.derivedAttributes = {
-			willpower: this.addScores('Resolve', 'Composure'),
-			health: this.addScores('Stamina', this.size),
-			initiative: this.addScores('Dexterity', 'Composure'),
-			speed: this.addScores('Dexterity', 'Strength', 5),
+			willpower: new DerivedAttribute('Willpower', this.lookups.Resolve, this.lookups.Composure),
+			health: new DerivedAttribute('Health', this.lookups.Stamina, this.size),
+			initiative: new DerivedAttribute("Initiative", this.lookups.Dexterity, this.lookups.Composure),
+			speed: new DerivedAttribute("Speed", this.lookups.Dexterity, this.lookups.Strength, 5),
 			defense: this.getDefense(),
-			perception: this.addScores('Wits', 'Composure'),
+			perception: new DerivedAttribute('Perception', this.lookups.Wits, this.lookups.Composure),
 		};
+
 		for (let i in this.derivedAttributes)
 		{
-			this.derivedAttributes[i] += this.merits.getModifiersFor(i);
-			this.lookups[i] = {score: this.derivedAttributes[i]};
+			this.lookups[i] = this.derivedAttributes[i];
 		}
 	}
 	
-	getDerivedAttribute(name)
+	getDerivedAttributeScore(name)
 	{
-		return this.derivedAttributes[name];
+		return this.derivedAttributes[name].score;
 	}
 	
 	get defenseSkill()
@@ -187,15 +197,21 @@ class Character extends Listenable
 		potentialSkills.sort((a, b) => {
 			return b.score - a.score
 		});
-		return potentialSkills[0].name;
+		return potentialSkills[0];
 	}
 	
 	getDefense()
 	{
-		return Math.min(
-			this.addScores('Wits', this.defenseSkill),
-			this.addScores('Dexterity', this.defenseSkill)
-		);
+		let defense = new DerivedAttribute('Defense', this.defenseSkill);
+		if(this.lookups.Wits.score > this.lookups.Dexterity.score)
+		{
+			defense.addPart(this.lookups.Wits);
+		}
+		else
+		{
+			defense.addPart(this.lookups.Dexterity);
+		}
+		return defense;
 	}
 	
 	hasMerit(meritName)
@@ -211,7 +227,7 @@ class Character extends Listenable
 		{
 			try
 			{
-				if (arguments[i] / 1 == arguments[i])
+				if (!isNaN(arguments[i]))
 				{
 					result += arguments[i];
 				}
@@ -257,6 +273,7 @@ class Character extends Listenable
 		
 		this.calculateDerived();
 		this.triggerEvent('changed');
+		this.triggerEvent('loaded');
 	}
 
 	static fromJSON(data)

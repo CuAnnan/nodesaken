@@ -25,6 +25,15 @@ class Merit extends XPPurchasable
 		this.specification = data.specification;
 		super.loadJSON(data);
 	}
+
+	get modifier()
+	{
+		if(this.modifiers)
+		{
+			return this.modifiers[this.levels.indexOf(this.score)];
+		}
+		return this.score;
+	}
 	
 	setSpecification(specification)
 	{

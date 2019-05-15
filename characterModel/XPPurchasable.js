@@ -1,4 +1,6 @@
 'use strict';
+const   Listenable = require('./Listenable');
+
 function getNumber(value)
 {
 	let number = parseInt(value);
@@ -9,17 +11,18 @@ function getNumber(value)
 	return number;
 }
 
-class XPPurchasable
+class XPPurchasable extends Listenable
 {
 	constructor(name)
 	{
+		super();
 		this.name = name;
 		this.xpLevels = 0;
 		this.cpLevels = 0;
 		this.min = 0;
 		this.max = 5;
 		this.maxAtCreation = 5;
-		this.freeLevels = 0;
+		this._freeLevels = 0;
 		this.xpCost = 0;
 		this.cpCost = 1;
 		this.useGroup = null;
@@ -52,7 +55,8 @@ class XPPurchasable
 			xp:this.xpLevels * this.xpCost
 		};
 	}
-	
+
+
 	setScore(level)
 	{
 		let oldScore = this.min + this.xpLevels + this.cpLevels + (this.favoured?1:0);
@@ -116,6 +120,7 @@ class XPPurchasable
 			this.cpLevels = tmp.cpLevels;
 			this.useGroup.balanceCP();
 		}
+		this.trigger('changed');
 	}
 	
 	/**
@@ -133,7 +138,6 @@ class XPPurchasable
 		return this.min + this.freeLevels + this.xpLevels + this.cpLevels + (this.favoured?1:0);
 	}
 	
-	
 	convertXPToSP(amount)
 	{
 		let maxConvertable = this.maxAtCreation - (this.min + this.cpLevels),
@@ -142,6 +146,17 @@ class XPPurchasable
 		this.xpLevels -= amountToConvert;
 		this.cpLevels += amountToConvert;
 		return amount - amountToConvert;
+	}
+
+	get freeLevels()
+	{
+		return this._freeLevels;
+	}
+
+	set freeLevels(freeLevels)
+	{
+		this._freeLevels = freeLevels;
+		this.trigger('changed');
 	}
 }
 

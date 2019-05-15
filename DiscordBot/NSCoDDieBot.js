@@ -65,6 +65,7 @@ class NSCoDDieBot extends CoDDieBot
         this.attachCommand('shift', this.shapeShift);
         this.attachCommand('getForm', this.getForm);
         this.attachCommand('getHealth', this.getHealth);
+        this.attachCommand('stat', this.reportStat);
 
         this.addCommandAliases(
             {'shift': ['setform', 'shapeshift']},
@@ -120,10 +121,27 @@ class NSCoDDieBot extends CoDDieBot
         return data;
     }
 
+    async reportStat(commandParts, message, comments)
+    {
+        let character;
+        if(character = await this.getCheckedOutCharacter(message))
+        {
+            let response = ['Requested (and matched) attributes are:'];
+            for(let stat of commandParts)
+            {
+                if(character.lookups[stat])
+                {
+                    response.push(`${stat}: ${character.lookups[stat].score}`);
+                }
+            }
+            message.reply(response);
+        }
+    }
+
     async simpleRoll(commandParts, message, comments)
     {
         let character;
-        if(character = await DiscordCharacterController.getDefaultCharacter(message.author.id, message.guild.id))
+        if(character = await this.getCheckedOutCharacter(message))
         {
             let data = this.characterPreProcess(commandParts, message, character), roll;
 
@@ -208,7 +226,6 @@ class NSCoDDieBot extends CoDDieBot
         if(character = await this.getCheckedOutCharacter(message))
         {
             let health = character.derivedAttributes.health.score;
-            console.log(character.derivedAttributes.health);
             let response = '';
             for (let i = 0; i < health; i++)
             {

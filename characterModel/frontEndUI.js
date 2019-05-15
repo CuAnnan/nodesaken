@@ -335,7 +335,7 @@ function updateDerivedUIFields()
 			let $formNode = $(this),
 				form = $formNode.data('form');
 			$('.size', $formNode).text(toon.size + (toon.formMods[form].mechanical.size?toon.formMods[form].mechanical.size:0));
-			$('.defense', $formNode).text(toon.getDefense(form));
+
 			$('.derivedAttribute', $formNode).each(
 				function(i, node)
 				{
@@ -352,7 +352,7 @@ function updateDerivedUIFields()
 					}
 					else
 					{
-						$attributeNode.text(toon.getDefense(form));
+						$attributeNode.text(toon.getDefense(form).score);
 					}
 				}
 			);

@@ -190,10 +190,22 @@ class ForsakenCharacter extends SupernaturalTemplate
     getDefense(form = 'hishu')
     {
         form = form?form:this.form;
+        let highest, lowest;
+        if(this.lookups.Dexterity.score > this.lookups.Wits.score)
+        {
+            highest = this.lookups.Dexterity;
+            lowest = this.lookups.Wits;
+        }
+        else
+        {
+            highest = this.lookups.Wits
+            lowest = this.lookups.Dexterity;
+        }
+
         let defense = new DerivedAttribute(
                 'Defense',
                 this.defenseSkill,
-                this.hasMerit('Instinctive Defense') && (form == 'Urshul' || form =='Urhan')
+                this.hasMerit('Instinctive Defense') && (form == 'Urshul' || form =='Urhan') ? highest :  lowest
             );
 
         return defense;

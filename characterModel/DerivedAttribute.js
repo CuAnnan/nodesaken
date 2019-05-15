@@ -50,7 +50,7 @@ class DerivedAttribute extends Listenable
     updateScore()
     {
         this.baseScore = 0;
-        console.log(this.name);
+
         for(let part of this.parts)
         {
             let partValue = null;
@@ -64,7 +64,7 @@ class DerivedAttribute extends Listenable
                 this.baseScore += part.score;
                 partValue = part.score;
             }
-            console.log(`${part.name} ${partValue}`);
+
         }
         this.upToDate = true;
     }

@@ -156,7 +156,7 @@ class Character extends Listenable
 	
 	calculateDerived()
 	{
-		this.lookups.size = this.size = new DerivedAttribute('Size', this.hasMerit('Giant') ? 6 : (this.hasMerit('Small-framed') ? 4 : 5));
+		this.size = new DerivedAttribute('Size', this.hasMerit('Giant') ? 6 : (this.hasMerit('Small-framed') ? 4 : 5));
 
 		this.derivedAttributes = {
 			willpower: new DerivedAttribute('Willpower', this.lookups.Resolve, this.lookups.Composure),
@@ -165,6 +165,7 @@ class Character extends Listenable
 			speed: new DerivedAttribute("Speed", this.lookups.Dexterity, this.lookups.Strength, 5),
 			defense: this.getDefense(),
 			perception: new DerivedAttribute('Perception', this.lookups.Wits, this.lookups.Composure),
+			size:this.size
 		};
 
 		for (let i in this.derivedAttributes)
@@ -175,7 +176,11 @@ class Character extends Listenable
 	
 	getDerivedAttributeScore(name)
 	{
-		return this.derivedAttributes[name].score;
+		if(!this.derivedAttributes[name])
+		{
+			throw new Error('No derived attribute '+name+' found');
+		}
+		return this.derivedAttributes[name.toLowerCase()].score;
 	}
 	
 	get defenseSkill()

@@ -36,6 +36,7 @@ class Listenable
 		{
 			return this;
 		}
+
 		let found = false;
 		for(let i = 0; i < this.listeners[type].length && !found; i++)
 		{

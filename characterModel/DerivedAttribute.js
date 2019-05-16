@@ -24,7 +24,6 @@ class DerivedAttribute extends Listenable
             {
                 this.parts.push(part);
                 part.addEventListener('changed', ()=>{
-                    console.log(part.name+ ' changed');
                     this.updateScore();
                 });
             }

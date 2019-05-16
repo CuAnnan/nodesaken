@@ -10,9 +10,13 @@
     </div>
     <div class="container-fluid">
         <h2>Current Project Status</h2>
-        <p>The Forsaken Template has seen tremendous work since I last edited the landing page. The code for modelling Shadow Gifts is finished. I've opted to show Gift Cards for all the Gifts rather than trying to list the extra Gifts in an extra page. It's a cleaner approach and it allows for a unified approach.</p>
+        <p>The Forsaken Template has seen tremendous work since I last edited the landing page (this is still true). The code for modelling Shadow Gifts is finished. I've opted to show Gift Cards for all the Gifts rather than trying to list the extra Gifts in an extra page. It's a cleaner approach and it allows for a unified approach.</p>
         <p>Rites, Moon Gifts, Wolf Gifts need to be done. Moon Gifts will be the messiest, owing to the fact that the Cahalith (and only the Cahalith so far) get two and so the rules for extra Moon Gifts have to be applied, and you need to be able to choose your primary shadow gift and optionally buy more. Wolf Shadow Gifts are straight forward and will largely reuse the Shadow Gifts code.</p>
         <p>I have decided to architect a separate solution for packs, involving establishing a pack as an entity in its own right, whereupon the person who made the pack entity can invite other characters to the pack using their reference (think database ID for those familiar with RDBMS). None of this is programmed, mind you, but it's the approach I plan on taking. Once a pack entity has members, the rules for creating totem from the core can be applied. The totem can then be applied to the character sheets using Mongoose's inflation lookups.</p>
+    </div>
+    <div class="container-fluid">
+        <h2>Discord support</h2>
+        <p>There exists a discord bot now. You can attach your characters to any server it's running on via a discord command. Then, on that server, you can roll pools based on that character. Currently it will parse commands like <strong>!roll strength brawl</strong> but not gift pools. I'm thinking that will require a separate command. Attributes update depending on form.</strong></p>
     </div>
     <div class="containerfluid">
         <h3>Outstanding tasks</h3>

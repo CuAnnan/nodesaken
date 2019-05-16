@@ -61,7 +61,7 @@ class ForsakenCharacter extends SupernaturalTemplate
             urshul: {mechanical:{strength: 2, dexterity: 2, stamina: 2, manipulation: -1, speed: 7, size: 1, perception: 3}, informative:{initiative:2}},
             urhan: {mechanical:{dexterity: 2, stamina: 1, manipulation: -1, size: -1, speed: 5, perception: 4}, informative:{initiative:2}},
         };
-
+        this.on('loaded', ()=>{this.deriveDefenses()});
     }
 
     getResistance ()
@@ -187,28 +187,40 @@ class ForsakenCharacter extends SupernaturalTemplate
         return this.addScores(...Object.values(giftFacet.poolParts));
     }
 
-    getDefense(form = 'hishu')
+    deriveDefenses()
     {
-        form = form?form:this.form;
-        let highest, lowest;
-        if(this.lookups.Dexterity.score > this.lookups.Wits.score)
+        this.defense = [];
+        for(let form of forms)
         {
-            highest = this.lookups.Dexterity;
-            lowest = this.lookups.Wits;
-        }
-        else
-        {
-            highest = this.lookups.Wits
-            lowest = this.lookups.Dexterity;
-        }
+            let highest, lowest;
+            if(this.lookups.Dexterity.score > this.lookups.Wits.score)
+            {
+                highest = this.lookups.Dexterity;
+                lowest = this.lookups.Wits;
+            }
+            else
+            {
+                highest = this.lookups.Wits
+                lowest = this.lookups.Dexterity;
+            }
 
-        let defense = new DerivedAttribute(
+            let defense = new DerivedAttribute(
                 'Defense',
                 this.defenseSkill,
                 this.hasMerit('Instinctive Defense') && (form == 'Urshul' || form =='Urhan') ? highest :  lowest
             );
+            this.defense[form] = defense;
+        }
+    }
 
-        return defense;
+    getDefense(form = 'hishu')
+    {
+        if(!this.defense)
+        {
+            this.deriveDefenses();
+        }
+        form = form?form:this.form;
+        return this.defense[form];
     }
 
     addScores()

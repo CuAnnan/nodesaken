@@ -207,6 +207,11 @@ class Character extends Listenable
 	
 	getDefense()
 	{
+		if(this.denfense)
+		{
+			return this.defense;
+		}
+
 		let defense = new DerivedAttribute('Defense', this.defenseSkill);
 		if(this.lookups.Wits.score > this.lookups.Dexterity.score)
 		{
@@ -216,7 +221,8 @@ class Character extends Listenable
 		{
 			defense.addPart(this.lookups.Dexterity);
 		}
-		return defense;
+		this.defense = defense;
+		return this.defense;
 	}
 	
 	hasMerit(meritName)

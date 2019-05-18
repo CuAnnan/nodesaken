@@ -788,7 +788,7 @@ function displayProfessionalTrainings()
 			function()
 			{
 				let $select = $(this),
-					index = $select.data('index');
+					index = $select.data('bot.ejs');
 				toon.setProfessionalTrainingAssetSkill(pt, index, $select.val());
 				saveCharacter();
 			}
@@ -807,7 +807,7 @@ function displayProfessionalTrainings()
 			function()
 			{
 				let $input = $(this),
-					index = $input.data('index');
+					index = $input.data('bot.ejs');
 				toon.setProfessionalTrainingContact(pt, index, $input.val());
 				saveCharacter();
 			}
@@ -825,7 +825,7 @@ function displayProfessionalTrainings()
 			function()
 			{
 				let $select = $(this),
-					index = $select.data('index');
+					index = $select.data('bot.ejs');
 				toon.setProfessionalTrainingSpecialty(pt, index, {skill:$select.val()});
 				saveCharacter();
 			}
@@ -839,7 +839,7 @@ function displayProfessionalTrainings()
 			function()
 			{
 				let $input = $(this),
-					index = $input.data('index');
+					index = $input.data('bot.ejs');
 				toon.setProfessionalTrainingSpecialty(pt, index, {specialty:$input.val()});
 				saveCharacter();
 			}

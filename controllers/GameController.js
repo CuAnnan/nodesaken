@@ -55,10 +55,17 @@ class GameController extends Controller
     static async editGameAction(req, res, next)
     {
         let user        = await Controller.getLoggedInUser(req),
-            game        = await Game.findOne({reference:req.params.gameReference, owner:user}),
             bot         = Bot.getStaticInstance(),
+            game        = await Game.findOne({reference:req.params.gameReference, owner:user})
+                                    .populate({
+                                        path:'characters',
+                                        populate:{
+                                            path:'owner',
+                                            model:'User'
+                                        }
+                                    }),
             channels    = await bot.getSortedChannelNamesByServerId(game.serverId);
-
+        console.log(game.characters);
         res.render('games/edit', {game:game, channels:channels});
     }
 

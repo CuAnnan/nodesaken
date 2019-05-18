@@ -1,0 +1,23 @@
+<%- include('./includes/header') -%>
+<div class="container-fluid">
+    <h1>Bot Help Page</h1>
+    <p>The bot that runs on the discord servers associated with games has a few commands associated with it that will require some explanation. Despite the fact that there are a few steps setting up and using the bot, once your character is set up, it is incredibly straight forward to use.</p>
+    <p>These pages also assume the bot is running with the default command prefix (!) but that prefix can be overridden on individual servers. All in-server commands can be accessed by @ referencing the bot directly</p>
+    <p>To facilitate this, the bot will always respond to commands that start with @ references to it insteaad of !, and you can always ask the bot what its command prefix is with </p>
+    <p><code>@Nodesaken Discord Bot getCommandPrefix</code></p>
+    <h3 id="#userSyncing">User Syncing</h3>
+    <p>We have taken account security relatively seriously. As such, connecting your discord and nodesaken account requires setting up a link between the discord user id and the user id here.</p>
+    <p>This allows us to lock down accessing your character to your user and the staff of any game that character plays in.</p>
+    <p>Unlike every other command, this is not done via an in server bot command. You need to DM the bot directly and say <i>only</i> the following</p>
+    <p><code>identify <%= user.reference%></code></p>
+    <p>This allows the bot to sync the users. Once that message has been sent, you will need to go to your <a href="/users/account">account page</a> and approve that connection.</p>
+    <p>Also, this command does not use the prefix.</p>
+    <h3>Checking out a character</h3>
+    <p>Once you have made a character, you can check it out on any discord server the bot is running on. This does mean that whoever runs the game on that discord server will have read access to your character. This is to allow them to structure packs, develop challenges that suit your character, and to help track the character's overall progress.</p>
+    <p>If you look at your <a href="/characters/">characters page</a>, you will that beside each character's name there is a string of letters, numbers and/or dashes titled "Reference". The checkout command requires that reference.</p>
+    <p>Assuming the reference of the character you want to check out is <code>12345</code>, you would execute the command</p>
+    <p><code>!checkout 12345</code></p>
+
+
+</div>
+<%- include('./includes/footer') -%>

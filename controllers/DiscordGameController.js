@@ -1,8 +1,10 @@
 const   DiscordController   = require('./DiscordController'),
-        Game                = require('../schemas/GameSchema');
+        Game                = require('../schemas/GameSchema'),
+        Character           = require('../schemas/CharacterSchema');
 
 class DiscordGameController extends DiscordController
 {
+
     static async linkGameServer(gameReference, message)
     {
         let discordGuild = message.guild,
@@ -10,7 +12,6 @@ class DiscordGameController extends DiscordController
             game = await Game.findOne({reference:gameReference}).populate('owner'),
             approved = false;
 
-        console.log(discordGuild.id);
         if(game.owner._id.equals(user._id))
         {
             approved = true;
@@ -37,6 +38,14 @@ class DiscordGameController extends DiscordController
             console.log('Game settings updated');
         }).catch((error)=>{console.warn(error);});
         return true;
+    }
+
+    static async processGameJoinRequest(serverId, characterReference)
+    {
+        let game = await Game.findOne({serverId:serverId}),
+            character = await Character.findOne({reference:characterReference});
+        game.characters.push(character);
+        await game.save();
     }
 }
 

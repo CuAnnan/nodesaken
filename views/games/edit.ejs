@@ -1,25 +1,46 @@
 <%- include('../includes/header') -%>
 <div class="container">
+    <h1>Game details</h1>
     <div class="row">
-        <div class="col-2">Server Name:</div>
-        <div class="col"><%= game.serverName %></div>
-    </div>
-    <div class="row">
-        <div class="col-2">Server rooms:</div>
         <div class="col">
-            <ul>
-            <% for(let category of Object.values(channels)){%>
-                <li>
-                    <span class="guildCategoryName"><%= category.name %></span>
+            <h2>Server settings</h2>
+            <div class="row">
+                <div class="col-2">Server Name:</div>
+                <div class="col"><%= game.serverName %></div>
+            </div>
+            <div class="row">
+                <div class="col-2">Server rooms:</div>
+                <div class="col">
                     <ul>
-                        <% for(let channel of Object.values(category.channels)){%>
+                    <% for(let category of Object.values(channels)){%>
+                        <li>
+                            <span class="guildCategoryName"><%= category.name %></span>
+                            <ul>
+                                <% for(let channel of Object.values(category.channels)){%>
 
-                            <li><%= channel.name %></li>
-                        <% } %>
+                                    <li><%= channel.name %></li>
+                                <% } %>
+                            </ul>
+                        </li>
+                    <% }%>
                     </ul>
-                </li>
-            <% }%>
-            </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h2>Characters</h2>
+                <% if(game.characters.length) { %>
+                    <div class="row">
+                        <div class="col"><strong>Character name</strong></div>
+                        <div class="col"><strong>Player</strong></div>
+                    </div>
+                    <% for(let character of game.characters){ %>
+                    <div class="row">
+                        <div class="col"><%= character.name%></div>
+                        <div class="col"><%= character.owner.displayName%></div>
+                    </div>
+                    <% }%>
+                <% } %>
         </div>
     </div>
 </div>

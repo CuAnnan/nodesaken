@@ -218,6 +218,7 @@ class NSCoDDieBot extends CoDDieBot
     async checkCharacterOut(commandParts, message, comments)
     {
         await DiscordCharacterController.cacheCharacterByReference(commandParts[0], message.author.id, message.guild.id);
+        await DiscordGameController.processGameJoinRequest(message.guild.id, commandParts[0]);
     }
 
     async getHealth(commandParts, message, comments)

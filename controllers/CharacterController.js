@@ -3,9 +3,7 @@ let Controller = require('./Controller'),
 	ForsakenCharacter = require('../characterModel/Forsaken/ForsakenCharacter'),
 	User = require('../schemas/UserSchema'),
 	Character= require('../schemas/CharacterSchema'),
-	CharacterAPIKey = require('../schemas/CharacterAPIKeySchema'),
-	MeritsDatabase = require('../characterModel/MeritsDatabase'),
-	ObjectCache = require('objectcache');
+	MeritsDatabase = require('../characterModel/MeritsDatabase');
 
 class CharacterController extends Controller
 {
